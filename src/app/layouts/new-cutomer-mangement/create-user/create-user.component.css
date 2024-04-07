@@ -1,0 +1,28 @@
+
+.table thead th {
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-top-width: 0;
+    border-bottom-width: 1px;
+}
+
+/* .table thead tr th {
+  font-size: 0.95rem;
+    font-weight: 500;
+
+} */
+
+::ng-deep .mat-ripple {
+    transform: translateZ(0);
+    width: 50% !important;
+}
+
+:host ::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid .mat-form-field-outline-thick,
+:host ::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+    color: #c9c3c3 !important;
+}
+
+:host ::ng-deep .show_input_danger.mat-form-field-invalid .mat-form-field-outline-thick,
+:host ::ng-deep .show_input_danger.mat-form-field.mat-form-field-invalid .mat-form-field-label {
+    color: red !important;
+}

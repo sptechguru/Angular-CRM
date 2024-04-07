@@ -1,0 +1,149 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Make Manual Payment</h4>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="paymentForm" (ngSubmit)='onSubmit()' novalidate>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" class="mb-4">
+                   <mat-label>Payment Instrument</mat-label>
+                    <mat-select  (selectionChange)="paymentMethod($event.value)" matInput formControlName="payment_instrument">
+                     <!--<mat-option value="cash">Cash</mat-option>
+                      <mat-option value="cheque">Cheque</mat-option>-->
+                      <mat-option value="neft">NEFT</mat-option>
+                      <mat-option value="rtgs">RTGS</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div> 
+                
+                <div class="col-md-6" >
+                  <mat-form-field appearance="outline" class="mb-4">
+                  <mat-label>Amount</mat-label>
+                  <input  matInput  type="number" formControlName="amount" min="50"/>
+                  <span *ngIf="paymentForm.controls['amount'].invalid 
+                  && (paymentForm.controls['amount'].dirty 
+                  || paymentForm.controls['amount'].touched)">
+                      <mat-error *ngIf="paymentForm.controls['amount'].errors.required">
+                        Amount is required
+                      </mat-error>
+                  </span>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" class="mb-4">
+                  <mat-label>{{number_label}}</mat-label>
+                  <input  matInput type="text" formControlName="transaction_number"/>
+                  <span *ngIf="paymentForm.controls['transaction_number'].invalid 
+                  && (paymentForm.controls['transaction_number'].dirty 
+                  || paymentForm.controls['transaction_number'].touched)">
+                      <mat-error *ngIf="paymentForm.controls['transaction_number'].errors.required">
+                        transaction number is required
+                      </mat-error>
+                      <mat-error *ngIf="paymentForm.controls['transaction_number'].errors.pattern">
+                        No white space is required
+                      </mat-error>
+                      <mat-error *ngIf="paymentForm.controls['transaction_number'].errors.minlength">
+                        Please enter at least 10 characters
+                      </mat-error>
+                  </span>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="d-block">{{receipt_label}}</label>
+                  <input type="file" formControlName="file" accept="image/x-png,image/gif,image/jpeg" (change)="onFileChange($event.target.files,paymentForm)" />
+                  <span *ngIf="paymentForm.controls['transaction_number'].invalid 
+                  && (paymentForm.controls['file'].dirty 
+                  || paymentForm.controls['file'].touched)">
+                      <mat-error *ngIf="paymentForm.controls['file'].errors.required">
+                        Receipt is required
+                      </mat-error>
+                  </span>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" class="mb-4">
+                   <mat-label>Is Part Payment?</mat-label>
+                    <mat-select formControlName="part_payment">
+                      <mat-option value="yes">Yes</mat-option>
+                      <mat-option value="no">No</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                
+              </div> 
+
+
+              <button type="submit" class="btn btn-danger pull-right" 
+              [disabled]="isUserProcessing || !paymentForm.valid">
+                <mat-spinner *ngIf="isUserProcessing" [diameter]="20"></mat-spinner>
+                <span *ngIf="!isUserProcessing">Submit</span>
+              </button>
+              <button class="btn btn-primary ml-4" [disabled]="isUserProcessing" [routerLink]="['/crm/order-management']">Back</button>
+              <div class="clearfix"></div>
+            </form>
+           <!-- <form (ngSubmit)="onSubmit(paymentForm)" #paymentForm="ngForm">
+              <div class="row">
+
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" class="mb-4">
+                   <mat-label>Payment Instrument</mat-label>
+                    <mat-select name="payment_instrument" #payment_instrument="ngModel" (selectionChange)="paymentMethod($event.value)"
+                    [(ngModel)]="model.payment_instrument" required>
+                      <mat-option value="cash">Cash</mat-option>
+                      <mat-option value="cheque">Cheque</mat-option>
+                      <mat-option value="neft">NEFT</mat-option>
+                      <mat-option value="rtgs">RTGS</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6" *ngIf="amount">
+                  <mat-form-field appearance="outline" class="mb-4">
+                  <mat-label>Amount</mat-label>
+                  <input  matInput name="amount" #amount="ngModel" [(ngModel)]="model.amount" min="0" required type="number" oninput="this.value = Math.abs(this.value)" />
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6" *ngIf="number">
+                  <mat-form-field appearance="outline" class="mb-4">
+                  <mat-label>{{number_label}}</mat-label>
+                  <input  matInput name="transaction_number" #transaction_number="ngModel" [(ngModel)]="model.transaction_number" type="text" />
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6" *ngIf="receipt">
+                  <label class="d-block">{{receipt_label}}</label>
+                  <input name="transaction_receipt" #transaction_receipt="ngModel" [(ngModel)]="model.transaction_receipt" type="file" accept="image/x-png,image/gif,image/jpeg" (change)="onFileChange($event.target.files,paymentForm)" />
+                </div>
+
+                <div class="col-md-6" *ngIf="payment">
+                  <mat-form-field appearance="outline" class="mb-4">
+                   <mat-label>Is Part Payment?</mat-label>
+                    <mat-select name="part_payment" #part_payment="ngModel" [(ngModel)]="model.part_payment" required>
+                      <mat-option value="yes">Yes</mat-option>
+                      <mat-option value="no">No</mat-option>
+                    </mat-select>
+
+                  </mat-form-field>
+                </div>
+
+              </div>
+              <button type="submit" class="btn btn-danger pull-right">
+                Submit
+              </button>
+              <button class="btn btn-primary ml-4" [routerLink]="['/crm/order-management']">Back</button>
+              <div class="clearfix"></div>
+            </form>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

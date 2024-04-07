@@ -1,0 +1,139 @@
+<div class="main-content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header card-header-danger">
+						<div class="col-md-12">
+							<h4 class="card-title" style="float: left;">Edit Product variant Stock</h4>
+							<!-- <div class="col-sm-2" >
+								<a id="new-board-btn" class="btn btn-success pull-right" >Create New Board</a>
+							</div> -->
+							<button
+								class="mat-focus-indicator btn btn-primary  mat-raised-button mat-button-base pull-right"
+								(click)="openmodel(responsedata.reserve_stock,responsedata.quantity,responsedata.sample_stock)">
+								<span class="mat-button-wrapper">Action</span>
+								<div class="mat-ripple mat-button-ripple"></div>
+								<div class="mat-button-focus-overlay"></div>
+							</button>
+						</div>
+
+					</div>
+					<div class="card-body">
+
+						<form [formGroup]="addnewsku" novalidate autocomplete="off">
+							<fieldset class="scheduler-border">
+								<legend class="scheduler-border">Product Details</legend>
+
+								<div class="row">
+									<div class="col-md-6">
+										<mat-form-field class="example-full-width" MatFormFieldControl>
+											<input formControlName="sku_code" matInput placeholder="Sku Code"
+												type="text" readonly />
+											<!-- <mat-error
+												*ngIf="addnewsku.controls.sku_code.touched && addnewsku.controls.sku_code.errors?.required"
+												required>Please fill SKU.
+											</mat-error> -->
+										</mat-form-field>
+									</div>
+									<div class="col-md-6">
+										<mat-form-field class="example-full-width" MatFormFieldControl>
+											<input formControlName="ready_stock" matInput placeholder="Ready Stock"
+												type="text" readonly />
+										</mat-form-field>
+									</div>
+
+								</div>
+								<div class="row" *ngIf="responsedata">
+									<div class="col-md-6">
+										<mat-form-field class="example-full-width" MatFormFieldControl>
+											<input name="Productname" matInput placeholder="Product Name" type="text"
+												[value]="responsedata.variant_name" readonly />
+										</mat-form-field>
+									</div>
+									<div class="col-md-6">
+										<mat-form-field class="example-full-width" MatFormFieldControl>
+											<input name="Quantity" matInput placeholder="Available Stock" type="text"
+												[value]="responsedata.quantity" readonly />
+										</mat-form-field>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<mat-form-field class="example-full-width" MatFormFieldControl>
+											<input name="Quantity" matInput placeholder="Sample Stock" type="text"
+												[value]="samplestock" readonly />
+										</mat-form-field>
+									</div>
+									<div class="col-md-6">
+										<mat-form-field class="example-full-width" MatFormFieldControl>
+											<input matInput placeholder="Reserve Stock" type="text"
+												formControlName="reserve_stock" readonly />
+											<!-- <mat-error
+												*ngIf="addnewsku.controls.reserve_stock.touched && addnewsku.controls.reserve_stock.errors?.required"
+												required>Please
+												Add Reserve_Stock. </mat-error> -->
+
+										</mat-form-field>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+
+						<div class="table-responsive">
+							<table class="table" style="margin-top: 25px;">
+								<thead class=" text-primary">
+									<th>#</th>
+									<th>Product Name</th>
+									<th>Sku</th>
+									<th>Quantity</th>
+									<th>Old Quantity</th>
+									<th>Reserve Stock</th>
+									<!-- <th>Pending Order</th> -->
+									<th>Sample Stock</th>
+									<th>Quantity Adjustment</th>
+									<th>Adjustment Reason</th>
+									<th>Adjustment Description</th>
+
+								</thead>
+								<tbody>
+									<tr *ngFor="let product of adjustment_history; let i = index">
+										<td> {{i+1}}</td>
+										<td>{{product.variant_name}}</td>
+										<td>{{product.sku_code}}</td>
+										<td>{{product.quantity}}</td>
+										<td>{{product.old_quantity}}</td>
+										<td>{{product.reserve_stock}}</td>
+										<td *ngIf="product.sample_stock !=null">{{product.sample_stock}}</td>
+										<td *ngIf="product.sample_stock ==null">0</td>
+										<td>{{product.quantity_adjustment}}</td>
+										<td>{{product.adjustment_reasone}}</td>
+										<td>{{product.adjustment_description}}</td>
+									</tr>
+
+									<tr *ngIf="!adjustment_history.length">
+										<td colspan="11">
+											<div class="text-center">No record found.</div>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="10">
+											<div class="pull-right">
+												<app-ngb-pagination [collectionSize]="totalQueryableData" [page]="page"
+													(pageChange)="handlePageChange($event)"
+													[isDisabled]="isListLoading">
+												</app-ngb-pagination>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

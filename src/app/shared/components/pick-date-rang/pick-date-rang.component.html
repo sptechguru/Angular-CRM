@@ -1,0 +1,31 @@
+
+       <div *ngIf="tableMode">
+            <label for="date">Select Date</label>
+            
+            <div class="input-group">
+                <span class="form-control uneditable-input" name="daterange">
+                    <!-- {{ chosenDate.start | date:'mediumDate' }} - {{ chosenDate.end| date:'mediumDate' }} -->
+                    <input class="date " placeholder="dd/mm/yyyy" (input)="KeyUpCalled($event.target.value,'start')"
+                      
+                        maxlength="10" [(ngModel)]="inputValue.start"> -
+
+                     <input class="date" placeholder="dd/mm/yyyy" (input)="KeyUpCalled($event.target.value , 'end')" value="{{chosenDate.end?.getDate()}}/{{chosenDate.end?.getMonth()+1}}/{{chosenDate.end?.getFullYear()}}" maxlength="10" [(ngModel)]="inputValue.end">
+                    <button (click)="customDate()" mat-icon-button color="primary">
+                        <mat-icon>filter_alt</mat-icon>
+                    </button>
+                        </span>
+                <span class="input-group-btn">
+                    <a type="button"  daterangepicker   (selected)="selectedDate($event)"
+                (applyDaterangepicker)="applyDatepicker($event)" (showDaterangepicker)="calendarEventsHandler($event)" class="btn btn-secondry"><i class="fa fa-calendar" aria-hidden="true"></i></a>
+                </span>
+            </div>
+       </div>
+        <div *ngIf="!tableMode" [options]="picker1.startDate !== null ? picker1:null" daterangepicker (selected)="selectedDate($event)"
+                        (applyDaterangepicker)="applyDatepicker($event)" (showDaterangepicker)="calendarEventsHandler($event)">
+          
+    <ng-content></ng-content>
+    {{label}}
+
+</div>
+
+    

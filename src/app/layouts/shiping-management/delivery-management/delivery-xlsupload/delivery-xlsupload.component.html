@@ -1,0 +1,49 @@
+<!-- <ngx-spinner   bdColor="rgba(51,51,51,0.8)"
+color="#fff"
+template="<img src='https://i.gifer.com/origin/b4/b4d657e7ef262b88eb5f7ac021edda87.gif' style='width:100px;' />">
+</ngx-spinner> -->
+<div class="main-content ">
+    <div class="py-2 bg-white">
+        <div class="p-3 form-shadow m-2 mt-3">
+            <div class="row">
+                <div class="col-6">
+                    <h2 class="text-capitalize"> Delivery Data Bulk Upload</h2>
+                </div>
+            </div>
+                <!-- <div class="col-6 ">
+                    <div class="d-flex justify-content-end">
+                        <button mat-flat-button color="warn" (click)="getSampleXLS(value,true,link)">Sample
+                            Fileds</button>
+                        <button mat-flat-button color="warn" class="ml-2"
+                            (click)="getSampleXLS(value,false,link)">Sample
+                            XLS</button>
+                    </div>
+                </div> -->
+                <div class="row">
+                <div class="col-6">
+                    <div class="row mx-0">
+                        <div class="col-12">
+                            <a #link download></a>
+                            <!-- <div class="custom-file">
+                                <input type="file" class="custom-file-input"  class="d-none"   accept=".xls,.xlsx"
+                                (change)="onChangeFile($event.target.files)" #filePdf >
+                                <label class="custom-file-label" for="customFile">Upload your excel</label>
+                              </div> -->
+                            <input type="file" class="d-none"   accept=".xls,.xlsx"
+                                (change)="onChangeFile($event.target.files)" #filePdf />
+                            <mat-form-field appearance="outline" class="example-full-width">
+                                <mat-label class="text-capitalize">Upload your excel</mat-label>
+                                <input matInput type="text" [value]="fileName" />
+                                <mat-icon matSuffix class="cp" (click)="filePdf.click()"> attach_file</mat-icon>
+                            </mat-form-field>
+
+                        </div>
+                        <div class="col-12">
+                            <button mat-flat-button color="warn" (click)="upload()">Upload</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

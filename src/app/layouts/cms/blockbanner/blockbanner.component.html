@@ -1,0 +1,27 @@
+<div class="main-content">
+    <h2>Road Block Banner</h2>
+
+    <div>
+
+        <a [href]="roadBannerImageUrl" target="_blank" rel="noopener noreferrer">
+         <img class="androidBanner" [src]="roadBannerImage" alt="" [height]="400" [width]="670">
+     </a>
+         <mat-form-field class="example-full-width" >
+             <mat-label>Enter redirect path</mat-label>
+             <input matInput placeholder="Enter redirect path" #roadBloack [formControl]="roadRedirectUrl" required>
+             <mat-error *ngIf="roadRedirectUrl.hasError('pattern')">Invalid url</mat-error>
+         </mat-form-field>
+ 
+ 
+          
+         <label class="file">
+             <input type="file"  id="myFileInputRoad"  accept="image/x-png,image/gif,image/jpeg" (change)="handleFileInputRoad($event)"  aria-label="File browser example">
+             <span class="file-custom"></span>
+         </label>
+         <!-- <img class="androidBanner" [src]="" alt="" [height]="400" [width]="970"> -->
+ 
+         <button  class="btn btn-primary" *ngIf="roadRedirectUrl.valid" [disabled]="loadingROAD" (click)="uploadFileRoad(devices)">{{loadingROAD ?'Uploading...':'Upload'}}</button>
+   
+     </div>
+    
+</div>

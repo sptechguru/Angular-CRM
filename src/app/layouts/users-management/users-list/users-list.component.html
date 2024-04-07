@@ -1,0 +1,302 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">stream</i>
+                        </div>
+                        <p class="card-category">KYC Done</p>
+                        <h3 class="card-title">{{kyc_Done}}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <app-pick-date-rang [tableMode]="false" (onQuery)="getTotalData($event)">
+                                <i class="material-icons">date_range</i>
+                            </app-pick-date-rang>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">stream</i>
+                        </div>
+                        <p class="card-category">KYC Pending</p>
+                        <h3 class="card-title">{{pendingKyc}}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <app-pick-date-rang [tableMode]="false" (onQuery)="getTotalDataOfKycPending($event)">
+                                <i class="material-icons">date_range</i>
+                            </app-pick-date-rang>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header  card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">stream</i>
+                        </div>
+                        <p class="card-category">Reject</p>
+                        <h3 class="card-title">{{rejectKyc}}
+                        </h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <app-pick-date-rang [tableMode]="false" (onQuery)="getTotalDataOfKycReject($event)">
+                                <i class="material-icons">date_range</i>
+                            </app-pick-date-rang>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-info card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-twitter"></i>
+                        </div>
+                        <p class="card-category">Followers</p>
+                        <h3 class="card-title">+245</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">update</i> Just Updated
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                                <h4 class="card-title ">Customers List</h4>
+                                <p class="card-category"> List of all Customers.</p>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="">
+                                    <app-common-search (onQuery)="searchUserByQuery($event)"
+                                        [placeholderText]="'Search'" [isSearchAsTypeOn]="true">
+                                    </app-common-search>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>State</mat-label>
+
+                                    <mat-select (selectionChange)="onselectionChange($event)">
+                                        <mat-option>Clear</mat-option>
+                                        <mat-option *ngFor="let item of state" [value]="item.id">
+                                            {{item.state}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-md-4">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>KYC Update</mat-label>
+
+                                    <mat-select (selectionChange)="onselectionsKyc($event)">
+                                        <mat-option>Clear</mat-option>
+                                        <mat-option *ngFor="let kyc_update of kyc_updates" [value]="kyc_update.value">
+                                            {{kyc_update.title}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <mat-card class="list" [ngClass]="minimize? '':'toggleHight'"
+                                *ngIf="resellerToAssign.length" @flyInOut>
+                                <mat-list>
+                                    <div class="listHeader">
+                                        <div mat-subheader>Assign resellers</div>
+                                        <button (click)="minimize = !minimize" mat-icon-button
+                                            aria-label="Example icon button with a vertical three dot icon">
+                                            <mat-icon mat-list-icon>{{minimize ? 'minimize' : 'open_in_full'}}
+                                            </mat-icon>
+                                        </button>
+
+                                    </div>
+                                    <mat-list-item class="example-box" *ngFor="let data of resellerToAssign">
+                                        <mat-icon mat-list-icon>person</mat-icon>
+                                        <div mat-line>{{data?.business_name || data.user?.full_name}}</div>
+                                        <div mat-line> {{data?.user?.email}} </div>
+                                        <button (click)="onChange(false,data)" mat-icon-button color="warn"
+                                            aria-label="Example icon button with a heart icon">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </mat-list-item>
+                                </mat-list>
+                                <mat-card-actions>
+                                    <button (click)="resellerToAssign = []" mat-button>CANCEL</button>
+                                    <button (click)="assignInBulk()" color="warn" mat-button>ASSIGN</button>
+                                </mat-card-actions>
+                            </mat-card>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table user-table" style="cursor:pointer">
+                                <thead class=" text-primary">
+                                    <th *ngIf="_localStorage.crmUserPermissions">
+                                        <mat-checkbox class="example-margin" [disabled]="true"></mat-checkbox>
+                                    </th>
+                                    <th>Date</th>
+                                    <th>Name</th>
+                                    <!-- <th>Email</th> -->
+                                    <th>Phone</th>
+                                    <th>Company</th>
+                                    <th>Email</th>
+                                    <!--<th>Business type</th>-->
+                                    <!-- <th>Personal KYC</th> -->
+                                    <th>KYC</th>
+                                    <!-- <th>Member Since</th> -->
+                                    <!-- <th>Status</th> -->
+                                    <!-- <th>Action</th> -->
+                                    <th>Category</th>
+
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let reseller of dataList; let i = index"
+                                        (click)="UpdateTr(reseller?.reseller_kyc,reseller?.reseller_kyc?.id,reseller?.business_name,reseller?.fk_user_id,reseller?.user?.user_group,reseller?.user?.id)">
+                                        <td *ngIf="_localStorage.crmUserPermissions">
+                                            <mat-checkbox [checked]="getElemment(reseller.id)"
+                                                (change)="onChange(element.checked,reseller)" #element
+                                                class="example-margin"></mat-checkbox>
+                                        </td>
+                                        <td>{{reseller?.created_at | customdate}}</td>
+                                        <td>
+                                            {{reseller?.user?.full_name}}
+                                        </td>
+                                        <!-- <td>{{reseller?.user?.email}}</td> -->
+                                        <td>{{reseller?.user?.phone_number}}</td>
+                                        <td>
+                                            <a style="cursor:pointer;">
+                                                {{reseller?.business_name}}</a>
+                                        </td>
+                                        <td>
+
+                                            <span *ngIf="reseller.user.email_verification == 'pending'"
+                                                style="cursor:pointer" class="badge badge-pill"
+                                                [ngClass]="{'badge-primary': (reseller.user.email_verification == 'pending')}"
+                                                (click)="emailVerify(reseller?.user?.email_verification, reseller?.user?.id,
+                                                reseller?.business_name)">
+                                                {{reseller?.user.email_verification}}
+                                            </span>
+
+                                            <span class="badge badge-pill"
+                                                *ngIf="reseller.user.email_verification == 'verified'"
+                                                [ngClass]="{'badge-success': ( reseller.user.email_verification == 'verified' )}">
+                                                {{ reseller?.user.updated_at | customdate}}
+                                            </span>
+
+                                            <!-- <span class="badge badge-pill" [ngClass]="'badge-warning'"
+                                             *ngIf="reseller.user.email == null">N/A </span> -->
+                                        </td>
+                                        <!-- <td>{{reseller?.reseller_kyc?.personel_kyc}}</td> -->
+                                        <td>
+                                            <!-- {{reseller?.reseller_kyc?.business_kyc}} -->
+
+                                            <span *ngIf="reseller.reseller_kyc?.business_kyc == 'no'"
+                                                style="cursor:pointer" class="badge badge-pill"
+                                                [ngClass]="reseller?.reseller_kyc?.gst_status == 'pending'? 'badge-primary' : 'badge-danger' ">
+                                                {{reseller?.reseller_kyc?.gst_status}}
+                                            </span>
+                                            <span class="badge badge-pill"
+                                                *ngIf="reseller.reseller_kyc?.business_kyc == 'yes'"
+                                                [ngClass]="{'badge-success': ( reseller.reseller_kyc?.business_kyc == 'yes' )}">
+                                                {{ reseller?.reseller_kyc?.updated_at | customdate}}
+                                            </span>
+                                            <span class="badge badge-pill" [ngClass]="'badge-warning'"
+                                                *ngIf="!reseller.reseller_kyc">N/A </span>
+
+                                        </td>
+                                        <!--<td>{{reseller?.business_type}}</td>-->
+                                        <!-- <td>{{reseller?.created_at | customdate}}</td> -->
+                                        <!-- <td>
+                                            <span style="cursor:pointer" class="badge badge-pill"
+                                                [ngClass]="{'badge-primary': ( reseller.status == 'pending' ), 
+                                                'badge-success': ( reseller.status == 'active' ), 
+                                                'badge-danger': ( reseller.status == 'inactive' )}"
+                                                (click)="statusUpdate(reseller?.status, reseller?.user?.id,
+                                                reseller?.business_name)">
+                                                {{ reseller.status | uppercase }}
+                                            </span>
+                                        </td> -->
+
+                                        <!-- <td ><button [disabled]="!reseller?.reseller_kyc" [routerLink]="['/crm/kyc-list/kyc-details',reseller?.reseller_kyc?.id]" class="btn btn-primary">Update</button></td> -->
+                                        <!-- <td>
+                                            <section class="example-section">
+                                                <mat-slide-toggle (change)="statusUpdate($event, reseller?.id,
+                                                reseller?.business_name)"
+                                                class="example-margin"
+                                                [color]="color"
+                                                [checked]="reseller?.status === 'active'"
+                                                [disabled]="disabled">
+                                                </mat-slide-toggle>
+                                            </section>
+                                        </td>-->
+                                        <td>
+
+                                            <span *ngIf="reseller.user.user_group == 'A'" style="cursor:pointer"
+                                                class="badge badge-pill"
+                                                [ngClass]="{'badge-primary': (reseller.user.user_group == 'A')}">
+                                                RESELLER
+                                            </span>
+                                            <span class="badge badge-pill" *ngIf="reseller.user.user_group == 'B'"
+                                                [ngClass]="{'badge-success': ( reseller.user.user_group == 'B' )}">
+                                                DIRECT
+                                            </span>
+
+                                            <span class="badge badge-pill" [ngClass]="'badge-warning'"
+                                                *ngIf="!reseller.user.user_group">
+                                                N/A
+                                            </span>
+
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!dataList.length">
+                                        <td colspan="6">
+                                            <div class="text-center">No record found.</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="10">
+                                            <div class="pull-right">
+                                                <app-ngb-pagination [collectionSize]="totalQueryableData" [page]="page"
+                                                    (pageChange)="handlePageChange($event)"
+                                                    [isDisabled]="isListLoading">
+                                                </app-ngb-pagination>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isListLoading">
+                                    <tr>
+                                        <td colspan="6">
+                                            <app-data-loader></app-data-loader>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

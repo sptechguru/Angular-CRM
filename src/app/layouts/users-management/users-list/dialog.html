@@ -1,0 +1,15 @@
+<div mat-dialog-content class="dialog-2">
+  <form [formGroup]="addEditForm" (ngSubmit)='onSubmit()' novalidate>
+    <h2 matDialogTitle class="text-center">Edit Business Name</h2>
+    <input matInput type="text" placeholder="Business Name" formControlName="name" class="w-100">
+    <!-- <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Business Name</mat-label>
+      <input matInput>
+    </mat-form-field> -->
+    <mat-dialog-actions class="dialog-btn-wrap">
+      <button mat-raised-button color="primary" matDialogClose="no" class="btn">Cancel</button>
+      <button mat-raised-button type="submit" class="btn btn-primary">Submit</button>
+
+    </mat-dialog-actions>
+  </form>
+</div>

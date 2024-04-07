@@ -1,0 +1,70 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">{{pageLabel}} Category</h4>
+            <!-- <p class="card-category"></p> -->
+          </div>
+          <div class="card-body">
+            <form [formGroup]="addEditForm" (ngSubmit)='onSubmit(fileUpload)' novalidate>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input [formControl]="product_category" matInput placeholder="Category Name" type="text"/>
+                    <mat-error *ngIf="product_category.touched && product_category.errors?.required" required>Please fill Category name.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <!-- <mat-select [formControl]="parent_id" name="parent_id" matInput placeholder="Parent Category">
+                      <mat-option value="category.id" *ngFor="let category of dataList; index as i;">category.product_category</mat-option>
+                    </mat-select> -->
+                   <mat-label>Parent Category</mat-label>
+                    <select [formControl]="parent_id" matNativeControl>
+                      <option [value]="category.id" *ngFor="let category of dataList; index as i;">{{category.product_category}}</option>
+                    </select>
+
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                    <input placeholder="Image" name="fileUpload" type="file" #fileUpload (change)="onFileChange($event.target.files)" accept="image/x-png,image/gif,image/jpeg" [required]="pageLabel == 'Create'"/>
+                    <mat-error *ngIf="imageRequired && pageLabel == 'Create'" required>Please select Category image.
+                    </mat-error>
+                    <div class="img-wrap mt-2" *ngIf="id && editViewImg">
+                      <hr/>
+                      <p>Current Image</p>
+                      <img [src]="editViewImg" class="w-150 border"/>
+                      <!-- <span class="material-icons align-top pointer" (click)="deleteImg()">
+                        disabled_by_default
+                        </span> -->
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input [formControl]="position" matInput placeholder="Category Order" maxlength="3" appNumberInput [decimals]="0" [format]="'0'" type="text"/>
+                    <mat-error *ngIf="position.touched && position.errors?.required" required>Please fill Category order.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-danger pull-right" [disabled]="isUserProcessing">
+                <mat-spinner *ngIf="isUserProcessing" [diameter]="20"></mat-spinner>
+                Submit
+              </button>
+              <button type="button" class="btn btn-primary ml-4" [disabled]="isUserProcessing"
+              [routerLink]="['/crm/category-management']">
+                Back
+              </button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

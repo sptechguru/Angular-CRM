@@ -1,0 +1,315 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">{{pageLabel}} Product Variant</h4>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="addEditForm" (ngSubmit)='onSubmit()' novalidate autocomplete="off">
+              <div class="row">
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input type="text" formControlName="variant_name" matInput placeholder="Product Variant Name"/>
+                  </mat-form-field>
+                  <div *ngIf="addEditForm.controls['variant_name'].invalid 
+                  && (addEditForm.controls['variant_name'].dirty 
+                  || addEditForm.controls['variant_name'].touched)" class="error">
+                     <mat-error *ngIf="addEditForm.controls['variant_name'].errors.required">
+                        Please enter product variant name
+                     </mat-error>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input type="number" formControlName="base_price" matInput placeholder="Base Price" min="1"/>
+                   
+                  </mat-form-field>
+                  <div *ngIf="addEditForm.controls['base_price'].invalid 
+                  && (addEditForm.controls['base_price'].dirty 
+                  || addEditForm.controls['base_price'].touched)" class="error">
+                     <mat-error *ngIf="addEditForm.controls['base_price'].errors.required">
+                        Please enter base price
+                     </mat-error>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <mat-select formControlName="gst_tax_type_class_id" matInput placeholder="GST Text Type Class">
+                      <mat-option [value]="taxTypeClass.id" *ngFor="let taxTypeClass of taxTypeClassList; 
+                      index as i;">{{taxTypeClass.gst_tax_type_code}}</mat-option>
+                    </mat-select>
+                    <!--<mat-error *ngIf="gst_tax_type_class_id.touched && gst_tax_type_class_id.errors?.required" required>
+                      Please fill GST.
+                    </mat-error>
+                    <mat-error *ngIf="gst_tax_type_class_id.touched && gst_tax_type_class_id.errors?.min" required>
+                      Negative Values not accepted.
+                    </mat-error>
+                    <mat-error *ngIf="gst_tax_type_class_id.touched && gst_tax_type_class_id.errors?.max" required>
+                      Values more than 100 not accepted.
+                    </mat-error>-->
+                  </mat-form-field>
+                  <div *ngIf="addEditForm.controls['gst_tax_type_class_id'].invalid 
+                  && (addEditForm.controls['gst_tax_type_class_id'].dirty 
+                  || addEditForm.controls['gst_tax_type_class_id'].touched)" class="error">
+                     <mat-error *ngIf="addEditForm.controls['gst_tax_type_class_id'].errors.required">
+                        Please select GST text type class
+                     </mat-error>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input type="number" formControlName="max_retail_price" matInput min="1" placeholder="Max Retail Price"/>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input type="number" formControlName="package_quantity" matInput min="1" placeholder="Package Quantity"/>
+                  </mat-form-field>
+                  <div *ngIf="addEditForm.controls['package_quantity'].invalid 
+                  && (addEditForm.controls['package_quantity'].dirty 
+                  || addEditForm.controls['package_quantity'].touched)" class="error">
+                     <mat-error *ngIf="addEditForm.controls['package_quantity'].errors.required">
+                        Please enter package quantity
+                     </mat-error>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" MatFormFieldControl>
+                   <mat-select formControlName="package_avaibility" matInput placeholder="Package Availability">
+                    <mat-option value="yes">yes</mat-option>
+                    <mat-option value="no">no</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <div *ngIf="addEditForm.controls['package_avaibility'].invalid 
+                  && (addEditForm.controls['package_avaibility'].dirty 
+                  || addEditForm.controls['package_avaibility'].touched)" class="error">
+                     <mat-error *ngIf="addEditForm.controls['package_avaibility'].errors.required">
+                        Please enter package availability
+                     </mat-error>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input type="number" formControlName="minimum_order_quantity" matInput min="1" placeholder="Minimum Order Quantity"/>
+                  </mat-form-field>
+                  <div *ngIf="addEditForm.controls['minimum_order_quantity'].invalid 
+                  && (addEditForm.controls['minimum_order_quantity'].dirty 
+                  || addEditForm.controls['minimum_order_quantity'].touched)" class="error">
+                     <mat-error *ngIf="addEditForm.controls['minimum_order_quantity'].errors.required">
+                        Please enter minimum order quantity
+                     </mat-error>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input type="text" formControlName="color_map" matInput placeholder="Color Map"/>
+                  </mat-form-field>
+                  <div *ngIf="addEditForm.controls['color_map'].invalid 
+                  && (addEditForm.controls['color_map'].dirty 
+                  || addEditForm.controls['color_map'].touched)" class="error">
+                     <mat-error *ngIf="addEditForm.controls['color_map'].errors.required">
+                        Please enter color map
+                     </mat-error>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input type="text" formControlName="display_dimension" matInput placeholder="Display Dimension (cm)" />
+                  </mat-form-field>
+                  <div *ngIf="addEditForm.controls['display_dimension'].invalid 
+                  && (addEditForm.controls['display_dimension'].dirty 
+                  || addEditForm.controls['display_dimension'].touched)" class="error">
+                     <mat-error *ngIf="addEditForm.controls['display_dimension'].errors.required">
+                        Please enter display dimension
+                     </mat-error>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input type="text" formControlName="display_dimension_with_packing"
+                     matInput placeholder="Display packaging Dimension (cm)"/>
+                  </mat-form-field>
+                  <div *ngIf="addEditForm.controls['display_dimension_with_packing'].invalid 
+                  && (addEditForm.controls['display_dimension_with_packing'].dirty 
+                  || addEditForm.controls['display_dimension_with_packing'].touched)" class="error">
+                     <mat-error *ngIf="addEditForm.controls['display_dimension_with_packing'].errors.required">
+                        Please enter display dimension with packaging
+                     </mat-error>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input  type="number" formControlName="weight" matInput min="1" placeholder="Weight (gm)"/>
+                  </mat-form-field>
+                  <div *ngIf="addEditForm.controls['weight'].invalid 
+                  && (addEditForm.controls['weight'].dirty 
+                  || addEditForm.controls['weight'].touched)" class="error">
+                     <mat-error *ngIf="addEditForm.controls['weight'].errors.required">
+                        Please enter weight
+                     </mat-error>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input type="number" formControlName="weight_with_packing" min="1" matInput placeholder="Packaging Weight (gm)"/>
+                  </mat-form-field>
+                  <div *ngIf="addEditForm.controls['weight_with_packing'].invalid 
+                  && (addEditForm.controls['weight_with_packing'].dirty 
+                  || addEditForm.controls['weight_with_packing'].touched)" class="error">
+                     <mat-error *ngIf="addEditForm.controls['weight_with_packing'].errors.required">
+                        Please enter weight with packaging
+                     </mat-error>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input type="number" ng-trim="false" formControlName="hsn_code" matInput placeholder="HSN Code"/>
+                  </mat-form-field>
+                  <div *ngIf="addEditForm.controls['hsn_code'].invalid 
+                  && (addEditForm.controls['hsn_code'].dirty 
+                  || addEditForm.controls['hsn_code'].touched)" class="error">
+                     <mat-error *ngIf="addEditForm.controls['hsn_code'].errors.required">
+                        Please enter HSN code
+                     </mat-error>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input type="text" formControlName="youtube_link" matInput placeholder="Product Youtube Link" />
+                  </mat-form-field>
+                  <div *ngIf="addEditForm.controls['youtube_link'].invalid 
+                                    && (addEditForm.controls['youtube_link'].dirty 
+                                    || addEditForm.controls['youtube_link'].touched)" class="error">
+                    <mat-error *ngIf="addEditForm.controls['youtube_link'].errors.pattern">
+                      Please enter valid product youtube link
+                    </mat-error>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+									<mat-form-field class="example-full-width" MatFormFieldControl>
+										<input formControlName="reserve_stock" matInput placeholder="Reserve Stock" type="number" />
+									</mat-form-field>
+                  <div *ngIf="addEditForm.controls['reserve_stock'].invalid 
+                  && (addEditForm.controls['reserve_stock'].dirty 
+                  || addEditForm.controls['reserve_stock'].touched)" class="error">
+                     <mat-error *ngIf="addEditForm.controls['reserve_stock'].errors.required">
+                        Please enter reserve stock
+                     </mat-error>
+                  </div>
+								</div>
+
+								<div class="col-md-6">
+									<mat-form-field class="example-full-width" MatFormFieldControl>
+										<input formControlName="minimum_quantity_of_reserve_stock" matInput 
+										placeholder="Minimum Qty of Reserve Stock" type="number" />
+									</mat-form-field>
+                  <div *ngIf="addEditForm.controls['minimum_quantity_of_reserve_stock'].invalid 
+                  && (addEditForm.controls['minimum_quantity_of_reserve_stock'].dirty 
+                  || addEditForm.controls['minimum_quantity_of_reserve_stock'].touched)" class="error">
+                     <mat-error *ngIf="addEditForm.controls['minimum_quantity_of_reserve_stock'].errors.required">
+                        Please enter minimum quantity of reserve stock
+                     </mat-error>
+                  </div>
+								</div>
+
+								<div class="col-md-6">
+									<mat-form-field class="example-full-width" MatFormFieldControl>
+										<input formControlName="reserve_stock_dishpatch_time" matInput placeholder="Reserve Stock Dispatch Time" type="number" />
+									</mat-form-field>
+                  <div *ngIf="addEditForm.controls['reserve_stock_dishpatch_time'].invalid 
+                  && (addEditForm.controls['reserve_stock_dishpatch_time'].dirty 
+                  || addEditForm.controls['reserve_stock_dishpatch_time'].touched)" class="error">
+                     <mat-error *ngIf="addEditForm.controls['reserve_stock_dishpatch_time'].errors.required">
+                        Please enter reserve stock dispatch time
+                     </mat-error>
+                  </div>
+								</div>
+
+								<div class="col-md-6">
+									<mat-form-field class="example-full-width" MatFormFieldControl>
+										<input formControlName="live_stock_dishpatch_time" matInput placeholder="Ready Stock Time in Days" type="number" />
+									</mat-form-field>
+                  <div *ngIf="addEditForm.controls['live_stock_dishpatch_time'].invalid 
+                  && (addEditForm.controls['live_stock_dishpatch_time'].dirty 
+                  || addEditForm.controls['live_stock_dishpatch_time'].touched)" class="error">
+                     <mat-error *ngIf="addEditForm.controls['live_stock_dishpatch_time'].errors.required">
+                        Please enter ready dispatch time
+                     </mat-error>
+                  </div>
+								</div>
+
+                <div class="col-md-12">
+                  <mat-form-field class="example-chip-list" MatFormFieldControl>
+                    <mat-label>Search tags</mat-label>
+                    <mat-chip-list #chipList aria-label="tag selection">
+                      <mat-chip *ngFor="let tag of tagess" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
+                        {{tag?.tag_name}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                      </mat-chip>
+                      <button *ngIf="remaingTags && !more" (click)="more=true;listOfTags(remaingTags + 10); " mat-button> {{remaingTags}}
+                        + more</button>
+                      <input placeholder="Add Tags..." #tagesInput [formControl]="tagesCtrl" [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                  <mat-hint align="start">Press Enter or Comma(,) to add tags</mat-hint>
+                  </mat-form-field>
+                    <!-- <mat-form-field class="example-full-width" MatFormFieldControl>
+                      <input formControlName="search_keyword" matInput placeholder="Search Keyword" type="text" />
+                    </mat-form-field>
+                    <div *ngIf="addEditForm.controls['search_keyword'].invalid 
+                                      && (addEditForm.controls['search_keyword'].dirty 
+                                      || addEditForm.controls['search_keyword'].touched)" class="error">
+                      <mat-error *ngIf="addEditForm.controls['search_keyword'].errors.required">
+                        Please enter search keyword.
+                      </mat-error>
+                    </div> -->
+               
+                </div>
+
+                <div class="col-md-12">
+                  <label>Variant Description</label>
+                  <ckeditor formControlName="variant_description" [editor]="Editor">
+                  </ckeditor>
+                </div>
+                <div class="col-md-12">
+                  <label>Catalogue Description</label>
+                  <ckeditor formControlName="catalogue_description" [editor]="Editor">
+                  </ckeditor>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-danger pull-right" 
+              [disabled]="isUserProcessing">
+                <mat-spinner *ngIf="isUserProcessing" [diameter]="20"></mat-spinner>
+                Submit
+              </button>
+              <button type="button" class="btn btn-primary ml-4" 
+              [disabled]="isUserProcessing" 
+              [routerLink]="['/crm/inventory-management/product-variant-management/variant-list/', id]">
+                Back
+              </button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

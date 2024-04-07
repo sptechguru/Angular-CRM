@@ -1,0 +1,106 @@
+<div class="main-content">
+    <h3>Deals Mangement</h3>
+    <div class="container-fluid">
+        <div>
+            <button [hidden]="editMode" (click)="editMode = true; chooseProduct= false" type="button"
+                class="btn btn-outline-primary">
+                Edit
+            </button>
+            <mat-form-field appearance="outline">
+                <mat-label>Deals Name</mat-label>
+                <input type="text" matInput #deal_name [disabled]="!productList?.length" [value]="dealsName" placeholder="Deal Name">
+                <button mat-button matSuffix mat-icon-button aria-label="Clear"
+                    (click)="updateData('name',deal_name.value)">
+                    <mat-icon>save</mat-icon>
+                </button>
+                <!-- <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+            <h4>Deals Banner</h4>
+           <div>
+            <img [src]="dealsNameImage" alt="" srcset="">
+           </div>
+            <label class="file">
+                <input type="file"  id="myFileInputRoad"  accept="image/x-png,image/gif,image/jpeg" (change)="handleFileInput($event)"  aria-label="File browser example">
+                <span class="file-custom"></span>
+            </label>
+            <mat-form-field appearance="outline">
+                <mat-label>Search</mat-label>
+                <input type="search" matInput [(ngModel)]="searchText" placeholder="Search by product">
+                <mat-icon matSuffix>search</mat-icon>
+                <!-- <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+
+            <h4 *ngIf="editMode">Choose category.</h4>
+            <h4 *ngIf="chooseProduct">Click on product to unselect.</h4>
+
+            <div class="row" *ngIf="!editMode && !chooseProduct">
+                <mat-spinner *ngIf="loadingProduct"></mat-spinner>
+                <div class="col-3 my-2" *ngFor=" let i = index ;let data of productList  | filter : searchText ">
+
+                    <a *ngIf="!loadingProduct">
+                        <mat-card class="example-card">
+                            <img mat-card-image *ngIf="data?.product_images?.length"
+                                [src]="data?.product_images[0].product_variant_image" alt="Photo of a Shiba Inu">
+                            <mat-card-content>
+                                <h4>{{data?.variant_name}}</h4>
+                                <small>
+                                    Best Prics: {{data?.base_price}}Rs.
+                                </small>
+                            </mat-card-content>
+
+                        </mat-card>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+        <div>
+
+            <div class="row" *ngIf="editMode">
+                <div class="row col-9">
+                    <div class="col-4 my-2" *ngFor="let data of categories | filter : searchText ">
+                        <app-deals-products [productArray]="productArray" (deleteItemEvent)="deleteItemEvent($event)" (newItemEvent)="newItemEvent($event)" [item]="data"></app-deals-products>
+                    </div>
+                </div>
+                <div class="col-3 my-2">
+                    <mat-card class="products">
+                        <mat-card-content>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Search</mat-label>
+                            <input type="search" matInput [(ngModel)]="productsearchText" placeholder="Search by product">
+                            <mat-icon matSuffix>search</mat-icon>
+                            <!-- <mat-hint>Hint</mat-hint> -->
+                        </mat-form-field>
+
+                       
+                        <mat-list cdkDropList class="example-list" [@listAnimation]="productArray.length" (cdkDropListDropped)="drop($event)" >
+                            <div mat-subheader>Add Products</div>
+                            <mat-list-item  class="example-box" *ngFor="let data of productArray | filter : productsearchText" cdkDrag>
+                                <mat-icon  mat-list-icon>category</mat-icon>
+                                <div mat-line>{{data?.product_name}}</div>
+                                <div mat-line> {{data?.product_description}} </div>
+                                <button (click)="deleteItemEvent(data)" mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </mat-list-item>
+                        </mat-list>
+
+                     
+                        </mat-card-content>
+                            <mat-card-actions>
+                                <button (click)="editMode = false" mat-button>CANCEL</button>
+                                <button (click)="addProductsIntoDeals()" color="warn" mat-button>UPDATE</button>
+                            </mat-card-actions>
+                    </mat-card>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+</div>

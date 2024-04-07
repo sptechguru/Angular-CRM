@@ -1,0 +1,3 @@
+::ng-deep .cdk-overlay-pane .mat-container > stockupdate-dialog {
+    max-width:800px !important;
+}

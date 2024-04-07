@@ -1,0 +1,259 @@
+<!--<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Client List</h4>
+                        <p class="card-category"> List of all Clients.</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="">
+                                    <app-common-search (onQuery)="searchUserByQuery($event)"
+                                        [placeholderText]="'Search'" [isSearchAsTypeOn]="true">
+                                    </app-common-search>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="">
+                                    <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base" [routerLink]="['add-edit-client']">
+                                        <span class="mat-button-wrapper">Add Client</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>#</th>
+                                    <th>Client Name</th>
+                                    <th>Created at</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody *ngIf="!isListLoading">
+                                    <tr *ngFor="let client of dataList; let i = index">
+                                                           <td>{{(i +1) + ((page -1) * 10)}}</td>
+
+                                        <td>{{client?.business_client}}</td>
+                                        <td>{{client?.created_at | customdate}}</td>
+                                        <td>
+                                            <span class="badge badge-pill"
+                                                [ngClass]="{'badge-primary': ( client.status == 'pending' ), 'badge-success': ( client.status == 'active' ), 'badge-danger': ( client.status == 'inactive' )}">{{ client.status | uppercase }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-outline-primary dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                    Actions
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" ngbTooltip="Delete" (click)="deleteClient(client.id,client.business_client);"
+                                                        href="javascript:void(0)">Delete</a>
+                                                        <a (click)="saveToLocal(client);" class="dropdown-item" ngbTooltip="Edit"  [routerLink]="['add-edit-client',client.id]">Edit</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!dataList.length">
+                                        <td colspan="6">
+                                            <div class="text-center">No record found.</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="pull-right">
+                                                <app-ngb-pagination [collectionSize]="totalQueryableData" [page]="page"
+                                                    (pageChange)="handlePageChange($event)"
+                                                    [isDisabled]="isListLoading">
+                                                </app-ngb-pagination>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isListLoading">
+                                    <tr>
+                                        <td colspan="6">
+                                            <app-data-loader></app-data-loader>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">stream</i>
+                        </div>
+                        <p class="card-category">Active Reseller</p>
+                        <h3 class="card-title">455
+                        </h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">update</i> Just Updated
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">store</i>
+                        </div>
+                        <p class="card-category">Sales</p>
+                        <h3 class="card-title">50</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <app-pick-date-rang [tableMode]="false">
+                                <i class="material-icons">date_range</i>
+                            </app-pick-date-rang>
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">info_outline</i>
+                        </div>
+                        <p class="card-category">Pending kyc</p>
+                        <h3 class="card-title">45</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">update</i> Just Updated
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-info card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-twitter"></i>
+                        </div>
+                        <p class="card-category">Followers</p>
+                        <h3 class="card-title">+245</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">update</i> Just Updated
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Sector List</h4>
+                        <p class="card-category"> List of all sectors.</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="">
+                                    <app-common-search (onQuery)="searchUserByQuery($event)"
+                                        [placeholderText]="'Search'" [isSearchAsTypeOn]="true">
+                                    </app-common-search>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="">
+                                    <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base" [routerLink]="['add-edit-client']">
+                                        <span class="mat-button-wrapper">Add Sector</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>#</th>
+                                    <th>Sector Name</th>
+                                    <th>Created at</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let client of dataList; let i = index">
+                                         <td>{{(i +1) + ((page -1) * 10)}}</td>
+                                        <td>{{client?.business_client}}</td>
+                                        <td>{{client?.created_at | customdate}}</td>
+                                        <td>
+                                            <span class="badge badge-pill"
+                                                [ngClass]="{'badge-primary': ( client.status == 'pending' ), 'badge-success': ( client.status == 'active' ), 'badge-danger': ( client.status == 'inactive' )}">{{ client.status | uppercase }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-outline-primary dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                    Actions
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" ngbTooltip="Delete" (click)="deleteClient(client.id,client.business_client);"
+                                                        href="javascript:void(0)">Delete</a>
+                                                        <a (click)="saveToLocal(client);" class="dropdown-item" ngbTooltip="Edit"  [routerLink]="['add-edit-client',client.id]">Edit</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!dataList.length">
+                                        <td colspan="6">
+                                            <div class="text-center">No record found.</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="pull-right">
+                                                <app-ngb-pagination [collectionSize]="totalQueryableData" [page]="page"
+                                                    (pageChange)="handlePageChange($event)"
+                                                    [isDisabled]="isListLoading">
+                                                </app-ngb-pagination>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isListLoading">
+                                    <tr>
+                                        <td colspan="6">
+                                            <app-data-loader></app-data-loader>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

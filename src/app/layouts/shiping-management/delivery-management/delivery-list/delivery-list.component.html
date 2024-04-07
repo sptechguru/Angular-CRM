@@ -1,0 +1,124 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Delivery List</h4>
+                        <p class="card-category"> List of all Delivery.</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="">
+                                    <!-- <app-common-search (onQuery)="searchUserByQuery($event)" [value]="queryObject?.search_text"
+                                        [placeholderText]="'Search'" [isSearchAsTypeOn]="true">
+                                    </app-common-search> -->
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <!-- <div class="ml-1">
+                                    <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base" [routerLink]="['new-Sku']">
+                                        <span class="mat-button-wrapper">Add SKU</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                </div> -->
+                                <div class="ml-1">
+                                    <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base" [routerLink]="['xls']">
+                                        <span class="mat-button-wrapper">Update Stock By Excel</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>#</th>                                    
+                                    <th>AWB_Number</th>
+                                    <th>Courier_Partner</th>
+                                    <th>Courier_Partner_Url</th>
+                                    <th>AWB_Number_Availability</th>
+                                    <th>Created_At</th>                                    
+                                    <!-- <th>Created at</th> -->
+                                    <!-- <th>Status</th> -->
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of dataList; let i = index" class="hoverme">
+                                        <td>
+                                            <a>{{offset+i+1}}</a>
+                                        </td>
+                                        <td>
+                                            <span >{{data?.awb_number}}</span>
+                                        </td>
+                                       
+                                        <td >{{data?.courier_partner}}</td>                                    
+                                        <td>{{data?.courier_partner_url}}</td>                                       
+                                        <td>{{data?.awb_number_availability}}</td>                                        
+                                        <td>{{data?.created_at | customdate}}</td>
+                                        <!-- <td>
+                                            <span class="badge badge-pill" style="cursor:pointer"
+                                                [ngClass]="{'badge-primary': ( product.status == 'pending' ), 
+                                                'badge-success': ( product.status == 'active' ), 
+                                                'badge-danger': ( product.status == 'inactive' )}"
+                                                (click)="statusUpdate(product?.status, product?.id,
+                                                product?.product_name)">
+                                                {{ product.status | uppercase }}
+                                            </span>
+                                        </td> -->
+                                        <td>
+                                            <div class="dropdown">
+                                               
+                                                <button type="button" class="btn btn-outline-primary dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                    Actions
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                   
+                                                    <button class="dropdown-item" ngbTooltip="Edit" [routerLink]="['update-delivery',data.id]">Edit</button>
+                                                   
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                        <tr *ngIf="!dataList.length">
+                                            <td colspan="6">
+                                                <div class="text-center">No record found.</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="7">
+                                                <div class="pull-right">
+                                                    <app-ngb-pagination [collectionSize]="totalQueryableData" [page]="page"
+                                                        (pageChange)="handlePageChange($event)"
+                                                        [isDisabled]="isListLoading">
+                                                    </app-ngb-pagination>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                       
+                                       
+                                      
+                                </tbody>
+                                <tbody *ngIf="isListLoading">
+                                    <tr>
+                                        <td colspan="6">
+                                            <app-data-loader></app-data-loader>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

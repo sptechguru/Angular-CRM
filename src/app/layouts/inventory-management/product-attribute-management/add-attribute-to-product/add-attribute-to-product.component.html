@@ -1,0 +1,84 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title" *ngIf="typeDetails">{{label}} Attributes to {{typeDetails.type}}</h4>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="productForm" (ngSubmit)="onSubmit()" novalidate autocomplete="off">
+              <ng-container>
+                <div class="row attrDataRow">
+              <div class="col-md-6">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Attribute Name:</mat-label>
+                  <mat-select matInput type='text' formControlName='id'>
+                    <mat-option value="">Select Attribute</mat-option>
+                    <mat-option [value]="attribute.id" 
+                    *ngFor="let attribute of attributeList; index as i;">{{attribute.product_attribute}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div *ngIf="productForm.controls['id'].invalid 
+                && (productForm.controls['id'].dirty 
+                || productForm.controls['id'].touched)" class="error">
+                   <span *ngIf="productForm.controls['id'].errors.required">
+                      Please select attribute name
+                   </span>
+                </div>
+              </div>
+            
+              <table class="table table-bordered" formArrayName="attribute_values">
+                <tr>
+                  <th colspan="2">Add Attribute Value:</th>
+                  <th width="150px"><button type="button" (click)="seedForm()" class="btn btn-primary">Add More</button></th>
+                </tr>
+                <tr *ngFor="let line of productForm.get('attribute_values')['controls']; let lineIndex = index" 
+                [formGroupName]="lineIndex">
+                  <td>
+                      <div class="col-md-6">
+                        <mat-form-field appearance="legacy">
+                          <mat-label>Enter Attribute Value</mat-label>
+                          <input matInput type='text' formControlName='attribute_value'>   
+                        </mat-form-field>
+                      </div>
+                  </td>
+                  <td>
+                    <button (click)="removeAttributeValue(lineIndex)" class="btn btn-danger">Remove</button>
+                  </td>
+                </tr>
+              </table>
+              <button type="button" class="btn btn-primary ml-4" [disabled]="isUserProcessing" 
+              [routerLink]="['/crm/inventory-management/product-attribute-management/attribute-value-list',productId]">
+                Back
+              </button>
+              <button class="btn btn-danger pull-right" type="submit" [disabled]="isUserProcessing || 
+              !productForm.valid">Submit</button>
+              <mat-spinner *ngIf="isUserProcessing" [diameter]="20"></mat-spinner>
+              </div>
+              </ng-container>
+            </form>
+
+
+            <!--<form [formGroup]="productForm">
+              <button (click)="seedForm()">Add More</button>
+              <hr />
+              <h1>{{dataModel.product_attribute}}</h1>
+              Attribute Name <input type="text" formControlName="product_attribute">
+            
+              <div formArrayName="attribute_values">
+                <div *ngFor="let line of productForm.get('attribute_values').controls; let lineIndex = index"
+                  [formGroupName]="lineIndex" class="line">
+                  <label>attribute value: <input formControlName="attribute_value" type="text"></label>
+                  <button (click)="removeAttributeValue(lineIndex)" class="btn btn-danger">Remove</button>
+
+                </div>
+
+              </div>
+            </form>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

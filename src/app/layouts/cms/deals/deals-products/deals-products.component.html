@@ -1,0 +1,40 @@
+<a>
+    <mat-card class="example-card category" [ngStyle]="open ? {height: '500px' } : {height: '100px',overflow: 'hidden'} ">
+        <mat-card-header >
+            <div mat-card-avatar [ngStyle]="{'background-image': 'url(' + item.product_category_image_150x150 + ')'}" class="example-header-image"></div>
+            <mat-card-title>{{item?.product_category}}</mat-card-title>
+            <div class="marginAuto">
+                <button mat-icon-button (click)="openModel()"  aria-label="Example icon button with a open in new tab icon">
+                    <mat-icon>{{open ? 'arrow_drop_up' : 'arrow_drop_down'}}</mat-icon>
+                </button>
+            </div>
+            <mat-card-subtitle>category</mat-card-subtitle>
+        </mat-card-header>
+         <mat-card-content *ngIf="open">
+                <mat-form-field appearance="outline">
+                    <mat-label>Search</mat-label>
+                    <input type="search" matInput [(ngModel)]="searchText" placeholder="Search by product">
+                    <mat-icon matSuffix>search</mat-icon>
+                    <!-- <mat-hint>Hint</mat-hint> -->
+                </mat-form-field>
+            <div >
+                <div class="my-2" >
+                    <button mat-button color="warn" (click)="addAllProducts()">Select All</button>
+                    <mat-spinner *ngIf="loading"></mat-spinner>
+                    <mat-list role="list">
+                        <mat-list-item  *ngFor="let i = index ; let data of productList | filter : searchText " >
+                        
+                                <div mat-line>{{data?.product_name}}</div>
+                                <div mat-line>{{data?.product_description}}</div>
+                         
+                        <mat-checkbox  #checked  (change)="onChange(checked.checked , data)" [checked]="isProductIsAdd(data.id)" ></mat-checkbox>
+                        </mat-list-item>
+                        
+                    </mat-list>
+                    
+                   
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</a>

@@ -1,0 +1,319 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <button mat-raised-button (click)="showAddForm()">
+                            <mat-icon>add</mat-icon>Add Customer
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <mat-tab-group animationDuration="0ms" *ngIf="!isAdd"
+                            (selectedTabChange)="onTabChanged($event);">
+
+
+                            <mat-tab label="Draft" class="container table-responsive">
+                                <table class="table">
+                                    <thead class="text-primary">
+                                        <tr>
+                                            <th scope="col">S.no</th>
+                                            <th scope="col"> Name</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Phone Number</th>
+                                            <th scope="col" class="mx-3">Edit</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of userList; let i=index ">
+                                            <th scope="row">{{i+1}}</th>
+                                            <td>{{item?.full_name}}</td>
+                                            <td>{{item?.email}}</td>
+                                            <td>{{item?.phone_number}}</td>
+                                            <td>
+                                                <button mat-button (click)="editDraftForm(item)">
+                                                    <mat-icon>edit</mat-icon>
+                                                </button>
+                                            </td>
+
+                                        </tr>
+
+                                        <tr *ngIf="!userList.length">
+                                            <td colspan="6">
+                                                <div class="text-center">No record found.</div>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </mat-tab>
+
+
+                            <mat-tab label="Approved" class="container table-responsive">
+
+                                <table class="table">
+                                    <thead class="text-primary">
+                                        <tr>
+                                            <th scope="col">S.no</th>
+                                            <th scope="col"> Name</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Phone Number</th>
+                                            <!-- <th scope="col">Business Name</th>
+                                            <th scope="col">Gst Number</th> -->
+                                            <th scope="col" class="mx-3">Edit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of userList; let i=index ">
+                                            <th scope="row">{{i+1}}</th>
+                                            <td>{{item?.full_name}}</td>
+                                            <td>{{item?.email}}</td>
+                                            <td>{{item?.phone_number}}</td>
+                                            <!-- <td>{{item?.reseller_profile?.business_name}}</td>
+                                            <td>{{item?.reseller_profile?.reseller_kyc?.gst_no}}</td> -->
+                                            <td>
+                                                <button mat-button (click)="editDraftForm(item)">
+                                                    <mat-icon>edit</mat-icon>
+                                                </button>
+                                            </td>
+
+                                        </tr>
+
+                                        <tr *ngIf="!userList.length">
+                                            <td colspan="6">
+                                                <div class="text-center">No record found.</div>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </mat-tab>
+                        </mat-tab-group>
+
+
+                        <ng-container *ngIf="isAdd">
+                            <form [formGroup]="createUserForm">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field appearance="outline" class="mb-4"
+                                            [ngClass]="{'show_input_danger':isDraftrValid || isApproveValid}">
+                                            <mat-label>Name</mat-label>
+                                            <input matInput type="text" formControlName="first_name"
+                                                [errorStateMatcher]="matcher" />
+                                            <mat-error
+                                                *ngIf="f.first_name.hasError('required') && isDraftrValid || isApproveValid ">
+                                                 Name is <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <mat-form-field appearance="outline" class="mb-4"
+                                            [ngClass]="{'show_input_danger':isDraftrValid || isApproveValid}">
+                                            <mat-label>Email</mat-label>
+                                            <input type="email" matInput formControlName="email"
+                                                [errorStateMatcher]="matcher" placeholder="Ex. pat@example.com">
+                                            <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                                            <mat-error
+                                                *ngIf="f.email.hasError('email') && !f.email.hasError('required') && isDraftrValid">
+                                                Please enter a valid email address
+                                            </mat-error>
+                                            <mat-error
+                                                *ngIf="f.email.hasError('required') && isDraftrValid || isApproveValid">
+                                                Email is <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <mat-form-field class="mb-4" appearance="outline"
+                                            [ngClass]="{'show_input_danger':isDraftrValid || isApproveValid}">
+                                            <mat-label>Mobile No.</mat-label>
+                                            <input formControlName="phone_number" type="tel" matInput placeholder="+91"
+                                                maxlength="10" minlength="9">
+                                            <mat-error
+                                                *ngIf="f.phone_number.hasError('required')  && isDraftrValid || isApproveValid">
+                                                Mobile No. is <strong>required</strong>
+                                            </mat-error>
+                                            <mat-error
+                                                *ngIf="f.phone_number.hasError('maxLength') && !f.phone_number.hasError('required')  && isDraftrValid">
+                                                Please enter a valid Mobile No atleast 10 digits.
+                                            </mat-error>
+                                            <mat-error
+                                                *ngIf="f.phone_number.hasError('minlength') && !f.phone_number.hasError('required')  && isDraftrValid">
+                                                Please enter a valid Mobile No.
+                                            </mat-error>
+                                            <!-- <mat-error  *ngIf="f.phone_number.errors.pattern">Please, Enter 10 digit Mobile Number.</mat-error> -->
+                                        </mat-form-field>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <mat-form-field appearance="outline" class="mb-4"
+                                            [ngClass]="{'show_input_danger':!isDraftrValid || isApproveValid}">
+                                            <mat-label>Client Category</mat-label>
+                                            <mat-select matInput formControlName="user_group">
+                                                <mat-option value="A">Reseller</mat-option>
+                                                <mat-option value="B">Direct Customer</mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="!isDraftrValid || isApproveValid">
+                                                Client Category is <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <mat-form-field appearance="outline" class="mb-4"
+                                            [ngClass]="{'show_input_danger':!isDraftrValid || isApproveValid}">
+                                            <mat-label>Business Name</mat-label>
+                                            <input matInput type="text" formControlName="business_name"
+                                                [errorStateMatcher]="matcher" />
+                                            <mat-error *ngIf="!isDraftrValid || isApproveValid">
+                                                Business Name is <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <mat-form-field appearance="outline" class="mb-4"
+                                            [ngClass]="{'show_input_danger':!isDraftrValid || isApproveValid}">
+                                            <mat-label>Title</mat-label>
+                                            <input matInput type="text" formControlName="title"
+                                                [errorStateMatcher]="matcher" />
+                                            <mat-error *ngIf="!isDraftrValid || isApproveValid">
+                                                Title is <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+
+                                    <div class="col-md-6 ">
+                                        <mat-form-field appearance="outline" class="mb-4"
+                                            [ngClass]="{'show_input_danger':!isDraftrValid || isApproveValid}">
+                                            <mat-label>Address</mat-label>
+                                            <input matInput formControlName="address_line_1">
+                                            <mat-error *ngIf="!isDraftrValid || isApproveValid">
+                                                Address is <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+
+
+                                    <div class="col-md-6">
+                                        <mat-form-field appearance="outline" class="mb-4"
+                                            [ngClass]="{'show_input_danger':!isDraftrValid || isApproveValid}">
+                                            <mat-label>Pincode</mat-label>
+                                            <input matInput type="text" formControlName="pincode" maxlength="6"
+                                                minlength="6" />
+                                            <mat-error *ngIf="!isDraftrValid || isApproveValid">
+                                                Pincode is <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-6 ">
+                                        <mat-form-field appearance="outline" class="mb-4"
+                                            [ngClass]="{'show_input_danger':!isDraftrValid || isApproveValid}">
+                                            <mat-label>State</mat-label>
+                                            <mat-select formControlName="state" placeholder="State" readonly
+                                                (selectionChange)="stateChange($event)" #singleSelect>
+                                                <mat-option appearance="outline">
+                                                    <ngx-mat-select-search [formControl]="stateFilterCtrl" readonly
+                                                        placeholderLabel="Select State"
+                                                        noEntriesFoundLabel="No matching state found">
+                                                    </ngx-mat-select-search>
+                                                </mat-option>
+                                                <mat-option *ngFor="let state of filteredStates | async"
+                                                    value="{{state.id}}">
+                                                    {{state.state}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="!isDraftrValid || isApproveValid">
+                                                State is <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <mat-form-field appearance="outline" class="mb-4"
+                                            [ngClass]="{'show_input_danger':!isDraftrValid || isApproveValid}">
+                                            <mat-label>City</mat-label>
+                                            <mat-select formControlName="city" placeholder="City" readonly
+                                                #singleSelect>
+                                                <mat-option appearance="outline">
+                                                    <ngx-mat-select-search [formControl]="cityFilterCtrl" readonly
+                                                        placeholderLabel="Select City"
+                                                        noEntriesFoundLabel="No matching city found">
+                                                    </ngx-mat-select-search>
+                                                </mat-option>
+                                                <mat-option *ngFor="let city of filteredCities | async"
+                                                    value="{{city.id}}">
+                                                    {{city.city}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="!isDraftrValid || isApproveValid">
+                                                City is <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <mat-form-field appearance="outline" class="mb-4"
+                                            [ngClass]="{'show_input_danger':!isDraftrValid || isApproveValid}">
+                                            <mat-label>Gst Number</mat-label>
+                                            <input matInput type="text" formControlName="gst_no"
+                                                [errorStateMatcher]="matcher" maxlength="15" />
+                                            <mat-error
+                                                *ngIf="f.gst_no.hasError('maxLength') && !f.gst_no.hasError('required') && !isDraftrValid ">
+                                                Please enter a valid Gst Number.
+                                            </mat-error>
+                                            <mat-error
+                                                *ngIf="f.gst_no.hasError('minlength') && !f.gst_no.hasError('required') && !isDraftrValid">
+                                                Please enter a valid Gst Number.
+                                            </mat-error>
+                                            <mat-error
+                                                *ngIf="f.gst_no.hasError('required') && !isDraftrValid || isApproveValid">
+                                                Gst Number is <strong>required</strong>
+                                            </mat-error>
+
+
+                                        </mat-form-field>
+                                    </div>
+
+                                </div>
+
+                                <button *ngIf="!isAdd"  type="submit" (click)="userDraftMethod()"
+                                    class="btn btn-dark mx-auto">Draft
+                                </button>
+
+                                <button *ngIf="!isAdd"  type="submit" (click)="userApproveMethod()"
+                                    class="btn btn-success mx-3">Save
+                                    And Send
+                                </button>
+
+                                <!--............. updates........ -->
+                                <button *ngIf="isAdd" type="submit" (click)="userUpdateDraftMethod()"
+                                    class="btn btn-dark mx-auto">Draft
+                                </button>
+
+                                <button *ngIf="isAdd" type="submit" (click)="userUpdateApproveMethod()"
+                                    class="btn btn-success mx-3">Save
+                                    And Send
+                                </button>
+
+                                <button type="submit" (click)="showAddForm()" class="btn btn-danger"
+                                    style="margin-left: 86%; margin-top: -4%;">Cancel
+                                </button>
+                            </form>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

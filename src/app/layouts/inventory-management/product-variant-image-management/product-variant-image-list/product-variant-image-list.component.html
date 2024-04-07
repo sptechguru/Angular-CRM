@@ -1,0 +1,121 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Product Variant Image List</h4>
+                        <p class="card-category"> List of all Product Variant Images.</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="">
+                                    <app-common-search (onQuery)="searchUserByQuery($event)"
+                                        [placeholderText]="'Search'" [isSearchAsTypeOn]="true">
+                                    </app-common-search>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-4">
+                                
+                                    <!-- <ng-multiselect-dropdown
+                                    [settings]="dropdownSettings"
+                                    [placeholder]="'custom placeholder'"
+                                    [data]="dropdownList"
+                                    [(ngModel)]="selectedItems"
+                                    (onSelect)="onItemSelect($event)"
+                                  >
+                                  </ng-multiselect-dropdown> --
+                            </div> -->
+                            <div class="col-md-8">
+                                <div class="">
+                                    <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base mb-2" 
+                                    [routerLink]="['/crm/inventory-management/product-variant-management/variant-list', variantId]">
+                                        <span class="material-icons">
+                                        arrow_back
+                                        </span> 
+                                        <span class="mat-button-wrapper">Back</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                    <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base" 
+                                    [routerLink]="['/crm/inventory-management/product-variant-image-management/add-edit-product-variant-image', variantId, image_Id]" 
+                                    (click)="saveVariant();">
+                                        <span class="mat-button-wrapper">Add Product Variant Image</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>#</th>
+                                    <th>Variant Image</th>
+                                    <th>Is Featured?</th>
+                                    <th>Created at</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody *ngIf="!isListLoading">
+                                    <tr *ngFor="let variantimage of dataList; let i = index">
+                                        <td>{{i+1}}
+                                            <!--<a [routerLink]="['/crm/order-management/order-details', 'test']">{{variantimage?.id}}</a>-->
+                                        </td>
+                                        <td><img class="img-thumbnail w-150" src="{{variantimage.product_variant_image ? variantimage.product_variant_image : '/assets/img/no_preview.jpg'}}"></td>
+                                        <td>{{variantimage?.is_feature}}</td>
+                                        <td>{{variantimage?.created_at | customdate}}</td>
+                                        <td>
+                                            <span class="badge badge-pill"
+                                                [ngClass]="{'badge-primary': ( variantimage.status == 'pending' ), 'badge-success': ( variantimage.status == 'active' ), 'badge-danger': ( variantimage.status == 'inactive' )}">{{ variantimage.status | uppercase }}</span>
+                                        </td>
+                                        <td>
+                                            
+                                            <!-- <button (click)="deleteCategory(category.id,category.productvariantimage_category)" class="btn btn-primary">Delete</button> -->
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-outline-primary dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                    Actions
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" ngbTooltip="Delete" (click)="deleteVariantImage(variantimage.id,variantimage.product_image);"
+                                                        href="javascript:void(0)">Delete</a>
+                                                        <a (click)="saveToLocal(variantimage);" class="dropdown-item" ngbTooltip="Edit"  
+                                                        [routerLink]="['/crm/inventory-management/product-variant-image-management/add-edit-product-variant-image',
+                                                        variantId,image_Id,variantimage.id]">Edit</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!dataList.length">
+                                        <td colspan="6">
+                                            <div class="text-center">No record found.</div>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!dataList.length">
+                                        <td colspan="7">
+                                            <div class="pull-right">
+                                                <app-ngb-pagination [collectionSize]="totalQueryableData" [page]="page"
+                                                    (pageChange)="handlePageChange($event)"
+                                                    [isDisabled]="isListLoading">
+                                                </app-ngb-pagination>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isListLoading">
+                                    <tr>
+                                        <td colspan="6">
+                                            <app-data-loader></app-data-loader>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

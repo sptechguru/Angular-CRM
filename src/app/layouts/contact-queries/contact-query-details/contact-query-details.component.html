@@ -1,0 +1,87 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title ">Contact Query Detail</h4>
+                  </div>
+                  <div class="card-body">
+                      <div class="row">
+                          <div class="col-md-4">
+                              <table class="table table-borderless">
+                                  <tbody>
+                                      <tr>
+                                          <td class="fw_600">
+                                             Name:
+                                          </td>
+                                          <td>
+                                             {{name}}
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="fw_600">
+                                            Company:
+                                        </td>
+                                        <td>
+                                          {{company_name}}
+                                        </td>
+                                    </tr>
+                                      <tr>
+                                          <td class="fw_600">
+                                            Message:
+                                          </td>
+                                          <td>
+                                            {{message}}
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                        <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base" 
+                                        (click)="router.navigate(['/crm/contact-queries']);">
+                                            <span class="mat-button-wrapper">Back</span>
+                                            <div class="mat-ripple mat-button-ripple"></div>
+                                            <div class="mat-button-focus-overlay"></div>
+                                        </button>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                          <div class="col-md-4">
+                              <table class="table table-borderless">
+                                  <tbody>
+                                      <tr>
+                                          <td class="fw_600">
+                                              Email:
+                                          </td>
+                                          <td>
+                                              {{email}}
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td class="fw_600">
+                                            Contact:
+                                          </td>
+                                          <td>
+                                              {{contact_number}}
+                                          </td>
+                                      </tr>
+                                     <!-- <tr>
+                                          <td class="fw_600">
+                                             Created Date:
+                                          </td>
+                                          <td>
+                                            {{created_at | customdate}}  
+                                          </td>
+                                      </tr>-->
+                                  </tbody>
+                              </table>
+                          </div>
+                        
+                      </div>
+                    
+                   </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

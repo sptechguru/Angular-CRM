@@ -1,0 +1,257 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" color="#fff"
+    template="<img src='https://i.gifer.com/origin/b4/b4d657e7ef262b88eb5f7ac021edda87.gif' style='width:100px;' />">
+</ngx-spinner>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats totalcard">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">stream</i>
+                        </div>
+                        <p class="card-category">Total Products</p>
+                        <h3 class="card-title">{{prodcutdata.totalProducts}} </h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">update</i> Just Updated
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">store</i>
+                        </div>
+                        <p class="card-category">Active Products </p>
+                        <h3 class="card-title">{{prodcutdata.totalActiveProducts}}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">update</i> Just Updated
+                            <!-- <app-pick-date-rang [tableMode]="false">
+                                <i class="material-icons">date_range</i>
+                            </app-pick-date-rang> -->
+                        </div>
+                        <button class="btn btn-sm btn-success btn_download" (click)="getActiveProdcuts()"><i
+                                class="material-icons docicon">download</i> </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">info_outline</i>
+                        </div>
+                        <p class="card-category">Inactive Products</p>
+                        <h3 class="card-title">{{prodcutdata.totalInactiveProducts}}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">update</i> Just Updated
+                        </div>
+                        <button class="btn btn-sm btn-danger btn_download" (click)="getInActiveProdcuts()"><i
+                                class="material-icons docicon">download</i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-info card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-twitter"></i>
+                        </div>
+                        <p class="card-category">Followers</p>
+                        <h3 class="card-title">+245</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">update</i> Just Updated
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="col-md-3">
+
+                <div class="belicon">
+                    <div class="badges" *ngIf="totalcount">
+                        {{notficationdata?.totalCounts}}
+                    </div>
+                    <i [matMenuTriggerFor]="menu" class="material-icons icons"
+                        (click)="getProdcutsNotification()">notifications</i>
+                </div>
+                <div class="mx-5">
+                    <mat-menu #menu="matMenu" yPosition="below">
+                        <div class="card content" *ngFor="let item of notficationdata?.variants;">
+                            <a target="_blank" [routerLink]="['edit-product',item?.master_product_id]">
+                                <span mat-menu-item><b>Product name </b>:{{item?.variant_name}}</span>
+                                <span mat-menu-item><b>Ready Stock</b> :{{item?.reserve_stock}}</span>
+                                <span mat-menu-item><b>Sku Code</b> :{{item?.sku_code}}</span>
+                            </a>
+                        </div>
+                    </mat-menu>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Product List</h4>
+                        <p class="card-category"> List of all Products.</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="">
+                                    <app-common-search (onQuery)="searchUserByQuery($event)"
+                                        [value]="queryObject?.search_text" [placeholderText]="'Search'"
+                                        [isSearchAsTypeOn]="true">
+                                    </app-common-search>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+
+                                <div class="d-inline-block w-75">
+                                    <a #link download></a>
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Select Product fields for XLS</mat-label>
+                                        <mat-select #select multiple>
+                                            <mat-option [value]="coloum.value"
+                                                *ngFor="let coloum of coloumList; index as i;">{{coloum.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="d-inline-block w-25">
+                                    <button mat-mini-fab color="warn" class="ml-2"
+                                        (click)="generateXLS(select.value,link)">Go</button>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="ml-1">
+                                    <button
+                                        class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base"
+                                        [routerLink]="['new-product']">
+                                        <span class="mat-button-wrapper">Add New Product</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                </div>
+                                <div class="ml-1">
+                                    <button
+                                        class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base"
+                                        [routerLink]="['add-edit-product']">
+                                        <span class="mat-button-wrapper">Add Product</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                </div>
+                                <div>
+                                    <button
+                                        class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base"
+                                        [routerLink]="['xls']">
+                                        <span class="mat-button-wrapper">Add by XLS</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>#</th>
+                                    <th>Category</th>
+                                    <th>Product Name</th>
+                                    <th>Product Description</th>
+                                    <th>Created at</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let product of dataList; let i = index">
+                                        <td>
+                                            <a>{{offset+i+1}}</a>
+                                        </td>
+                                        <td>
+                                            <span
+                                                *ngIf="product?.master_product_category">{{product?.master_product_category.product_category}}</span>
+                                        </td>
+                                        <td>{{product?.product_name}}</td>
+                                        <td>
+                                            <ng-container *ngIf="product?.product_description">
+                                                {{product?.product_description | slice:0:40}}
+                                                {{product?.product_description.length > 39 ? '...':''}}
+                                            </ng-container>
+
+                                        </td>
+                                        <td>{{product?.created_at | customdate}}</td>
+                                        <td>
+                                            <span class="badge badge-pill" style="cursor:pointer" [ngClass]="{'badge-primary': ( product.status == 'pending' ), 
+                                                'badge-success': ( product.status == 'active' ), 
+                                                'badge-danger': ( product.status == 'inactive' )}" (click)="statusUpdate(product?.status, product?.id,
+                                                product?.product_name)">
+                                                {{ product.status | uppercase }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-outline-primary dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                    Actions
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a (click)="saveToLocal(product);" class="dropdown-item"
+                                                        ngbTooltip="Edit"
+                                                        [routerLink]="['add-edit-product',product.id]">Edit</a>
+                                                    <a (click)="saveToLocal(product);" class="dropdown-item"
+                                                        ngbTooltip="Edit" [routerLink]="['edit-product',product.id]">New
+                                                        Edit</a>
+                                                    <a (click)="saveToLocal(product);" class="dropdown-item"
+                                                        ngbTooltip="Edit"
+                                                        [routerLink]="['product-details',product.id]">View Details</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!dataList.length">
+                                        <td colspan="6">
+                                            <div class="text-center">No record found.</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="pull-right">
+                                                <app-ngb-pagination [collectionSize]="totalQueryableData" [page]="page"
+                                                    (pageChange)="handlePageChange($event)"
+                                                    [isDisabled]="isListLoading">
+                                                </app-ngb-pagination>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isListLoading">
+                                    <tr>
+                                        <td colspan="6">
+                                            <app-data-loader></app-data-loader>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

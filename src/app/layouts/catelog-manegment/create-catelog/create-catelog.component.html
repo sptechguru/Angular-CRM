@@ -1,0 +1,21 @@
+
+<h1 mat-dialog-title>Create Notification</h1>
+<div  mat-dialog-content>
+<form #form="ngForm">
+    <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input required name="title" [(ngModel)]="name" matInput>
+    </mat-form-field>
+    
+
+    <label class="file">
+        <input type="file" accept=".ppt, .pptx,.pdf"  id="file" (change)="handleFileInput($event.target.files)" aria-label="File browser example">
+        <span class="file-custom"></span>
+    </label>
+</form>
+</div>
+<div mat-dialog-actions [hidden]="saving">
+    <button mat-button mat-dialog-close>Close</button>
+    <button mat-button (click)="createNotification(form);" [disabled]="form.invalid">Save</button>
+</div>
+<mat-spinner [hidden]="!saving"></mat-spinner>

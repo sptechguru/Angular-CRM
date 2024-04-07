@@ -1,0 +1,53 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "mat-daterangepicker/mat-daterangepicker.theme.scss";
+
+@include mat-daterangepicker-theme($theme);
+
+.validation-text {
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.passwordlabel {
+  display: block;
+  position: relative;
+}
+.eyeIcon {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.passwordlabel .form-control {
+  padding-right: 47px;
+}
+
+.passwordlabel input.form-control.is-invalid {
+  background-image: none;
+}
+.form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: #fff !important;
+}
+
+.error {
+  color: red;
+}
+.cp{
+  cursor: pointer!important;
+}
+.myPanelClass::ng-deep{
+  margin-top: 30px !important; 
+  
+}
+
+::ng-deep .mat-option {
+  width: auto !important;
+}
+

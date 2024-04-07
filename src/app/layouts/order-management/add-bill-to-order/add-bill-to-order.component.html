@@ -1,0 +1,43 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Add Shipment</h4>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="addEditBillForm" (ngSubmit)='onSubmit()' novalidate>
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <label class="d-block">Challan</label>
+                  <input placeholder="Image" type="file" (change)="onFileChange($event,'challan')" accept="application/pdf"/>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                  <label class="d-block">Invoice</label>
+                  <input placeholder="Image" type="file" (change)="onFileChange($event,'invoice')" accept="application/pdf"/>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                  <label class="d-block">Eway Bill</label>
+                  <input placeholder="Image" type="file" (change)="onFileChange($event,'eway_bill')" accept="application/pdf"/>
+                </div>
+
+              </div>
+              <button type="submit"  [disabled]="isUserProcessing" class="btn btn-danger pull-right">
+                <mat-spinner *ngIf="isUserProcessing" [diameter]="20"></mat-spinner>
+                <span *ngIf="!isUserProcessing">Submit</span>
+              </button>
+              <button type="button" [disabled]="isUserProcessing" (click)="router.navigate(['/crm/order-management/bill-list', order_id]);" 
+              class="btn btn-danger pull-right">
+                Back
+              </button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

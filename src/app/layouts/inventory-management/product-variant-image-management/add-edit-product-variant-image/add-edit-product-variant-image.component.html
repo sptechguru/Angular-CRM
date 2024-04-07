@@ -1,0 +1,49 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">{{pageLabel}} Product Variant Image</h4>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="addEditForm" (ngSubmit)='onSubmit()' novalidate>
+              <div class="row">
+                <div class="col-md-6">
+                  <input placeholder="Image" type="file" #fileUpload (change)="onFileChange($event.target.files)"/>
+                  <div class="img-wrap mt-2" *ngIf="id && editViewImg">
+                    <hr/>
+                    <p>Current Image</p>
+                    <img [src]="editViewImg" class="w-150 border"/>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <!-- <mat-select [formControl]="is_feature" name="is_feature" matInput placeholder="Parent Category">
+                      <mat-option value="category.id" *ngFor="let category of dataList; index as i;">category.product_category</mat-option>
+                    </mat-select> -->
+                   <mat-label>Is Feature Image?</mat-label>
+                    <select [formControl]="is_feature" matNativeControl>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+
+                  </mat-form-field>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-danger pull-right" [disabled]="isUserProcessing">
+                <mat-spinner *ngIf="isUserProcessing" [diameter]="20"></mat-spinner>
+                Submit
+              </button>
+              <button type="button"  class="btn btn-primary ml-4" [disabled]="isUserProcessing" 
+              [routerLink]="['/crm/inventory-management/product-variant-image-management/variant-image-list', variant_id, image_id]">
+                Back
+              </button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

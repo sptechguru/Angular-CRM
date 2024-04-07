@@ -1,0 +1,101 @@
+<div class="main-content">
+	<!--linear-->
+	<mat-horizontal-stepper labelPosition="bottom"   #stepper>
+		<!--[stepControl]="basicInformation.basicInfoForm"-->
+		<mat-step  >
+			<ng-template matStepLabel>Basic Information</ng-template>
+			<div>
+				<app-product-basic-information #basicInformation [stepper]="stepper" (data)="updateProductDataBasicInfo($event)" (variantEditData)="getVaraintEditdata($event)"></app-product-basic-information>
+			</div>
+		</mat-step>
+	
+		<mat-step >
+			<ng-template matStepLabel>Product Variant</ng-template>
+			<div>
+				<app-new-variant [stepper]="stepper" [variantId]="variantId" [variantData]="variantDataList" (variantLength)="getVariantLength($event)" (variantAddUpdate)="getvariantAddUpdate($event)" (variantIdList)="getVariantIdList($event)"></app-new-variant>
+			</div>
+		</mat-step>
+		<mat-step>
+			<ng-template matStepLabel>Variant Lead</ng-template>
+			<div>
+				<app-varient-lead [stepper]="stepper" [variantLength]="variantLength" [variantLeadList]="variantLead" [variantIdList]="variantIdList" [variantAddUpdate]="variantAddUpdate"></app-varient-lead>
+			</div>
+		</mat-step>
+		<mat-step>
+			<ng-template matStepLabel>Variant Offer</ng-template>
+			<div>
+				<app-varient-offer [stepper]="stepper" [variantLength]="variantLength" [variantOffer]="variantOffer" [variantIdList]="variantIdList" [variantAddUpdate]="variantAddUpdate"></app-varient-offer>
+			</div>
+		</mat-step>
+		<mat-step>
+			<ng-template matStepLabel>Variant Image</ng-template>
+			<div>
+				<app-varient-image [stepper]="stepper" [variantLength]="variantLength" [variantImageList]="variantImage" [variantIdList]="variantIdList" [variantAddUpdate]="variantAddUpdate"></app-varient-image>
+			</div>
+		</mat-step>
+		<!--<mat-step [stepControl]="productShiping.shipingForm">
+			<ng-template matStepLabel>Product Shiping</ng-template>
+			<div>
+				<app-product-shiping #productShiping [stepper]="stepper" (data)="updateProductData($event)"></app-product-shiping>
+			</div>
+		</mat-step>
+	-->
+		<!--
+		<mat-step>
+			<ng-template matStepLabel>Product Price</ng-template>
+			<div>
+				<app-product-price></app-product-price>
+			</div>
+		</mat-step>
+		<mat-step [stepControl]="productDetails.productDetailsForm">
+			<ng-template matStepLabel>Product Details</ng-template>
+			<div>
+				<app-new-product-details #productDetails [stepper]="stepper" (data)="updateProductData($event)"></app-new-product-details>
+			</div>
+		</mat-step>
+		<mat-step >
+			<ng-template matStepLabel>Product Specification</ng-template>
+			<div>
+				<app-product-specification [stepper]="stepper" (data)="updateProductData($event)"></app-product-specification>
+			</div>
+		</mat-step>
+	-->
+		<!--<mat-step >
+			<ng-template matStepLabel>Product Image</ng-template>
+			<div>
+				<app-product-image></app-product-image>
+			</div>
+		</mat-step>
+	-->
+	<!---	<mat-step [stepControl]="productCatalogue.productCatalogueForm">
+			<ng-template matStepLabel>Product Catalogue</ng-template>
+			<div>
+				<app-product-catalogue #productCatalogue [stepper]="stepper" (data)="updateProductData($event)"></app-product-catalogue>
+			</div>
+		</mat-step>
+		<mat-step [stepControl]="customization.productConfigrationForm">
+			<ng-template matStepLabel>Customization Configration</ng-template>
+			<div>
+				<app-product-configration #customization [stepper]="stepper" (data)="updateProductData($event)"></app-product-configration>
+			</div>
+		</mat-step>
+		<mat-step [stepControl]="productVariant.varientForm">
+			<ng-template matStepLabel>Product Varient</ng-template>
+			<div>
+				<app-product-varient #productVariant [stepper]="stepper" (data)="updateProductData($event)"></app-product-varient>
+			</div>
+		</mat-step>
+	-->
+	<!--
+		<mat-step >
+			<ng-template matStepLabel>Product Action</ng-template>
+			<div>
+				<app-action [stepper]="stepper" [variantId]="variantId" [product]="product" (data)="updateProductData($event)"></app-action>
+			</div>
+		</mat-step>
+	-->
+
+		</mat-horizontal-stepper>
+</div>
+
+

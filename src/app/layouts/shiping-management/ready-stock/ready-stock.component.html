@@ -1,0 +1,161 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">stream</i>
+                        </div>
+                        <p class="card-category">Active Reseller</p>
+                        <h3 class="card-title">455
+                        </h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">update</i> Just Updated
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">store</i>
+                        </div>
+                        <p class="card-category">Sales</p>
+                        <h3 class="card-title">50</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <app-pick-date-rang [tableMode]="false">
+                                <i class="material-icons">date_range</i>
+                            </app-pick-date-rang>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">info_outline</i>
+                        </div>
+                        <p class="card-category">Pending kyc</p>
+                        <h3 class="card-title">45</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">update</i> Just Updated
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-info card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-twitter"></i>
+                        </div>
+                        <p class="card-category">Followers</p>
+                        <h3 class="card-title">+245</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">update</i> Just Updated
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Ready Stock</h4>
+                        <p class="card-category"> List of all Ready Stock</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="">
+                                    <app-common-search (onQuery)="searchUserByQuery($event)" [value]="queryObject?.search_text"
+                                        [placeholderText]="'Search'" [isSearchAsTypeOn]="true">
+                                    </app-common-search>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <!--<div class="col-md-4">
+                                <div class="">
+                                    <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base" (click)="openDialog()">
+                                        <span class="mat-button-wrapper">Add Stock</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                </div>
+                            </div>
+                        -->
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>#</th>
+                                    <th>Source Zone</th>
+                                    <th>Created at</th>
+                                    <th>Delivery Zone</th>
+                                    <th>ETA</th>
+                                    <th>MTO</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let product of dataList; let i = index">
+                                        <td>
+                                            <a>{{offset+i+1}}</a>
+                                        </td>
+                                        <td>
+                                            <span>{{product?.source_zones[0].name}}</span>
+                                        </td>
+                                        <td>{{product?.created_at | customdate}}</td>
+                                        <td>{{product?.name}}</td>
+                                        <td>
+                                            {{product?.source_zones[0].shipping_timing.min_ready_eta+'-'+product?.source_zones[0].shipping_timing.max_ready_eta}} days
+                                        </td>
+                                        <td>{{product?.source_zones[0].shipping_timing.min_mto_eta+'-'+product?.source_zones[0].shipping_timing.max_mto_eta}} days</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-outline-primary dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                    Actions
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a (click)="viewStock(product)" class="dropdown-item" ngbTooltip="View">View</a> 
+                                                    <a (click)="editStock(product)" class="dropdown-item" ngbTooltip="Edit" >Edit</a>
+                                                    <a (click)="deleteStock(product);" class="dropdown-item" ngbTooltip="Delete">Delete</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!dataList.length">
+                                        <td colspan="6">
+                                            <div class="text-center">No record found.</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isListLoading">
+                                    <tr>
+                                        <td colspan="6">
+                                            <app-data-loader></app-data-loader>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

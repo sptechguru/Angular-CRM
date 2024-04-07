@@ -1,0 +1,61 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">{{pageLabel}} Product Attribute</h4>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="addEditForm" (ngSubmit)='onSubmit()' novalidate>
+
+              <div class="row">
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input formControlName='product_attribute' matInput placeholder="Product Attribute Name" type="text"/>
+                    <div *ngIf="addEditForm.controls['product_attribute'].invalid 
+                    && (addEditForm.controls['product_attribute'].dirty 
+                    || addEditForm.get('product_attribute').touched)" class="error">
+                       <mat-error *ngIf="addEditForm.controls['product_attribute'].errors.required">
+                         Product attribute is required
+                       </mat-error>
+                    </div>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input formControlName='product_attribute_description' matInput placeholder="Product Attribute Description" type="text"/>
+                    <div *ngIf="addEditForm.controls['product_attribute_description'].invalid 
+                    && (addEditForm.controls['product_attribute_description'].dirty 
+                    || addEditForm.get('product_attribute_description').touched)" class="error">
+                       <mat-error *ngIf="addEditForm.controls['product_attribute_description'].errors.required">
+                         Product attribute description is required
+                       </mat-error>
+                    </div>
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+              <button type="submit" class="btn btn-danger pull-right" [disabled]="isUserProcessing && !addEditForm.valid" >
+                <mat-spinner *ngIf="isUserProcessing" [diameter]="20"></mat-spinner>
+                Submit
+              </button>
+              <button type="button" *ngIf="pid == ''" class="btn btn-primary ml-4" [disabled]="isUserProcessing" 
+              [routerLink]="['/crm/inventory-management/product-attribute-management']">
+                Back
+              </button>
+              <button type="button" *ngIf="pid" class="btn btn-primary ml-4" [disabled]="isUserProcessing" 
+              [routerLink]="['/crm/inventory-management/product-attribute-management/attribute-value-list', pid]">
+                Back
+              </button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

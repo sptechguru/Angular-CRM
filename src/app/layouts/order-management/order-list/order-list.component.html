@@ -1,0 +1,398 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <!-- <app-create-order></app-create-order> -->
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">store</i>
+                        </div>
+                        <p class="card-category">Total Orders</p>
+                        <h3 class="card-title">{{totalorder}}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <!-- <i class="material-icons">update</i> Just Updated -->
+                            <app-pick-date-rang (onQuery)="getTotalOrders($event)" [tableMode]="false">
+                                <i class="material-icons">date_range</i>
+                            </app-pick-date-rang>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">store</i>
+                        </div>
+                        <p class="card-category">Pending Orders</p>
+                        <h3 class="card-title">{{pendingorder}}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <!-- <i class="material-icons">update</i> Just Updated -->
+                            <app-pick-date-rang (onQuery)="getPendingOrders($event)" [tableMode]="false">
+                                <i class="material-icons">date_range</i>
+                            </app-pick-date-rang>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">store</i>
+                        </div>
+                        <p class="card-category">Cancelled Orders</p>
+                        <h3 class="card-title">{{canceledorder}}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <!-- <i class="material-icons">update</i> Just Updated -->
+                            <app-pick-date-rang (onQuery)="getCancelOrders($event)" [tableMode]="false">
+                                <i class="material-icons">date_range</i>
+                            </app-pick-date-rang>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">store</i>
+                        </div>
+                        <p class="card-category">Create Orders</p>
+                        <h3 class="card-title">{{createorder}}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <!-- <i class="material-icons">update</i> Just Updated -->
+                            <app-pick-date-rang (onQuery)="getCreateOrders($event)" [tableMode]="false">
+                                <i class="material-icons">date_range</i>
+                            </app-pick-date-rang>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats revcard">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">store</i>
+                        </div>
+                        <p class="card-category"> Processing Orders</p>
+                        <h3 class="card-title">{{processingorder}}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <!-- <i class="material-icons">update</i> Just Updated -->
+                            <app-pick-date-rang (onQuery)="getProcessingOrders($event)" [tableMode]="false">
+                                <i class="material-icons">date_range</i>
+                            </app-pick-date-rang>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats revcard">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">store</i>
+                        </div>
+                        <p class="card-category"> &nbsp;Complete Orders </p>
+                        <h3 class="card-title">{{completeorder}}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <!-- <i class="material-icons">update</i> Just Updated -->
+                            <app-pick-date-rang (onQuery)="getCompleteOrders($event)" [tableMode]="false">
+                                <i class="material-icons">date_range</i>
+                            </app-pick-date-rang>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-6 col-sm-6 ">
+                <div class="card card-stats revcard">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">monetization_on</i>
+                        </div>
+                        <p class="card-category">Revenue</p>
+                        <h3 class="card-title">₹{{revenue}}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <app-pick-date-rang (onQuery)="getRevenueCalenderWise($event)" [tableMode]="false">
+                                <i class="material-icons">date_range</i>
+                            </app-pick-date-rang>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Order List</h4>
+                        <p class="card-category"> List of all orders.</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="">
+                                    <app-common-search [value]="queryObject?.search_text"
+                                        (onQuery)="searchUserByQuery($event)" [placeholderText]="'Search by order No.'"
+                                        [isSearchAsTypeOn]="true">
+                                    </app-common-search>
+
+                                    <!-- <app-common-search [value]="queryObject?.transaction_number" (onQuery)="searchTransactionNumber($event)" [placeholderText]="'Search by Transaction No.'"
+                                        [isSearchAsTypeOn]="true">
+                                    </app-common-search> -->
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-6">
+                                <div class="btn-group" dropdown>
+                                    <button id="button-basic" dropdownToggle type="button"
+                                        class="btn btn-primary dropdown-toggle px-3" aria-controls="dropdown-basic">
+                                        Payment Status <span class="caret"></span>
+                                    </button>
+                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
+                                        aria-labelledby="button-basic">
+                                        <li role="menuitem" *ngFor="let item of sortByPaymentStatusObject"><a
+                                                class="dropdown-item"
+                                                (click)="sortByPaymentStatus(item.value)">{{item.key}}</a></li>
+                                    </ul>
+                                </div>
+                                <div class="btn-group" dropdown>
+                                    <button id="button-basic" dropdownToggle type="button"
+                                        class="btn btn-primary dropdown-toggle px-3" aria-controls="dropdown-basic">
+                                        Delivery Type <span class="caret"></span>
+                                    </button>
+                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
+                                        aria-labelledby="button-basic">
+                                        <li role="menuitem" *ngFor="let item of sortDeliveryByTypeObject"><a
+                                                class="dropdown-item"
+                                                (click)="sortDeliveryByType(item.value)">{{item.key}}</a></li>
+                                    </ul>
+                                </div>
+                                <div class="btn-group" dropdown>
+                                    <button id="button-basic" dropdownToggle type="button"
+                                        class="btn btn-primary dropdown-toggle px-3" aria-controls="dropdown-basic">
+                                        Order Status <span class="caret"></span>
+                                    </button>
+                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
+                                        aria-labelledby="button-basic">
+                                        <li role="menuitem" *ngFor="let item of sortOrderByStatusObject"><a
+                                                class="dropdown-item"
+                                                (click)="sortOrderByStatus(item.value)">{{item.key}}</a></li>
+                                    </ul>
+                                </div>
+                                <div class="btn-group" dropdown>
+                                    <button id="button-basic" dropdownToggle type="button"
+                                        class="btn btn-primary dropdown-toggle px-3" aria-controls="dropdown-basic">
+                                        Item Branding <span class="caret"></span>
+                                    </button>
+                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
+                                        aria-labelledby="button-basic">
+                                        <li role="menuitem" *ngFor="let item of sortIsItemBrandingObject"><a
+                                                class="dropdown-item"
+                                                (click)="sortIsItemBranding(item.value)">{{item.key}}</a></li>
+                                    </ul>
+                                </div>
+
+                                 <button  class="btn btn-primary px-3" [routerLink]="['/crm/order-management/create-order']">
+                                    Create Order </button>
+                                <mat-chip-list #chipList aria-label="Fruit selection">
+                                    <mat-chip *ngFor="let item of getFilterArray " [selectable]="selectable"
+                                        [removable]="removable" (removed)="removeFilter(item.value)">
+                                        {{item.key}}
+                                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                    </mat-chip>
+
+                                </mat-chip-list>
+
+                            </div>
+                            <!-- <button id="button-basic" dropdownToggle type="button"
+                            class="btn btn-primary dropdown-toggle px-3" aria-controls="dropdown-basic">
+                            Create Order<span class="caret"></span>
+                        </button> -->
+                            <div class="col-md-4">
+                                <app-pick-date-rang [chosenDate]="date" (onQuery)="filterByDate($event)">
+                                </app-pick-date-rang>
+
+                            </div>
+
+                        </div>
+                        <ng-container *ngIf="!showOrderDetails">
+                            <div class="table-responsive" [@listAnimation]="dataList?.length">
+                                <table class="table">
+                                    <thead class=" text-primary">
+                                        <th>#</th>
+                                        <th>Order No.</th>
+                                        <th>Zoho Sales Order No.</th>
+                                        <th>Reseller Name</th>
+                                        <th>Company Name</th>
+                                        <!-- <th>Branding Yes/No</th> -->
+                                        <th>Amount</th>
+                                        <th>Shipping Type</th>
+                                        <th>Created At</th>
+                                        <th>Payment Status</th>
+                                        <th>Order Status</th>
+                                        <th>Comment</th>
+                                        <th>Action</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let order of dataList; let i = index">
+                                            <td>{{(i +1) + ((page -1) * 10)}}</td>
+                                            <td> <a (click)="showOrderDetails = true ; orderDetailId = order?.id ">
+                                                    {{order?.tracking_number}}</a> </td>
+                                             <th>{{order?.zoho_salesorder_number}}</th>
+                                            <td>{{order?.user?.full_name}}</td>
+                                            <td>{{order?.user?.reseller_profile?.business_name}}</td>
+                                            <!-- <td>{{order?.is_item_branding}}</td> -->
+                                            <td>{{order?.total_amount | number: '1.0-0'}}</td>
+                                            <td>{{order?.shipping_type}}</td>
+                                            <td>{{order?.created_at | date:'dd/MM/yyyy h:mm a'}}</td>
+                                            <td *ngIf="order?.payment_status === 'pending'">Pending</td>
+                                            <td *ngIf="order?.payment_status === 'paid'">Paid</td>
+                                            <td *ngIf="order?.payment_status === 'partial_paid'">Partial Paid</td>
+                                            <!--<td *ngIf="order?.payment_status === 'pending'">Pending</td>
+                                                                    <td *ngIf="order?.payment_status === 'partial_paid'">Partial Paid</td>-->
+                                            <td *ngIf="order?.order_status === 'pending_verification'">Pending
+                                                Verification
+                                            </td>
+                                            <td *ngIf="order?.order_status != 'pending_verification'">
+                                                {{order?.order_status}}</td>
+                                            <td>
+                                                <mat-form-field class="example-form-field">
+                                                    <mat-label>Comment</mat-label>
+                                                    <input matInput type="text" #input>
+                                                    <button mat-button matSuffix mat-icon-button aria-label="Clear"
+                                                        (click)="addComment(input.value,order?.id) ;input.value='' ">
+                                                        <mat-icon>add</mat-icon>
+                                                    </button>
+                                                    <button mat-button matSuffix mat-icon-button aria-label="Clear"
+                                                        (click)="input.value=''">
+                                                        <mat-icon>close</mat-icon>
+                                                    </button>
+                                                </mat-form-field>
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button"
+                                                        class="btn btn-outline-primary dropdown-toggle"
+                                                        data-toggle="dropdown">
+                                                        Actions
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" ngbTooltip="Make Manual Payment"
+                                                            *ngIf="order?.payment_status != 'paid'"
+                                                            [routerLink]="['make-manual-payment',order?.id ,{pageIndex : page}]">Make
+                                                            Manual Payment</a>
+                                                        <a class="dropdown-item" ngbTooltip="Make Manual Payment"
+                                                            [routerLink]="['/crm/order-management/order-details',order?.id , {pageIndex : page}]">View
+                                                            Detail</a>
+                                                        <a (click)="cancelOrder(order)"
+                                                            *ngIf="order?.payment_status === 'pending' && order?.order_status !== 'cancelled'"
+                                                            class="dropdown-item"
+                                                            ngbTooltip="Make Manual Payment">Manual Cancel</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="!dataList.length">
+                                            <td colspan="6">
+                                                <div class="text-center">No record found.</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="15">
+                                                <div class="pull-right">
+                                                    <app-ngb-pagination [collectionSize]="totalQueryableData"
+                                                        [page]="page" (pageChange)="handlePageChange($event)"
+                                                        [isDisabled]="isListLoading">
+                                                    </app-ngb-pagination>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody *ngIf="isListLoading">
+                                        <tr>
+                                            <td colspan="6">
+                                                <app-data-loader></app-data-loader>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </ng-container>
+                        <ng-container>
+                            <div class="row" *ngIf="showOrderDetails" @flyInOut>
+                                <div class="col-lg-5">
+                                    <div class="order-id-list-wrap">
+                                        <mat-nav-list class="order-nav-list"
+                                            *ngFor="let order of dataList; let i = index">
+
+                                            <app-data-loader *ngIf="isListLoading"></app-data-loader>
+                                            <a *ngIf="!isListLoading" (click)="orderDetailId = order?.id" mat-list-item>
+                                                <p mat-list-icon>{{(i +1) + ((page -1) * 10)}}</p>
+
+
+                                                <span mat-line>{{order?.tracking_number}}</span>
+                                                <span mat-line>{{order?.user?.reseller_profile?.business_name |
+                                                    titlecase}}</span>
+                                                <span mat-line>{{order?.created_at | date:'dd/MM/yyyy h:mm a'}}</span>
+                                            </a>
+
+
+                                        </mat-nav-list>
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-7">
+                                    <button mat-icon-button color="primary" (click)="showOrderDetails = false">
+                                        <mat-icon>highlight_off</mat-icon>
+                                    </button>
+
+                                    <app-order-details [orderID]="orderDetailId"></app-order-details>
+
+
+
+                                </div>
+                                <div class="col-12">
+                                    <app-ngb-pagination [collectionSize]="totalQueryableData" [page]="page"
+                                        (pageChange)="handlePageChange($event)" [isDisabled]="isListLoading">
+                                    </app-ngb-pagination>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

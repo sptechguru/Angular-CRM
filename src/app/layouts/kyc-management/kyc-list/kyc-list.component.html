@@ -1,0 +1,148 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                  <div class="card-header card-header-warning card-header-icon">
+                      <div class="card-icon">
+                          <i class="material-icons">stream</i>
+                      </div>
+                      <p class="card-category">Active Reseller</p>
+                      <h3 class="card-title">455
+                      </h3>
+                  </div>
+                  <div class="card-footer">
+                      <div class="stats">
+                    <i class="material-icons">update</i> Just Updated
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                  <div class="card-header card-header-success card-header-icon">
+                      <div class="card-icon">
+                          <i class="material-icons">store</i>
+                      </div>
+                      <p class="card-category">Sales</p>
+                      <h3 class="card-title">50</h3>
+                  </div>
+                  <div class="card-footer">
+                      <div class="stats">
+                        <app-pick-date-rang [tableMode]="false">
+                        <i class="material-icons">date_range</i>
+                        </app-pick-date-rang>
+                        
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                  <div class="card-header card-header-danger card-header-icon">
+                      <div class="card-icon">
+                          <i class="material-icons">info_outline</i>
+                      </div>
+                      <p class="card-category">Pending kyc</p>
+                      <h3 class="card-title">45</h3>
+                  </div>
+                  <div class="card-footer">
+                      <div class="stats">
+                        <i class="material-icons">update</i> Just Updated
+                        
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                  <div class="card-header card-header-info card-header-icon">
+                      <div class="card-icon">
+                          <i class="fa fa-twitter"></i>
+                      </div>
+                      <p class="card-category">Followers</p>
+                      <h3 class="card-title">+245</h3>
+                  </div>
+                  <div class="card-footer">
+                      <div class="stats">
+                          <i class="material-icons">update</i> Just Updated
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">KYC Verification List</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="">
+                                    <app-common-search (onQuery)="searchUserByQuery($event)"
+                                        [placeholderText]="'Search'" [isSearchAsTypeOn]="true">
+                                    </app-common-search>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>#</th>
+                                    <th>Business Name</th>
+                                    <th>Contact</th>
+                                    <th>Personal KYC</th>
+                                    <th>Business KYC</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of dataList ; let i = index">
+                                        <td>{{(i +1) + ((page -1) * 10)}}</td>
+                                        <td>
+                                            [routerLink]="['kyc-details',item.id]" {{item.reseller_profile?.business_name}}
+                                        </td>
+                                        <td>{{item.reseller_profile?.user?.phone_number}}</td>
+                                        <td>{{item.personel_kyc}}</td>
+                                        <td>{{item.business_kyc}}</td>
+                                        <td>{{item.created_at | customdate}}</td>
+                                        
+                                        <td>
+                                            <button  [routerLink]="['kyc-details',item.id]"
+                                                class="btn btn-primary">Update</button>
+                                        </td>
+
+                                    </tr>
+                                    <tr *ngIf="!dataList.length">
+                                        <td colspan="6">
+                                            <div class="text-center">No record found.</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="pull-right">
+                                                <app-ngb-pagination [collectionSize]="totalQueryableData" [page]="page"
+                                                    (pageChange)="handlePageChange($event)"
+                                                    [isDisabled]="isListLoading">
+                                                </app-ngb-pagination>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isListLoading">
+                                    <tr>
+                                        <td colspan="6">
+                                            <app-data-loader></app-data-loader>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

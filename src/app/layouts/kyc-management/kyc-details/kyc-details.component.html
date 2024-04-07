@@ -1,0 +1,429 @@
+<div class="main-content">
+    <div class="container-fluid " >
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">{{kycDetails.reseller_profile?.business_name}}</h4>
+                        <!-- <p class="card-category">{{userData?.user_type || userData.company_city }} {{ userData?.company_country| titlecase}} </p> -->
+                    </div>
+                    <div class="card-body">
+                        <div *ngIf="isFormReady" class="row">
+                            <div class="col-lg-12">
+                                <!-- <form [formGroup]="kycStatusForm" (ngSubmit)="handleSubmit()" novalidate> -->
+                                    <div class="row kyc-info-row">
+                                        <div class="col-12 mb-1">
+                                            <span class="bold-txt">Email : </span>
+                                            {{ (kycDetails.reseller_profile?.user?.email) ? kycDetails.reseller_profile?.user?.email : 'N/A' }}
+                                        </div>
+                                        <div class="col-12 mb-1">
+                                            <span class="bold-txt">Date : </span>{{kycDetails.created_at | customdate}}
+                                        </div>
+                                        <div class="col-12 mb-1">
+                                            <span class="bold-txt">Full Name:
+                                            </span>{{kycDetails.reseller_profile.user.full_name}}
+                                        </div>
+                                        <!-- <div class="col-12 mb-1">
+                                            <span class="bold-txt">Business KYC Status:
+                                            </span>{{(kycDetails.business_kyc) ? kycDetails.business_kyc : 'N/A'}}
+                                        </div> -->
+                                        <div class="col-12"></div>
+                                    </div>
+
+                                    <mat-divider class="my-3"></mat-divider>
+                                    <!-- <div class="col-12">
+                                       
+
+                                        <h3>Personal KYC</h3>
+                                        <div class="flex">
+                                            <div class="flex-col">
+                                                <p>PAN card</p>
+                                            </div>
+                                            <div class="flex-col">
+                                                <a *ngIf="kycDetails.pan_card && pan_ext != 'pdf'" [href]="kycDetails.pan_card"
+                                                    target="_blank">
+                                                    <img class="img-fluid" [src]="kycDetails.pan_card" alt="">
+                                                </a>
+
+                                                <a *ngIf="kycDetails.pan_card && pan_ext == 'pdf'" [href]="kycDetails.pan_card" target="_blank">
+                                                    <ngx-extended-pdf-viewer 
+                                                    [src]="'kycDetails.pan_card'"
+                                                    [height]="'10vh'"
+                                                    [useBrowserLocale]="true"
+                                                    [textLayer]="true"
+                                                    [showHandToolButton]="true"> 
+                                                    </ngx-extended-pdf-viewer>
+                                                </a>
+
+                                                <img *ngIf="!kycDetails.pan_card" class="img-fluid"
+                                                    src="assets/img/id-card.png" alt="">
+                                            </div>
+                                            <div class="flex-col">
+                                                <p>{{ (kycDetails.pan_card_no) ? kycDetails.pan_card_no : 'N/A' }}</p>
+                                            </div>
+
+                                            <div class="flex-col">
+                                                <mat-form-field appearance="fill" class="example-full-width">
+                                                    <mat-label>Choose One</mat-label>
+                                                    <mat-select [formControl]="pan_card_status" [disabled]="!kycDetails.pan_card_no">
+                                                        <mat-option *ngFor="let statusType of statusTypes"
+                                                            [value]="statusType.status">
+                                                            {{statusType.label}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex">
+                                            <div class="flex-col">
+                                                <p>Adhar card</p>
+                                            </div>
+                                            <div class="flex-col">
+                                                <a *ngIf="kycDetails.adhar_card && aadhar_ext != 'pdf'" [href]="kycDetails.adhar_card"
+                                                    target="_blank">
+                                                    <img class="img-fluid" [src]="kycDetails.adhar_card" alt="">
+                                                </a>
+                                                <a *ngIf="kycDetails.adhar_card && aadhar_ext == 'pdf'" [href]="kycDetails.adhar_card" target="_blank">
+                                                    <ngx-extended-pdf-viewer 
+                                                    [src]="'kycDetails.adhar_card'"
+                                                    [height]="'10vh'"
+                                                    [useBrowserLocale]="true"
+                                                    [textLayer]="true"
+                                                    [showHandToolButton]="true"> 
+                                                    </ngx-extended-pdf-viewer>
+                                                </a>
+                                                <img *ngIf="!kycDetails.adhar_card" class="img-fluid"
+                                                    src="assets/img/id-card.png" alt="">
+                                            </div>
+                                            <div class="flex-col">
+                                                <p>{{ (kycDetails.adhar_card_no) ? kycDetails.adhar_card_no : 'N/A' }}
+                                                </p>
+                                            </div>
+                                            <div class="flex-col">
+                                                <mat-form-field appearance="fill" class="example-full-width">
+                                                    <mat-label>Choose One</mat-label>
+                                                    <mat-select [formControl]="adhar_card_status" [disabled]="!kycDetails.adhar_card_no">
+                                                        <mat-option *ngFor="let statusType of statusTypes"
+                                                            [value]="statusType.status">
+                                                            {{statusType.label}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+
+
+                                    </div> -->
+                                    <div class="col-12">
+                                        <h3>Business KYC</h3>
+                                        <form [formGroup]="kycStatusForm" (ngSubmit)="handleSubmit()" novalidate> 
+                                        <div class="flex">
+                                            <div class="flex-col">
+                                                <p>GST</p>
+                                            </div>
+                                            <div class="flex-col">
+
+                                                <a *ngIf="kycDetails.gst && gst_ext != 'pdf'" [href]="kycDetails.gst" target="_blank">
+                                                    <img class="img-fluid" [src]="kycDetails.gst" alt="">
+                                                </a>
+
+                                                <a *ngIf="kycDetails.gst && gst_ext == 'pdf'" [href]="kycDetails.gst" target="_blank">
+                                                    <ngx-extended-pdf-viewer 
+                                                    [src]="'kycDetails.gst'"
+                                                    [height]="'10vh'"
+                                                    [useBrowserLocale]="true"
+                                                    [textLayer]="true"
+                                                    [showHandToolButton]="true"> 
+                                                    </ngx-extended-pdf-viewer>
+                                                </a>
+
+                                                <img *ngIf="!kycDetails.gst" class="img-fluid"
+                                                    src="assets/img/id-card.png" alt="">
+                                            </div>
+                                            <div class="flex-col">
+                                
+                                                <p>
+                                                    <mat-form-field class="example-full-width" appearance="fill">
+                                                        <input matInput [value]="kycDetails.gst_no ? kycDetails.gst_no : 'N/A'" [formControl]="gst_no" [pattern]="unamePattern" formControlName="gst_no">
+                                                      </mat-form-field>
+                                                </p>
+                                                
+                                            </div>
+                                            <div class="flex-col">
+                                                <mat-form-field appearance="fill" class="example-full-width">
+                                                    <mat-label>Choose One</mat-label>
+                                                    <mat-select [formControl]="gst_status" [disabled]="!kycDetails.gst_no">
+                                                        <mat-option *ngFor="let statusType of statusTypes"
+                                                            [value]="statusType.status">
+                                                            {{statusType.label}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div>
+                                                <button mat-raised-button [disabled]="isStatusProcessing" type="submit"
+                                        class="btn btn-danger ml-4">
+                                        <mat-spinner *ngIf="isStatusProcessing" [diameter]="20"></mat-spinner>
+                                        <span >Submit</span>
+                                    </button>
+                                            </div>
+                                        </div>
+</form>
+                                        <div class="flex">
+                                            <div class="flex-col">
+                                                <p>Business Name</p>
+                                            </div>
+
+                                            <div class="flex-col">
+
+                                                <a  target="_blank">
+                                                    <img *ngIf="!kycDetails.gst" class="img-fluid"
+                                                    src="assets/img/id-card.png" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="flex-col">
+                                                <p>{{bussinessName}}</p>
+                                            </div>
+                                         
+                                            <div class="flex-col" >
+                                                <mat-form-field class="example-full-width" appearance="fill" >
+                                                    <mat-label>Business Name</mat-label>
+                                                    <input type="text" matInput [(ngModel)]="bussinessName" #ctrl="ngModel" [pattern]="unamePattern">
+                                                  </mat-form-field>
+                                            </div>
+                                            <div>
+                                                <!-- <button mat-raised-button (click)="updateName()"
+                                        class="btn btn-danger ml-4">
+                                        <span >Submit</span>
+                                    </button> -->
+
+                                        <button mat-raised-button [disabled]="isStatusProcessing" type="submit" (click)="updateName()"
+                                        class="btn btn-danger ml-4">
+                                        <mat-spinner *ngIf="isStatusProcessing" [diameter]="20"></mat-spinner>
+                                        <span >Submit</span>
+                                    </button>
+                                   
+                                            </div>
+                                      
+                                        </div>
+                                        <div class="flex">
+                                            <div class="flex-col">
+                                                <p>Category</p>
+                                            </div>
+                                            <div class="flex-col">
+
+                                                <a  target="_blank">
+                                                    <img *ngIf="!kycDetails.gst" class="img-fluid"
+                                                    src="assets/img/id-card.png" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="flex-col">
+                                                <p>{{categoryName}}</p>
+                                            </div>
+                                            <div class="flex-col">
+                                                <mat-form-field  appearance="fill" class="example-full-width">
+                                                    <mat-label>Choose One</mat-label>
+                                                    <mat-select [(ngModel)]="categoryName">
+                                                        <mat-option *ngFor="let  User_groupType of  User_groupTypes"
+                                                            [value]="User_groupType.label">
+                                                            {{User_groupType.label}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div>
+                                                <!-- <button mat-raised-button (click)="updateCategory(); openDialog()"
+                                        class="btn btn-danger ml-4">
+                                        <span >Submit</span>
+                                    </button> -->
+
+                                    <button mat-raised-button [disabled]="isStatusProcessings_" type="submit" (click)="openDialog()"
+                                        class="btn btn-danger ml-4">
+                                        <mat-spinner *ngIf="isStatusProcessings_" [diameter]="20"></mat-spinner>
+                                        <span >Submit</span>
+                                    </button>
+                                            </div>
+
+                                            </div>
+                                       
+                                        <!-- <div class="flex">
+                                            <div class="flex-col">
+                                                <p>Current account check</p>
+                                            </div>
+                                            <div class="flex-col">
+                                                <a *ngIf="kycDetails.current_account_check  && b_account_ext != 'pdf'"
+                                                    [href]="kycDetails.current_account_check" target="_blank">
+                                                    <img class="img-fluid" [src]="kycDetails.current_account_check"
+                                                        alt="">
+                                                </a>
+                                                <a *ngIf="kycDetails.current_account_check && b_account_ext == 'pdf'" 
+                                                [href]="kycDetails.current_account_check" target="_blank">
+                                                    <ngx-extended-pdf-viewer 
+                                                    [src]="'kycDetails.current_account_check'"
+                                                    [height]="'10vh'"
+                                                    [useBrowserLocale]="true"
+                                                    [textLayer]="true"
+                                                    [showHandToolButton]="true"> 
+                                                    </ngx-extended-pdf-viewer>
+                                                </a>
+                                                <img *ngIf="!kycDetails.current_account_check" class="img-fluid"
+                                                    src="assets/img/id-card.png" alt="">
+                                            </div>
+                                            <div class="flex-col">
+                                                <p>{{ (kycDetails.current_account_check_no) ? kycDetails.current_account_check_no : 'N/A' }}
+                                                </p>
+                                            </div>
+                                            <div class="flex-col">
+                                                <mat-form-field appearance="fill" class="example-full-width">
+                                                    <mat-label>Choose One</mat-label>
+                                                    <mat-select [formControl]="current_account_check_status" [disabled]="!kycDetails.current_account_check_no">
+                                                        <mat-option *ngFor="let statusType of statusTypes"
+                                                            [value]="statusType.status">
+                                                            {{statusType.label}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div> -->
+                                        <!-- <div class="flex">
+                                            <div class="flex-col">
+                                                <p>Business tan registration certificate</p>
+                                            </div>
+
+                                            <div class="flex-col">
+                                                <a *ngIf="kycDetails.business_tan_reg_cert && b_tan_ext != 'pdf'"
+                                                    [href]="kycDetails.business_tan_reg_cert" target="_blank">
+                                                    <img class="img-fluid" [src]="kycDetails.business_tan_reg_cert"
+                                                        alt="">
+                                                </a>
+
+                                                <a *ngIf="kycDetails.business_tan_reg_cert && b_tan_ext == 'pdf'" 
+                                                [href]="kycDetails.business_tan_reg_cert" target="_blank">
+                                                    <ngx-extended-pdf-viewer 
+                                                    [src]="'kycDetails.business_tan_reg_cert'"
+                                                    [height]="'10vh'"
+                                                    [useBrowserLocale]="true"
+                                                    [textLayer]="true"
+                                                    [showHandToolButton]="true"> 
+                                                    </ngx-extended-pdf-viewer>
+                                                </a>
+
+                                                <img *ngIf="!kycDetails.business_tan_reg_cert" class="img-fluid"
+                                                    src="assets/img/id-card.png" alt="">
+                                            </div>
+
+                                            <div class="flex-col">
+                                                <p>{{ (kycDetails.business_tan_reg_cert_no) ? kycDetails.business_tan_reg_cert_no : 'N/A' }}
+                                                </p>
+                                            </div>
+                                            <div class="flex-col">
+                                                <mat-form-field appearance="fill" class="example-full-width">
+                                                    <mat-label>Choose One</mat-label>
+                                                    <mat-select [formControl]="business_tan_reg_cert_status" [disabled]="!kycDetails.business_tan_reg_cert_no">
+                                                        <mat-option *ngFor="let statusType of statusTypes"
+                                                            [value]="statusType.status">
+                                                            {{statusType.label}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div> -->
+                                        <!-- <div class="flex">
+                                            <div class="flex-col">
+                                                <p>Business pan card</p>
+                                            </div>
+
+                                            <div class="flex-col">
+                                                <a *ngIf="kycDetails.business_pan_card && b_pan_ext != 'pdf'"
+                                                    [href]="kycDetails.business_pan_card" target="_blank">
+                                                    <img class="img-fluid" [src]="kycDetails.business_pan_card" alt="">
+                                                </a>
+
+                                                <a *ngIf="kycDetails.business_pan_card && b_pan_ext == 'pdf'" 
+                                                [href]="kycDetails.business_pan_card" target="_blank">
+                                                    <ngx-extended-pdf-viewer 
+                                                    [src]="'kycDetails.business_pan_card'"
+                                                    [height]="'10vh'"
+                                                    [useBrowserLocale]="true"
+                                                    [textLayer]="true"
+                                                    [showHandToolButton]="true"> 
+                                                    </ngx-extended-pdf-viewer>
+                                                </a>
+
+                                                <img *ngIf="!kycDetails.business_pan_card" class="img-fluid"
+                                                    src="assets/img/id-card.png" alt="">
+                                            </div>
+
+                                            <div class="flex-col">
+                                                <p>{{ (kycDetails.business_pan_card_no) ? kycDetails.business_pan_card_no : 'N/A' }}
+                                                </p>
+                                            </div>
+                                            <div class="flex-col">
+                                                <mat-form-field appearance="fill" class="example-full-width">
+                                                    <mat-label>Choose One</mat-label>
+                                                    <mat-select [formControl]="business_pan_card_status" [disabled]="!kycDetails.business_pan_card_no">
+                                                        <mat-option *ngFor="let statusType of statusTypes"
+                                                            [value]="statusType.status">
+                                                            {{statusType.label}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div> -->
+
+                                        <div class="flex" *ngIf="reject_status">
+                                            <div class="flex-col">
+                                                <p>Reject Reason</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <mat-form-field appearance="fill" class="example-full-width">
+                                                    <input type="text" [formControl]="reject_reason" matInput placeholder="Reason"/>
+                                                </mat-form-field>
+                                            </div>
+
+
+                                            <!-- <ol>
+                                                <li>
+                                                    <mat-form-field appearance="fill" class="example-full-width">
+                                                        <input type="text" [formControl]="reject_reason" matInput placeholder="Reason"/>
+                                                  </mat-form-field>
+                                                </li>
+                                                <li>
+                                                  <button mat-raised-button (click)="openDialog()">Reject Reason</button>
+                                                </li>
+                                                <li *ngIf="reason">
+                                                  You chose: <i>{{reason}}</i>
+                                                </li>
+                                              </ol> -->
+                                        </div>
+                                    </div>
+                                 
+                                    <mat-divider class="my-3"></mat-divider>
+
+
+                                    <button class="btn btn-primary ml-4" [disabled]="isStatusProcessing"
+                                        [routerLink]="['/crm/users-management']">Back</button>
+
+                                    <!-- <button class="btn btn-primary ml-4" [disabled]="isStatusProcessing"
+                                    (click)="backClicked()">Back</button>   -->
+
+    
+                                    <!-- <button mat-raised-button [disabled]="isStatusProcessing" type="submit"
+                                        class="btn btn-danger ml-4">
+                                        <mat-spinner *ngIf="isStatusProcessing" [diameter]="20"></mat-spinner>
+                                        <span *ngIf="!isStatusProcessing">Submit</span>
+                                    </button> -->
+                                    <!-- <button class="btn btn-primary ml-4 ">Aprroved</button>
+                                    <button class="btn btn-primary mx-3">Disapprove</button>
+                                    <button class="btn btn-primary">Assign</button> -->
+                                <!-- </form> -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

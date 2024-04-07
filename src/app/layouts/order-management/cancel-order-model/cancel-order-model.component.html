@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Cancel order</h1>
+<div mat-dialog-content>
+    <p>Reason to cancel order of No. {{orderdata?.tracking_number}}?</p>
+    <mat-form-field>
+        <mat-label>Reason</mat-label>
+        <input required matInput [(ngModel)]="reason">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button  (click)="cancel({response: true,cancel_reason:reason,order_id:orderdata.id,tracking_number:orderdata?.tracking_number})" cdkFocusInitial>Next</button>
+</div>

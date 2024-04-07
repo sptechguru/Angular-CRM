@@ -1,0 +1,98 @@
+<div class="main-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Request Call Back List</h4>
+                        <p class="card-category"> List of all Request Call Back.</p>
+                    </div>
+                    <div class="card-body">
+                       
+                                <ng-container [ngTemplateOutlet]=" simpleLink"
+                                    [ngTemplateOutletContext]="{link:dataList}">
+                                </ng-container>
+                            
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<ng-template #simpleLink let-link='link'>
+    <div class="row">
+        <div class="col-12">
+    
+        </div>
+        <div class="col-md-4">
+            <div class="">
+                <app-common-search (onQuery)="searchUserByQuery($event)" [value]="queryObject?.search_text"
+                    [placeholderText]="'Search'" [isSearchAsTypeOn]="true">
+                </app-common-search>
+            </div>
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <div class="">
+    
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead class=" text-primary">
+                <th>#</th>
+                <th>Phone number</th>
+                <th>Type</th>
+                <th>Date</th>
+    
+            </thead>
+            <tbody>
+                <tr *ngFor="let notification of dataList; let i = index">
+                    <td>
+                        <a>{{offset+i+1}}</a>
+                    </td>
+                    <td>
+                        {{notification?.phone_number}}
+                    </td>
+                    <td *ngIf="notification?.type === 'reseller' else elseBlock">Seller</td>
+                  <ng-template #elseBlock>  <td >{{notification?.type | titlecase}}</td>
+
+                  </ng-template>
+    
+                    <td>{{notification?.created_at | customdate}}</td>
+    
+    
+    
+                </tr>
+                <tr *ngIf="!dataList.length">
+                    <td colspan="6">
+                        <div class="text-center">No record found.</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="7">
+                        <div class="pull-right">
+                            <app-ngb-pagination [collectionSize]="totalQueryableData" [page]="page"
+                                (pageChange)="handlePageChange($event)" [isDisabled]="isListLoading">
+                            </app-ngb-pagination>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="isListLoading">
+                <tr>
+                    <td colspan="6">
+                        <app-data-loader></app-data-loader>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-template>

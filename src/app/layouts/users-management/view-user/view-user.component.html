@@ -1,0 +1,99 @@
+<div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-danger">
+              <h4 class="card-title">{{userData?.first_name || userData.company_name | titlecase}}  {{userData?.last_name | titlecase}}</h4>
+              <p class="card-category">{{userData?.user_type || userData.company_city }} {{ userData?.company_country| titlecase}} </p>
+            </div>
+            <div class="card-body">
+               
+                <div class="row" *ngIf="userData.company_name">
+                    <div class="col-6">
+                        <strong>Email : </strong>{{userData.user_id.email}}
+                    </div>
+                    <div class="col-6">
+                        <strong>First Name : </strong>{{userData.user_id.first_name}}
+                    </div>
+                    <div class="col-6">
+                        <strong>Last Name  : </strong>{{userData.user_id.last_name}}
+                    </div>
+                    <div class="col-6">
+                        <strong>Package Name  : </strong>{{userData.user_id.package_id.package_name}}
+                    </div>
+                     <div class="col-6">
+                        <strong>Adress 1  : </strong>{{userData.company_address_line1}}
+                    </div>
+                    <div class="col-6">
+                        <strong>Adress 2  : </strong>{{userData.company_address_line2}}
+                    </div>
+                    <div class="col-6">
+                        <strong>Phone   : </strong>{{userData.company_phone}}
+                    </div>
+                    <div class="col-6">
+                        <strong>ZipCode   : </strong>{{userData.company_zip_code}}
+                    </div>
+                    <div class="col-6">
+                      
+                        <strong>Compnay URL   : </strong>   <a [href]="userData.company_url">Visit website</a>
+                    </div>
+                    <div class="col-6">
+                      
+                        <strong>Registration Date   : </strong>  {{userData.created_at| customdate}}
+                    </div>
+                    <div class="col-6">
+                        <h2 class="title-small">Logistic details</h2>
+                        <ul class="">
+                            <!-- <li><i class="fa fa-clock-o"></i>Rate: $10-$25</li> -->
+                            <!-- <li><i class="fa fa-clock-o"></i>Estimated time: 30Hour</li> -->
+                            <li ><i class="fa fa-clock-o"></i>Services: <label *ngFor="let item of userData.services"> {{item}} </label> </li>
+                        </ul>
+                    </div>
+                    <div class="col-6">
+                        <h2 class="title-small"> Operating Countries</h2>
+                        <ul class="">
+                            <!-- <li><i class="fa fa-clock-o"></i>Rate: $10-$25</li> -->
+                            <!-- <li><i class="fa fa-clock-o"></i>Estimated time: 30Hour</li> -->
+                            <li ><i class="fa fa-clock-o"></i>Countries: <label *ngFor="let item of userData.operating_countries"> {{item.name}} </label> </li>
+                        </ul>
+                    </div>
+                    <div class="col-6">
+                        <h2 class="title-small">Social Media</h2>
+                        <ul class="" >
+                            <li *ngFor="let item of userData.social_urls"><a [href]="item.url" target="_blank"><i [ngClass]="item.name==='Facebook' ? 'fa fa-facebook-square' : item.name==='Instagram' ? 'fa fa-instagram':'fa fa-linkedin'"></i></a></li>
+
+                        </ul>
+                    </div>
+                    <div class="col-6"></div>
+                    <div class="col-6"></div>
+                    <div class="col-6"></div>
+                    <div class="col-6"></div>
+
+                </div>
+                <div class="row" *ngIf="!userData.company_name">
+                    <div class="col-6">
+                        <strong>Email : </strong>{{userData.email}}
+                    </div>
+                    <div class="col-6">
+                        <strong>First Name : </strong>{{userData.first_name}}
+                    </div>
+                    <div class="col-6">
+                        <strong>Last Name : </strong>{{userData.last_name}}
+                    </div>
+                    <div class="col-6">
+                      
+                        <strong>Registration Date   : </strong>  {{userData.created_at| customdate}}
+                    </div>
+                    <div class="col-6"></div>
+                    <div class="col-6"></div>
+                    <div class="col-6"></div>
+                    <div class="col-6"></div>
+
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

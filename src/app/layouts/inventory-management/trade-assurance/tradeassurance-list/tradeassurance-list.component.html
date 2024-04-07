@@ -1,0 +1,186 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Ek Matra Trade Assurance</h4>
+                        <p class="card-category"> List of all trade assurance.</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div style="margin-left: 5rem;">
+                                    <button
+                                        class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base"
+                                        (click)="open(mymodal)">
+                                        <span class="mat-button-wrapper">Add New Trade Assurance</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Details</th>
+                                    <th>Trade Assurance Image</th>
+                                    <th>Created at</th>
+                                    <th>updated_at</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let product of tradeassurancelist; let i = index">
+                                        <td>
+                                            <a>{{i+1}}</a>
+                                        </td>
+                                        <td>
+                                            <span *ngIf="product?.name">{{product?.name}}</span>
+                                        </td>
+                                        <td><ng-container *ngIf="product?.details">
+                                            {{product?.details | slice:0:40}}
+                                            {{product?.details.length > 39 ? '...':''}}
+                                        </ng-container>
+                                           </td>
+                                        <td><img [src]="product.trade_assurance_image" [alt]="product.trade_assurance_image" [width]="100" [height]="100"></td>
+                                        <td>{{product.created_at | customdate}}</td>
+                                        <td>{{product.updated_at | customdate}}</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-outline-primary dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                    Actions
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a  class="dropdown-item" ngbTooltip="Edit" (click)="openedit(mymodaledit,product.id)">Edit</a>
+                                                    
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!tradeassurancelist.length">
+                                        <td colspan="7">
+                                            <div class="text-center">No record found.</div>
+                                        </td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td colspan="7">
+                                            <div class="pull-right">
+                                                <app-ngb-pagination [collectionSize]="totalQueryableData" [page]="page"
+                                                    (pageChange)="handlePageChange($event)"
+                                                    [isDisabled]="isListLoading">
+                                                </app-ngb-pagination>
+                                            </div>
+                                        </td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #mymodal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Bootstrap Modal</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="addtrade" novalidate autocomplete="off">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width" MatFormFieldControl>
+                        <input formControlName="tradename" matInput placeholder="Trade Name" type="text"  />
+                        <mat-error
+                            *ngIf="addtrade.controls.tradename.touched && addtrade.controls.tradename.errors?.required"
+                            required>Please Add Trade Name.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width" MatFormFieldControl>
+                        <input formControlName="tradedetail" matInput placeholder="Trade Detail" type="text"  />
+                        <mat-error
+                            *ngIf="addtrade.controls.tradedetail.touched && addtrade.controls.tradedetail.errors?.required"
+                            required>Please Add Trade Detail.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                    <!-- <mat-form-field class="example-full-width" MatFormFieldControl> -->
+                        <input formControlName="tradeimage"  type="file"  (change)="onfileChange($event)" />
+                         <div
+                            *ngIf="addtrade.controls.tradedetail.touched && addtrade.controls.tradedetail.errors?.required"
+                            required>Please choose Icon.
+                    </div>
+                    <!-- </mat-form-field> --> 
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <!-- (click)="modal.close('Save click')" -->
+      <button type="button" class="btn btn-outline-dark"  (click)="onsubmit()">Add</button>
+    </div>
+  </ng-template>
+
+  <ng-template #mymodaledit let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Update Ek matra Trade Assurance</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="addtrade" novalidate autocomplete="off">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width" MatFormFieldControl>
+                        <input formControlName="tradename" matInput placeholder="Trade Name" type="text"  />
+                        <mat-error
+                            *ngIf="addtrade.controls.tradename.touched && addtrade.controls.tradename.errors?.required"
+                            required>Please Add Trade Name.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width" MatFormFieldControl>
+                        <textarea formControlName="tradedetail" matInput placeholder="Trade Detail" cols="6" rows="6"></textarea>
+                        <!-- <input formControlName="tradedetail" matInput placeholder="Trade Detail" type="text"  /> -->
+                        <!-- <mat-error
+                            *ngIf="addtrade.controls.tradedetail.touched && addtrade.controls.tradedetail.errors?.required"
+                            required>Please Add Trade Detail.
+                        </mat-error> -->
+                    </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                    <label>Upload New Image: </label>
+                        <input formControlName="tradeimage"  type="file"  (change)="onfileChange($event)" />
+                         <div
+                            *ngIf="addtrade.controls.tradedetail.touched && addtrade.controls.tradedetail.errors?.required"
+                            required>Please choose Icon.
+                    </div> 
+                    <div>
+                        <label>Old Image</label>
+                        <img  [src]="imgeurl" width="100" height="100" style="margin-left: 150px;">
+                    </div>
+                   
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <!-- (click)="modal.close('Save click')" -->
+      <button type="button" class="btn btn-outline-dark"  (click)="onupdatesubmit()">Add</button>
+    </div>
+  </ng-template>

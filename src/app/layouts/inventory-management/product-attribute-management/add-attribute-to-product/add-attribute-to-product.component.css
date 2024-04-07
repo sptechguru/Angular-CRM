@@ -1,0 +1,3 @@
+.attrDataRow:not(:nth-last-child(2)) .showonlylast{
+    display: none;
+}

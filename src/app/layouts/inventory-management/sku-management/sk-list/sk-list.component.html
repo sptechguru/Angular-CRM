@@ -1,0 +1,137 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">SKU List</h4>
+                        <p class="card-category"> List of all Products.</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="">
+                                    <app-common-search (onQuery)="searchUserByQuery($event)" [value]="queryObject?.search_text"
+                                        [placeholderText]="'Search'" [isSearchAsTypeOn]="true">
+                                    </app-common-search>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <!-- <div class="ml-1">
+                                    <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base" [routerLink]="['new-Sku']">
+                                        <span class="mat-button-wrapper">Add SKU</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                </div> -->
+                                <div class="ml-1">
+                                    <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base" [routerLink]="['xls']">
+                                        <span class="mat-button-wrapper">Update Stock By Excel</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>#</th>                                    
+                                    <th>Product Name</th>
+                                    <th>Sku</th>
+                                    <th>Ready Stock</th>
+                                    <th>Sample Stock</th>
+                                    <th>Actual Quantity</th>
+                                    <th>Block Stock</th>                                    
+                                    <!-- <th>Created at</th> -->
+                                    <th>Pending Order</th>
+                                    <th>Pending Sample Order</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let product of dataList; let i = index" (click)="navigateToedit(product.id)" class="hoverme">
+                                        <td>
+                                            <a>{{offset+i+1}}</a>
+                                        </td>
+                                        <td>
+                                            <span *ngIf="product?.variant_name">{{product?.variant_name}}</span>
+                                        </td>
+                                       
+                                        <td *ngIf="product.sku_code">{{product.sku_code}}</td>
+                                        <td *ngIf="product.ready_stock ">{{product.ready_stock }}</td>
+                                        <td *ngIf="!product.ready_stock ">0</td>
+                                        <td *ngIf="product.sample_stock !=null">{{ product.sample_stock }}</td>
+                                        <td *ngIf="product.sample_stock==null">0</td>
+                                        <!-- <td *ngIf="!product.product_variants[0]"></td> -->
+                                        <td>{{product.quantity}}</td>
+                                        <td *ngIf="product.reserve_stock" >{{product.reserve_stock}}</td>
+                                        <td *ngIf="!product.reserve_stock">0</td>
+                                        <td *ngIf="product.pending_orders !=null">{{product.pending_orders}}</td>
+                                        <td *ngIf="product.pending_orders ==null">0</td>
+                                        <td *ngIf="product.pending_sample_orders != null">{{product.pending_sample_orders}}</td>
+                                        <td *ngIf="product.pending_sample_orders == null">0</td>
+
+                                        <td> <span (click)="navigateToedit(product.id)"><i class="fa fa-pencil-square-o fa-2x"></i></span>
+                                            </td>
+                                        <!-- <td>{{product?.created_at | customdate}}</td> -->
+                                        <!-- <td>
+                                            <span class="badge badge-pill" style="cursor:pointer"
+                                                [ngClass]="{'badge-primary': ( product.status == 'pending' ), 
+                                                'badge-success': ( product.status == 'active' ), 
+                                                'badge-danger': ( product.status == 'inactive' )}"
+                                                (click)="statusUpdate(product?.status, product?.id,
+                                                product?.product_name)">
+                                                {{ product.status | uppercase }}
+                                            </span>
+                                        </td> -->
+                                        <!-- <td>
+                                            <div class="dropdown">
+                                               
+                                                <button type="button" class="btn btn-outline-primary dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                    Actions
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                   
+                                                    <button class="dropdown-item" ngbTooltip="Edit" [routerLink]="['new-Sku',product.id]">Edit</button>
+                                                   
+                                                </div>
+                                            </div>
+                                        </td> -->
+                                    </tr>
+                                        <tr *ngIf="!dataList.length">
+                                            <td colspan="6">
+                                                <div class="text-center">No record found.</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="7">
+                                                <div class="pull-right">
+                                                    <app-ngb-pagination [collectionSize]="totalQueryableData" [page]="page"
+                                                        (pageChange)="handlePageChange($event)"
+                                                        [isDisabled]="isListLoading">
+                                                    </app-ngb-pagination>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                      
+                                </tbody>
+                                <tbody *ngIf="isListLoading">
+                                    <tr>
+                                        <td colspan="6">
+                                            <app-data-loader></app-data-loader>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

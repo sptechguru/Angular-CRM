@@ -1,0 +1,121 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Attribute Value List</h4>
+                        <p class="card-category"> List of all Attribute Values of {{typeDetails.type}}.</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="">
+                                    <app-common-search (onQuery)="searchUserByQuery($event)"
+                                        [placeholderText]="'Search'" [isSearchAsTypeOn]="true">
+                                    </app-common-search>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="">
+                                    <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base mb-2" 
+                                    [routerLink]="['/crm/inventory-management/product-management/product-details',productId]">
+                                        <span class="material-icons">
+                                        arrow_back
+                                        </span> 
+                                        <span class="mat-button-wrapper">Back</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                    <button *ngIf="variantId" class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base" 
+                                    [routerLink]="['/crm/inventory-management/product-attribute-management/add-attribute-to-product',productId,variantId]" 
+                                    (click)="addValue()">
+                                        <span class="mat-button-wrapper">Add Product Attribute</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                    <button *ngIf="variantId === ''" class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base" 
+                                    [routerLink]="['/crm/inventory-management/product-attribute-management/add-attribute-to-product',productId]" 
+                                    (click)="addValue()">
+                                        <span class="mat-button-wrapper">Add Product Attribute</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>#</th>
+                                    <th>{{typeDetails.type}} Attribute Name</th>
+                                    <th>{{typeDetails.type}} Attribute Value</th>
+                                    <th>Created at</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let product_attribute of dataList; let i = index">
+                                        <td>{{(i +1) + ((page -1) * 10)}}</td>
+                                        <td>{{product_attribute?.product_attribute}}</td>
+                                        <td>
+                                            <ng-container *ngFor="let attribute_value of product_attribute.attribute_values; let last = last">
+                                                {{attribute_value.attribute_value}}<ng-container *ngIf="!last">,</ng-container>&nbsp;
+                                            </ng-container>
+                                        </td>
+                                        <td>{{product_attribute?.created_at | customdate}}</td>
+                                        <td>
+                                            <span class="badge badge-pill"
+                                                [ngClass]="{'badge-primary': ( product_attribute.status == 'pending' ), 'badge-success': ( product_attribute.status == 'active' ), 'badge-danger': ( product_attribute.status == 'inactive' )}">{{ product_attribute.status | uppercase }}</span>
+                                        </td>
+                                         <td>
+                                            
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-outline-primary dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                    Actions
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" ngbTooltip="Delete" (click)="deleteProductAttribute(product_attribute.id,product_attribute.product_attribute);"
+                                                        href="javascript:void(0)">Delete</a>
+                                                    <a (click)="saveToLocal(product_attribute);" class="dropdown-item" ngbTooltip="Edit"  
+                                                    [routerLink]="['/crm/inventory-management/product-attribute-management/add-attribute-to-product',
+                                                    productId,product_attribute.id]">Edit</a>
+                                                </div>
+                                            </div>
+                                        </td> 
+                                    </tr>
+                                    <tr *ngIf="!dataList.length">
+                                        <td colspan="6">
+                                            <div class="text-center">No record found.</div>
+                                        </td>
+                                    </tr>
+                                   
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="pull-right">
+                                                <app-ngb-pagination [collectionSize]="totalQueryableData" [page]="page"
+                                                    (pageChange)="handlePageChange($event)"
+                                                    [isDisabled]="isListLoading">
+                                                </app-ngb-pagination>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isListLoading">
+                                    <tr>
+                                        <td colspan="6">
+                                            <app-data-loader></app-data-loader>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

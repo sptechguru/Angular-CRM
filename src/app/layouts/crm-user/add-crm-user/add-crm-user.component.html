@@ -1,0 +1,94 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Add CRM User</h4>
+                        <!-- <p class="card-category">{{userData?.user_type || userData.company_city }} {{ userData?.company_country| titlecase}} </p> -->
+                    </div>
+                    <div class="card-body">
+                        <form class="example-form" [formGroup]="userForm">
+
+
+                            <table class="example-full-width" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>First name</mat-label>
+                                            <input matInput formControlName="first_name" [errorStateMatcher]="matcher">
+                                            <mat-error *ngIf="formControl.first_name.hasError('required')">
+                                                First Name is <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Last Name</mat-label>
+                                            <input matInput formControlName="last_name" [errorStateMatcher]="matcher">
+                                            <mat-error *ngIf="formControl.last_name.hasError('required')">
+                                                Last Name is <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Email</mat-label>
+                                            <input type="email" matInput formControlName="email"
+                                                [errorStateMatcher]="matcher" placeholder="Ex. pat@example.com">
+                                            <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                                            <mat-error
+                                                *ngIf="formControl.email.hasError('email') && !formControl.email.hasError('required')">
+                                                Please enter a valid email address
+                                            </mat-error>
+                                            <mat-error *ngIf="formControl.email.hasError('required')">
+                                                Email is <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Mobile No.</mat-label>
+                                            <span matPrefix>+91 &nbsp;</span>
+                                            <input minlength="10" formControlName="phone_number"
+                                                [errorStateMatcher]="matcher" maxlength="10" type="tel" matInput
+                                                placeholder="555-555-1234">
+                                            <mat-icon matSuffix>mode_edit</mat-icon>
+                                            <mat-error
+                                                *ngIf="formControl.phone_number.hasError('maxLength') && !formControl.phone_number.hasError('required')">
+                                                Please enter a valid Mobile No.
+                                            </mat-error>
+                                            <mat-error
+                                                *ngIf="formControl.phone_number.hasError('minlength') && !formControl.phone_number.hasError('required')">
+                                                Please enter a valid Mobile No.
+                                            </mat-error>
+
+                                            <mat-error *ngIf="formControl.phone_number.hasError('required')">
+                                                Mobile No. is <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </td>
+
+                                </tr>
+                               
+                            </table>
+
+                            <!-- <p>
+
+                            </p> -->
+                            <!-- <p>
+                                
+                            </p> -->
+
+                            <button mat-button color="primary" [disabled]="loading" class="btn btn-danger" (click)="createUser()">Create
+                                User</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

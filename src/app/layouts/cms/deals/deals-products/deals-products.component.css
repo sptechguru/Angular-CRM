@@ -1,0 +1,33 @@
+.example-header-image {
+  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
+  background-size: cover;
+}
+
+.category {
+  background-color: beige;
+
+  overflow: auto;
+  /* width: 282px; */
+}
+mat-card-title {
+  font-size: 15px !important;
+}
+
+.marginAuto {
+  margin-left: auto;
+}
+
+.productCard:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.unslected {
+  background-color: #ffcccb;
+}
+
+mat-list-option {
+  margin-bottom: 20px;
+}
+.unslected:hover {
+  background-color: #ffcccb !important;
+}

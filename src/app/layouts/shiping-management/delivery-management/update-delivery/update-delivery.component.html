@@ -1,0 +1,80 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Edit Product variant Stock</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <form [formGroup]="editcourier" novalidate autocomplete="off">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width" MatFormFieldControl>
+                                        <input formControlName="awb_number" matInput placeholder="Awb_Number"
+                                            type="text" />
+                                        <mat-error
+                                            *ngIf="editcourier.controls.awb_number.touched && editcourier.controls.awb_number.errors?.required"
+                                            required>Please Enter Awb_number.
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width" MatFormFieldControl>
+                                        <input formControlName="courier_partner" matInput placeholder="Courier_Partner"
+                                            type="text" />
+
+                                        <mat-error
+                                            *ngIf="editcourier.controls.courier_partner.touched && editcourier.controls.courier_partner.errors?.required"
+                                            required>Please Add
+                                            courier_partner. </mat-error>
+
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width" MatFormFieldControl>
+                                        <input formControlName="courier_partner_url" matInput
+                                            placeholder="Courier_Partner_Url" type="text" />
+                                    </mat-form-field>
+                                </div>
+                                <!-- <div class="col-md-6">
+                                    <label >AWB_Number_Availability:  </label>
+                                        <mat-radio-group formControlName="awb_number_availability" style="margin-left: 15px;">
+                                            <mat-radio-button value="yes">Yes</mat-radio-button>
+                                            <mat-radio-button value="no">No</mat-radio-button>                                            
+                                          </mat-radio-group>
+                                          <mat-error
+											*ngIf="editcourier.controls.awb_number_availability.touched && editcourier.controls.awb_number_availability.errors?.required"
+											required>Please
+											Add awb_number_availability. </mat-error>
+                                   
+                                    
+                                  
+                                      
+                                </div> -->
+                            </div>
+
+
+                            <button type="submit" class="btn btn-outline-primary pull-right"
+                                [disabled]="isUserProcessing" (click)="updatedelivery()">
+
+                                <mat-spinner *ngIf="isUserProcessing" [diameter]="20"></mat-spinner>update-delivery
+                            </button>
+                            <!--<button type="submit" class="btn btn-danger pull-right" [disabled]="isUserProcessing"
+								(click)="minus()" mat-raised-button #tooltip="matTooltip"
+								matTooltip="Less in your Quantity" matTooltipPosition="above"
+								matTooltipHideDelay="2000">
+								<mat-spinner *ngIf="isUserProcessing" [diameter]="20"></mat-spinner> <i
+									class="fa fa-minus"></i>
+							</button> -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

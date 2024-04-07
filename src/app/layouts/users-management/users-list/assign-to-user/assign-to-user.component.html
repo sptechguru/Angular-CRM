@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>Assign to other user</h1>
+<div mat-dialog-content>
+    <form class="example-form">
+        <mat-form-field class="example-full-width">
+            <mat-label>Serach by name or email</mat-label>
+            <input type="text" placeholder="Pick one" (input)="searchUserByQuery(search.value)" aria-label="Number"
+                matInput name="search" #search [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+
+                <mat-spinner *ngIf="isListLoading" [diameter]="20"></mat-spinner>
+                <mat-option *ngFor="let option of dataList" (click)="store(option)" [value]="option.email" >
+                    {{option?.email }}
+                </mat-option>
+
+
+            </mat-autocomplete>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button [disabled]="isProcessing" mat-button mat-dialog-close>Close</button>
+    <button [disabled]="isProcessing" (click)=" assignToUser()" mat-button > <mat-spinner *ngIf="isProcessing" [diameter]="20"></mat-spinner> Assign</button>
+
+</div>

@@ -1,0 +1,139 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" color="#fff"
+    template="<img src='https://i.gifer.com/origin/b4/b4d657e7ef262b88eb5f7ac021edda87.gif' style='width:100px;' />">
+</ngx-spinner>
+<div class="py-2">
+
+    <form class="p-3 form-shadow" [formGroup]="variantLead">
+        <div class="row">
+            <div class="col-12">
+                <h2>Variant Offer</h2>
+            </div>
+            <div formArrayName="vriantLeadArray" class="col-12"
+                *ngIf="variantLead.get('vriantLeadArray')?.controls.length > 0">
+                <div class="form-shadow p-3 mb-3"
+                    *ngFor="let supply_capcity of variantLead.controls.vriantLeadArray?.controls;let index=index;">
+                    <div class="d-flex justify-content-between pb-2">
+                        <div>
+                            <h3 class="mb-0">Offer Price for <span
+                                    *ngIf="this.variantIdList.length > index">{{variantIdList[index].title}}</span></h3>
+                        </div>
+                        <div>
+
+                            <button mat-flat-button color="warn" (click)="addSuplyCapcity(index)">Add</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <ng-container>
+                            <div class="col-12">
+                                <div [formGroupName]="index">
+                                    <table class="table varient_table mb-0">
+                                        <tbody formArrayName="variantGroup">
+                                            <tr
+                                                *ngFor="let i of variantLead.controls.vriantLeadArray.controls[index].controls.variantGroup.controls;let j=index;">
+                                                <ng-container [formGroupName]="j">
+                                                    <td class="text-right">
+
+                                                        <mat-form-field appearance="outline" class="example-full-width">
+                                                            <mat-label>Minimum Quantity</mat-label>
+                                                            <input type="number" matInput
+                                                                formControlName="min_quantity">
+                                                        </mat-form-field>
+                                                        <div class="text-left pt-1"
+                                                            *ngIf="this.variantLead.controls.vriantLeadArray.controls[index].controls.variantGroup.controls[j].controls.min_quantity.invalid && (this.variantLead.controls.vriantLeadArray.controls[index].controls.variantGroup.controls[j].controls.min_quantity.dirty || this.variantLead.controls.vriantLeadArray.controls[index].controls.variantGroup.controls[j].controls.min_quantity.touched)">
+                                                            <mat-error>
+                                                                Minimum Quantity Required
+                                                            </mat-error>
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="text-right">
+                                                        <mat-form-field appearance="outline" class="example-full-width">
+                                                            <mat-label>Maximum Quantity</mat-label>
+                                                            <input type="number" matInput
+                                                                formControlName="max_quantity">
+                                                        </mat-form-field>
+                                                        <div class="text-left pt-1"
+                                                            *ngIf="this.variantLead.controls.vriantLeadArray.controls[index].controls.variantGroup.controls[j].controls.max_quantity.invalid && (this.variantLead.controls.vriantLeadArray.controls[index].controls.variantGroup.controls[j].controls.max_quantity.dirty || this.variantLead.controls.vriantLeadArray.controls[index].controls.variantGroup.controls[j].controls.max_quantity.touched)">
+                                                            <mat-error>
+                                                                Maximum Quantity Required
+                                                            </mat-error>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <mat-form-field appearance="outline" class="example-full-width">
+                                                            <mat-label>Offer Price</mat-label>
+                                                            <input type="number" matInput formControlName="offer_price">
+                                                        </mat-form-field>
+                                                        <div class="text-left pt-1"
+                                                            *ngIf="this.variantLead.controls.vriantLeadArray.controls[index].controls.variantGroup.controls[j].controls.offer_price.invalid && (this.variantLead.controls.vriantLeadArray.controls[index].controls.variantGroup.controls[j].controls.offer_price.dirty || this.variantLead.controls.vriantLeadArray.controls[index].controls.variantGroup.controls[j].controls.offer_price.touched)">
+                                                            <mat-error>
+                                                                Offer Price Required
+                                                            </mat-error>
+                                                        </div>
+                                                    </td>
+
+                                                    <!-- <td class="text-right">
+                                                        <mat-form-field appearance="outline" class="example-full-width">
+                                                            <mat-label>Actual Price</mat-label>
+                                                            <input type="number" matInput
+                                                                formControlName="actual_price">
+                                                        </mat-form-field>
+                                                        <div class="text-left pt-1"
+                                                            *ngIf="this.variantLead.controls.vriantLeadArray.controls[index].controls.variantGroup.controls[j].controls.actual_price.invalid && (this.variantLead.controls.vriantLeadArray.controls[index].controls.variantGroup.controls[j].controls.actual_price.dirty || this.variantLead.controls.vriantLeadArray.controls[index].controls.variantGroup.controls[j].controls.actual_price.touched)">
+                                                            <mat-error>
+                                                                Actual Price Required
+                                                            </mat-error>
+                                                        </div>
+                                                    </td> -->
+
+                                                    <!-- <td class="text-right">
+                                                        <mat-form-field appearance="outline" class="example-full-width"
+                                                            *ngFor="let item of maxprice; let i=index">
+                                                            <mat-label>Max Offer Price</mat-label>
+                                                            <input type="text" matInput
+                                                                formControlName="max_offer_price"
+                                                                [(ngModel)]="item.max_offer_price" readonly>
+                                                        </mat-form-field>
+                                                    </td> -->
+
+
+                                                    <td class="text-right">
+                                                        <mat-form-field appearance="outline" class="example-full-width"
+                                                          >
+                                                            <mat-label>Max Offer Price</mat-label>
+                                                            <input type="text" matInput
+                                                                formControlName="max_offer_price"
+                                                                 readonly>
+                                                        </mat-form-field>
+                                                    </td>
+
+                                                    <td
+                                                        *ngIf="variantLead.controls.vriantLeadArray.controls[index].controls.variantGroup.controls.length > 1">
+                                                        <i class="material-icons text-danger cp"
+                                                            (click)="deleteSupplyCapcity(index,j)">delete</i>
+                                                    </td>
+
+                                                </ng-container>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="d-flex justify-content-between">
+                    <button mat-flat-button color="warn" (click)="stepper.previous()">Prev</button>
+                    <button mat-flat-button color="warn" (click)="submit()">
+                        {{editProductId ? 'Update' :'Save'}}</button>
+                    <button mat-flat-button color="warn" (click)="stepper.next()">Next</button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+</div>

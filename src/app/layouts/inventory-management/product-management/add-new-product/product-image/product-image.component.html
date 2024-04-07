@@ -1,0 +1,78 @@
+
+<div class="py-2">
+
+    <form class="p-3 form-shadow" [formGroup]="productImageForm">
+        <div class="row">
+            <div class="col-12">
+                <h2>Product Image</h2>
+            </div>
+            
+          <div class="col-12">
+            <div class=" mb-3"> 
+                <div class="row">
+                   
+                    <div class="col-12">
+
+                        <div class="row" >
+                           
+                            <ng-container FormArrayName="imageList"  *ngIf="productImageForm.get('imageList')?.controls.length >0">
+                                <div class="col-3" *ngFor="let i of productImageForm.controls.imageList.controls;let j=index;">
+                                    <ng-container>
+                                        <div class="form-shadow  position-relative">
+                                            <div class="position-absolute cross-button">
+                                                <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon"  (click)="delteFeatreKey(j)">
+                                                    <mat-icon>close</mat-icon>
+                                                  </button>
+                                            </div>
+                                            <div>
+                                                <img [src]="productImageForm.get('imageList').controls[j].controls.img_url.value" class="img-fluid" style="height:200px;width:100%;border-radius:4px;">
+                                            </div>
+                                            <!--(click)="delteFeatreKey(j)"-->
+                                            
+                                        </div>
+                                    </ng-container>
+                                  </div>
+                            </ng-container>
+                            
+                          <div class="col-3">
+                            <div class="form-shadow position-relative">
+                                <div class="position-absolute cross-button" *ngIf="imgDataUrl">
+                                    <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon" (click)="addFeatureKey()">
+                                        <mat-icon>check</mat-icon>
+                                      </button>
+                                </div>
+                                <input type="file" class="d-none"
+                                accept="image/jpeg,image/gif,image/png"
+                                (change)="onChangeKeyFeature($event.target.files)"
+                                #fileKeyFeature />
+                                <div *ngIf="!imgDataUrl" class="d-flex justify-content-center align-items-center cp" (click)="fileKeyFeature.click()" style="background-color: #eee;height:200px">
+                                    <mat-icon style="height: 50px;width:50px;font-size:50px;">cloud_upload</mat-icon>
+                                </div>
+                                <div *ngIf="imgDataUrl">
+                                    <img [src]="imgDataUrl"  style="height:200px;border-radius:4px;width:100%;">
+                                </div>
+                              
+                               
+                            </div>
+                           
+                          </div>
+                          
+                        </div>
+                        
+                    </div>        
+                
+                </div>  
+       
+            </div> 
+          </div>
+          <div class="col-12">
+            <div class="d-flex justify-content-between">
+                <button mat-flat-button color="warn">Prev</button>
+                <button mat-flat-button color="warn">Next</button>
+            </div>
+            
+           
+        </div>
+        </div>
+    </form>
+</div>

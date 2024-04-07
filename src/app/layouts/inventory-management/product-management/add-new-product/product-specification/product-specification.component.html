@@ -1,0 +1,69 @@
+<div class="py-2">
+
+    <form class="p-3 form-shadow">
+        <div class="row">
+            <div class="col-12">
+                <h2>Product Specification</h2>
+            </div>
+            <div class="col-6">
+                <mat-form-field  appearance="outline" class="example-full-width" >
+                    <mat-label>Specification Type</mat-label>
+                    <mat-select placeholder="specification" 
+                        #specificationAttribute>
+                        <mat-option selected>Select Specification</mat-option>
+                        <mat-option value="Weight" [disabled]="selected_specification.includes('Weight')">Weight</mat-option>
+                        <mat-option value="Material" [disabled]="selected_specification.includes('Material')">Material</mat-option>
+                        <mat-option value="Dimension" [disabled]="selected_specification.includes('Dimension')">Dimension</mat-option>
+                        <mat-option value="Base Material" [disabled]="selected_specification.includes('Base Material')">Base Material</mat-option>
+                        <mat-option value="Warranty" [disabled]="selected_specification.includes('Warranty')">Warranty</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-6 d-flex">
+                <div class="d-inline-flex specification_value" >
+                    <mat-form-field  appearance="outline" class="w-100 example-full-width">
+                       <mat-label>Specification Description</mat-label>
+                        <input matInput placeholder="" type="text" #specificationvalue />
+                    </mat-form-field>
+                </div>
+                <div class="d-inline-block ml-2">
+                   <!--- <button class="btn btn-danger pull-right">Add </button>-->
+                    
+                    <button mat-flat-button class="mt-1" color="warn" [disabled]="!specificationAttribute.value || !specificationvalue.value"
+                    (click)="addSpecification(specificationAttribute.value,specificationvalue.value);specificationAttribute.value='';specificationvalue.value='';">Add</button>
+                    
+            </div>
+        </div>
+        <div class="col-12" *ngIf="specificationlist.length >0">
+            <div class="my-3 form-shadow">
+                <table class="table">
+                    <thead >
+                      <tr>
+                        <th class="font-weight-bold">Type</th>
+                        <th class="font-weight-bold">Description</th>
+                        <th class="font-weight-bold">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let i of specificationlist; let j=index;">
+                        <td>{{i.specification_type}}</td>
+                        <td style="max-width: 300px;">{{i.specification_description}}</td>
+                        <td><i class="material-icons text-danger cp"
+                            (click)="removeSpecification(j)">delete</i></td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="d-flex justify-content-between">
+                <button mat-flat-button color="warn" (click)="data.emit(specificationlist);stepper.previous()">Prev</button>
+                <button mat-flat-button color="warn" (click)="data.emit(specificationlist);stepper.next()">Next</button>
+            </div>
+            
+           
+        </div>
+        </div>
+    </form>
+</div>
+

@@ -1,0 +1,86 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Blog List</h4>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="myForm">
+                            <div class="row">
+                                <div class="col-12">
+                                    <mat-form-field appearance="legacy">
+                                        <mat-label>Blog Title</mat-label>
+                                        <input required formControlName="title" matInput [errorStateMatcher]="matcher">
+                                        <mat-error *ngIf="formControl.title.hasError('required')">
+                                            Title is <strong>required</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <!-- <div class="col-12">
+                              <mat-form-field appearance="legacy">
+                                  <mat-label>Sub Title</mat-label>
+                                  <input required formControlName="sub_title" matInput [errorStateMatcher]="matcher">
+                                  <mat-error *ngIf="formControl.sub_title.hasError('required')">
+                                    Sub Title is <strong>required</strong>
+                                </mat-error>
+                              </mat-form-field>
+                          </div> -->
+                                <div class="col-12">
+                                    <mat-form-field appearance="legacy">
+                                        <mat-label>Postion</mat-label>
+                                        <input required formControlName="position" matInput placeholder="Position"
+                                            maxlength="3" appNumberInput [decimals]="0" [format]="'0'" type="text"
+                                            [errorStateMatcher]="matcher">
+                                        <mat-error *ngIf="formControl.position.hasError('required')">
+                                            Position is <strong>required</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-12">
+                                    <mat-form-field appearance="legacy">
+                                        <mat-label>Status</mat-label>
+                                        <mat-select formControlName="status">
+                                            <mat-option value="active">active</mat-option>
+                                            <mat-option value="inactive">Inactive</mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="formControl.position.hasError('required')">
+                                            Status is <strong>required</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div class="col-12">
+                                    <h4>Blog Discription</h4>
+                                    <ckeditor formControlName="detail" [editor]="Editor">
+                                    </ckeditor>
+                                </div>
+
+                                <div class="col-12 mt-5">
+                                    <div *ngIf="filePath && filePath !== '';else image">
+                                        <img style="max-width:80%;" [src]="filePath" [alt]="myForm.value.name">
+                                    </div>
+                                    <ng-template #image>
+                                        <!-- <img src="https://sampler.io/wp-content/uploads/2019/12/placeholder.png" width="540" height="250"> -->
+                                    </ng-template>
+
+                                </div>
+                                <label class="file mx-3 mt-2">
+                                    <input type="file" id="myFileInput" accept="image/x-png,image/gif,image/jpeg"
+                                        (change)="imagePreview($event)" aria-label="File browser example">
+                                    <span class="file-custom"></span>
+                                </label>
+                            </div>
+
+                            <button mat-raised-button color="primary"
+                                (click)="uploadBlog()">{{route.snapshot.params.id?'Update':'Create'}} Blog</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

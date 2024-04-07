@@ -1,0 +1,36 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Add Branding Amount</h4>
+          </div>
+          <div class="card-body">
+            <form (ngSubmit)="onSubmit(amountForm)" #amountForm="ngForm">
+              <div class="row">
+                <div class="col-md-6">
+                  <span style="color:red;">Enter the branding amount of single piece only.</span>
+                  <mat-form-field appearance="outline" class="mb-4">
+                  <mat-label>Branding Amount</mat-label>
+                  <input  matInput name="brandingAmount" #brandingAmount="ngModel" [(ngModel)]="model.branding_amount" 
+                  min="0" required type="number" oninput="this.value = Math.abs(this.value)" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-danger pull-right" [disabled]="isUserProcessing">
+                <mat-spinner *ngIf="isUserProcessing" [diameter]="20"></mat-spinner>
+                Submit
+              </button>
+              <button type="button" class="btn btn-primary ml-4" [disabled]="isUserProcessing"
+              [routerLink]="['/crm/order-management/order-details', pid]">
+                Back
+              </button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

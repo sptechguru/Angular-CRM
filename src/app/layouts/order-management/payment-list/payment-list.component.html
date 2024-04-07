@@ -1,0 +1,142 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Payment List</h4>
+                        <p class="card-category"> List of all payments of order number {{1}}.</p>
+                    </div>
+                    <div class="card-body">
+                        <!-- <div class="row">
+                            <div class="col-md-4">
+                                <div class="">
+                                    <app-common-search (onQuery)="searchUserByQuery($event)"
+                                        [placeholderText]="'Search User'" [isSearchAsTypeOn]="true">
+                                    </app-common-search>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="">
+                                    
+                                </div>
+							</div>
+							<div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="">
+									<button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base mb-2" 
+                                    [routerLink]="['/crm/order-management/order-details', orderID]">
+                                        <span class="material-icons">
+                                        arrow_back
+                                        </span> 
+                                        <span class="mat-button-wrapper">Back</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+									
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>Payment ID</th>
+                                    <th>Amount</th>
+                                    <th>Part Payment?</th>
+                                    <th>Payment Type</th>
+                                    <th>Payment Instrument</th>
+                                    <th>Payment By</th>
+                                    <th>Transaction Receipt / Id</th>
+                                    <th>Payment Status</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody *ngIf="!isListLoading && orderData.payments">
+                                    <tr *ngFor="let payment of orderData.payments; let i = index">
+                                        <td>{{payment?.id}}</td>
+                                        <td>{{payment?.amount | number: '1.0-0'}}</td>
+                                        <td>{{payment?.part_payment}}</td>
+                                        <td>{{payment?.payment_type}}</td>
+                                        <td>{{payment?.payment_instrument}}</td>
+                                        <td *ngIf="!payment?.bank && payment?.payment_type != 'online'">RTGS/NEFT</td>
+                                        <td *ngIf="payment?.bank">{{payment?.bank}}</td>
+                                        <td *ngIf="payment?.card_id">{{payment?.card_id}}</td>
+                                        <td *ngIf="payment?.wallet">{{payment?.wallet}}</td>
+                                        <td *ngIf="payment?.vpa">{{payment?.vpa}}</td>
+                                        <td *ngIf="!payment?.vpa && !payment?.wallet && !payment?.card_id
+                                        && !payment?.bank"></td>
+
+                                        <td *ngIf="payment.payment_type != 'online'" >
+                                            <a *ngIf="payment.transaction_receipt && reciepr(payment.transaction_receipt) != 'pdf'" 
+                                            [href]="payment.transaction_receipt" target="_blank">
+                                                <img class="img-thumbnail w-150" src="{{payment.transaction_receipt}}">
+                                            </a>
+
+                                            <a *ngIf="payment.transaction_receipt && reciepr(payment.transaction_receipt) == 'pdf'" 
+                                            [href]="payment.transaction_receipt" target="_blank">
+                                                <ngx-extended-pdf-viewer 
+                                                [src]="'payment.transaction_receipt'"
+                                                [height]="'10vh'"
+                                                [useBrowserLocale]="true"
+                                                [textLayer]="true"
+                                                [showHandToolButton]="true"> 
+                                                </ngx-extended-pdf-viewer>
+                                            </a>
+                                        <!-- <img *ngIf="!payment.transaction_receipt" class="img-thumbnail w-150" 
+                                        src="/assets/img/no_preview.jpg"> -->
+
+                                        <a  *ngIf="!payment.transaction_receipt" [href]="payment.zoho_invoice_url" target="_blank">
+                                    
+                                            <button class="btn btn-sm btn-danger">  
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                                 </button> 
+                                      </a>
+                                        
+                                    </td>
+                                        <td *ngIf="payment.payment_type == 'online'">{{payment?.razorpay_payment_id}}</td>
+                                      
+                                        <td>{{payment?.payment_status}}</td>
+                                        <td>
+                                            <span class="badge badge-pill"
+                                                [ngClass]="{'badge-primary': ( payment.status == 'pending' ), 'badge-success': ( payment.status == 'active' ), 'badge-danger': ( payment.status == 'inactive' )}">{{ payment.status | uppercase }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-outline-primary dropdown-toggle"
+                                                    data-toggle="dropdown" [disabled]="payment?.payment_status  === 'paid' || 
+                                                    payment?.payment_type  === 'online'">
+                                                    Actions
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a style="cursor: pointer;" class="dropdown-item" ngbTooltip="Approve Payment" 
+                                                    (click)="approvePayment(payment?.id,payment?.amount)">Approve Payment</a>
+                                                    <!-- <a class="dropdown-item" ngbTooltip="View Details"
+                                                        [routerLink]="['add-branding-amount',order?.id]">Add Branding Amount</a> -->
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!orderData.payments">
+                                        <td colspan="9">
+                                            <div class="text-center">No record found.</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isListLoading">
+                                    <tr>
+                                        <td colspan="9">
+                                            <app-data-loader></app-data-loader>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

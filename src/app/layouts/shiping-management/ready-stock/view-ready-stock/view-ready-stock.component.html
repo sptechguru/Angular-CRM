@@ -1,0 +1,249 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">stream</i>
+                        </div>
+                        <p class="card-category">Active Reseller</p>
+                        <h3 class="card-title">455
+                        </h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">update</i> Just Updated
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">store</i>
+                        </div>
+                        <p class="card-category">Sales</p>
+                        <h3 class="card-title">50</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <app-pick-date-rang [tableMode]="false">
+                                <i class="material-icons">date_range</i>
+                            </app-pick-date-rang>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">info_outline</i>
+                        </div>
+                        <p class="card-category">Pending kyc</p>
+                        <h3 class="card-title">45</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">update</i> Just Updated
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-info card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-twitter"></i>
+                        </div>
+                        <p class="card-category">Followers</p>
+                        <h3 class="card-title">+245</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">update</i> Just Updated
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-danger">
+                                <h4 class="card-title ">Details of Ready Stock</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="table-responsive">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="fw_600">
+                                                            Source Zone:
+                                                        </td>
+                                                        <td>
+                                                            {{readyStock?.source_zones[0].name}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="fw_600">
+                                                            Minimum Time for Ready Stock:
+                                                        </td>
+                                                        <td>
+                                                            {{readyStock?.source_zones[0].shipping_timing.min_ready_eta}} days    
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="fw_600">
+                                                            Minimum Time for Made To Order:
+                                                        </td>
+                                                        <td>
+                                                            {{readyStock?.source_zones[0].shipping_timing.min_mto_eta}} days       
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="fw_600">
+                                                            Shiping State
+                                                        </td>
+                                                        <td>
+                                                         <span>{{this.statelist}}</span>    
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="table-responsive">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="fw_600">
+                                                            Delivery Zone:
+                                                        </td>
+                                                        <td>
+                                                            {{readyStock?.name}}  
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="fw_600">
+                                                            Maximum Time for Ready Stock:
+                                                        </td>
+                                                        <td>
+                                                            {{readyStock?.source_zones[0].shipping_timing.max_ready_eta}}
+                                                        </td>
+                                                    </tr>
+                                                  
+                                                    <tr>
+                                                        <td class="fw_600">
+                                                            Maximum Time for Made To Order Stock:
+                                                        </td>
+                                                        <td>
+                                                            {{readyStock?.source_zones[0].shipping_timing.max_mto_eta}}   
+                                                        </td>
+                                                    </tr>                                                  
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                 
+                                </div>
+                                                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          
+          
+
+
+
+       <!---
+        <div class="row" *ngIf="isListLoading">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Ready Stock</h4>
+                        <p class="card-category">Details of Ready Stock</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                           <div class="col-6">
+                               <div class="Form-group">
+                                   <label class="pr-2">Source Zone:</label>
+                                   <span>{{readyStock?.source_zones[0].name}}</span>
+                               </div>
+                           </div>
+                           <div class="col-6">
+                            <div class="Form-group">
+                                <label class="pr-2 fornt-weight-bold">Delivery Zone:</label>
+                                <span>{{readyStock?.name}}</span>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <div>
+                                <label>Shiping Time For Ready Stock</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="Form-group">
+                                <label class="pr-2 fornt-weight-bold">Minimum Time:</label>
+                                <span>{{readyStock?.source_zones[0].shipping_timing.min_ready_eta}} days</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                         <div class="Form-group">
+                             <label class="pr-2 fornt-weight-bold">Maximum Time:</label>
+                             <span>{{readyStock?.source_zones[0].shipping_timing.max_ready_eta}}</span>
+                         </div>
+                     </div>
+                     <div class="col-12 mt-2">
+                        <div>
+                            <label>Shiping Time For Made To Order Stock</label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="Form-group">
+                            <label class="pr-2 fornt-weight-bold">Minimum Time:</label>
+                            <span>{{readyStock?.source_zones[0].shipping_timing.min_mto_eta}} days</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                     <div class="Form-group">
+                         <label class="pr-2 fornt-weight-bold">Maximum Time:</label>
+                         <span>{{readyStock?.source_zones[0].shipping_timing.max_mto_eta}}</span>
+                     </div>
+                 </div>
+                 <div class="col-12 mt-2">
+                    <div>
+                        <label>Shiping State</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row mx-0">
+                        <div class="col-6 px-0"  *ngFor="let i of readyStock?.shipping_states">
+                            <div class="Form-group">
+                                <span>{{i.name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    -->
+    </div>
+</div>

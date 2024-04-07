@@ -1,0 +1,96 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Reseller Support</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="">
+                                    <app-common-search (onQuery)="searchUserByQuery($event)"
+                                        [placeholderText]="'Search'" [isSearchAsTypeOn]="true">
+                                    </app-common-search>
+                                </div>
+                            </div>
+                           
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>#</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <!-- <th>Contact</th> -->
+                                    <th>Image</th>
+                                    <th>Date</th>
+                                    <th>Reseller Name</th>
+                                    <th>Email</th>
+                                    <th>Phone no</th>
+
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of dataList ; let i = index">
+                                        <td>{{(i +1) + ((page -1) * 10)}}</td>
+                                        <td>
+                                            {{item.title}}
+                                        </td>
+                                        <td>
+                                            {{item.description}}
+                                        </td>
+                                        <td>
+                                            <span class="notification-table-img">
+
+                                                <a [href]="item?.request_image" target="_blank" rel="noopener noreferrer"> <img [src]="item?.request_image" alt="image" class="img-fluid"></a>
+                                               
+                                            </span>
+                                        </td>
+                                      
+                                        <td>{{item.created_at | customdate}}</td>
+                                        <td>
+                                           {{item?.by_reseller?.full_name}}
+                                        </td>
+                                        
+                                         <td>
+                                            {{item?.by_reseller?.email}}
+                                         </td>
+                                         <td>
+                                            {{item?.by_reseller?.phone_number}}
+                                         </td>
+
+                                    </tr>
+
+                                 
+                                    <tr *ngIf="!dataList.length">
+                                        <td colspan="6">
+                                            <div class="text-center">No record found.</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="pull-right">
+                                                <app-ngb-pagination [collectionSize]="totalQueryableData" [page]="page"
+                                                    (pageChange)="handlePageChange($event)"
+                                                    [isDisabled]="isListLoading">
+                                                </app-ngb-pagination>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isListLoading">
+                                    <tr>
+                                        <td colspan="6">
+                                            <app-data-loader></app-data-loader>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

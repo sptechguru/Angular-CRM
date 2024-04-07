@@ -1,0 +1,147 @@
+
+<div class="py-2">
+    
+    <form class="p-3 form-shadow" [formGroup]="variantLead">
+        <div class="row">
+            <div class="col-12">
+                <h2>Variant Images</h2>
+            </div>
+            <ng-container *ngIf="variantLead.get('vriantLeadArray')?.controls.length > 0">
+                <div formArrayName="vriantLeadArray" class="col-12" >
+                    <div class="form-shadow p-3 mb-3" *ngFor="let supply_capcity of variantLead.controls.vriantLeadArray?.controls;let index=index;">
+                        <div class="d-flex justify-content-between pb-2">
+                            <div>
+                                <h3 class="mb-0">Image for <span *ngIf="this.variantIdList.length > index">{{variantIdList[index].title}}</span></h3>
+                            </div>
+                            
+                        </div>
+                        <div class="row" >
+                            <ng-container>
+                                <div class="col-12">
+                                    <div [formGroupName]="index">
+                                        <div>
+                                            <div class="row">
+    
+                                                <ng-container formArrayName="variantGroup"
+                                                    *ngIf="variantLead.controls.vriantLeadArray.controls[index].controls.variantGroup?.controls.length >0">
+                                                    <div class="col-3 my-2"
+                                                    *ngFor="let i of variantImageList[0].imageData;let j=index;"
+                                                        >
+                                                        <!-- <p>{{i.is_feature}}</p> -->
+                                                        <ng-container [formGroupName]="j">
+                                                            <div class="form-shadow  position-relative">
+                                                                <div class="position-absolute cross-button">
+                                                                    <button mat-mini-fab color="warn"
+                                                                        aria-label="Example icon button with a filter list icon"
+                                                                        (click)="delteFeatreKey(index,j)">
+                                                                        <mat-icon>close</mat-icon>
+                                                                    </button>
+                                                                    </div>
+                                                                    <div class="position-absolute cross">
+                                                                    <button mat-mini-fab color="primary" 
+                                                                    aria-label="Example icon button with a filter list icon"
+                                                                    (click)="setAsDefult()" *ngIf="i.is_feature == 'yes'">
+                                                                    <mat-icon>settings</mat-icon>
+                                                                </button>
+                                                                <button mat-mini-fab color="green" 
+                                                                aria-label="Example icon button with a filter list icon"
+                                                                (click)="setAsDefult()" *ngIf="i.is_feature == 'no'" >
+                                                                <mat-icon> settings</mat-icon>
+                                                            </button>
+                                                                </div>
+                                                                <div>
+                                                                    <img [src]="i.product_variant_image"
+                                                                        class="img-fluid"
+                                                                        style="height:200px;width:100%;border-radius:4px;">
+                                                                </div>
+                                                               
+                                                  
+                                                                <!--(click)="delteFeatreKey(j)"-->
+    
+                                                            </div>
+                                                            <!-- <div class=""  style="margin-top: 20px;">
+                                                                <mat-form-field class="example-full-width" MatFormFieldControl>
+                                                                  <mat-select [formControl]="is_feature" name="is_feature" matInput placeholder="Parent Category">
+                                                                    <mat-option value="category.id" *ngFor="let category of dataList; index as i;">category.product_category</mat-option>
+                                                                  </mat-select> 
+                                                                 <mat-label>Is Feature Image?</mat-label>
+                                                                  <select [formControl]="is_feature" matNativeControl>
+                                                                    <option value="yes">Yes</option>
+                                                                    <option value="no">No</option>
+                                                                  </select>
+                                              
+                                                                </mat-form-field>
+                                                              </div> -->
+                                                        </ng-container>
+                                                    </div>
+                                                </ng-container>
+    
+                                                <div class="col-3 my-2">
+                                                    <div class="form-shadow position-relative">
+                                                        <div class="position-absolute cross-button"
+                                                            *ngIf="variantLead.controls.vriantLeadArray.controls[index].controls.imgDataUrl.value">
+                                                            <button mat-mini-fab color="warn" [disabled]="disable" 
+                                                                aria-label="Example icon button with a filter list icon"
+                                                                (click)="addimgeObj(index)">
+                                                                <mat-icon>check</mat-icon>
+                                                            </button>
+                                                        </div>
+                                                        <div class="position-absolute cross" 
+                                                        *ngIf="variantLead.controls.vriantLeadArray.controls[index].controls.imgDataUrl.value">
+                                                        <button mat-mini-fab color="primary" 
+                                                            aria-label="Example icon button with a filter list icon"
+                                                            (click)="setAsDefult()" *ngIf="isDefult">
+                                                            <mat-icon>settings</mat-icon>
+                                                        </button>
+                                                        <button mat-mini-fab color="green" 
+                                                        aria-label="Example icon button with a filter list icon"
+                                                        (click)="setAsDefult()" *ngIf="!isDefult" >
+                                                        <mat-icon matTooltip="Defult image">settings</mat-icon>
+                                                    </button>
+                                                    </div>
+                                                        <input type="file" class="d-none"
+                                                            accept="image/jpeg,image/gif,image/png"
+                                                            (change)="onChangeKeyFeature($event.target.files,index)"
+                                                            #fileKeyFeature />
+                                                        <div *ngIf="!variantLead.controls.vriantLeadArray.controls[index].controls.imgDataUrl.value"
+                                                            class="d-flex justify-content-center align-items-center cp"
+                                                            (click)="fileKeyFeature.click()"
+                                                            style="background-color: #eee;height:200px">
+                                                            <mat-icon
+                                                                style="height: 50px;width:50px;font-size:50px;">
+                                                                cloud_upload</mat-icon>
+                                                        </div>
+                                                        <div *ngIf="variantLead.controls.vriantLeadArray.controls[index].controls.imgDataUrl.value">
+                                                            <img [src]="variantLead.controls.vriantLeadArray.controls[index].controls.imgDataUrl.value"
+                                                                style="height:200px;border-radius:4px;width:100%;">
+                                                        </div>
+    
+    
+                                                    </div>
+    
+                                                </div>
+    
+                                            </div>
+                                        </div>
+    
+                                    </div>
+                                </div>
+                            </ng-container>
+                            
+                        </div>
+                   </div>
+                   </div>
+            </ng-container>
+            
+            <div class="col-12">
+                <div class="d-flex justify-content-between">
+                    <button mat-flat-button color="warn" (click)="stepper.previous()">Prev</button>
+                    <button mat-flat-button color="warn" (click)="submit()">{{editProductId ? 'Update' :'Save' }}</button>
+                   <!---<button mat-flat-button color="warn" (click)="stepper.next()">Next</button> -->
+                </div>
+            </div>
+
+        </div>  
+       </form>
+    
+</div>

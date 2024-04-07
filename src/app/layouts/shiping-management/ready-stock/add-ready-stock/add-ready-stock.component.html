@@ -1,0 +1,83 @@
+  
+<h1 mat-dialog-title>{{ updateToggle ? 'Update Stock' : 'Create Stock'}}</h1>
+<div  mat-dialog-content>
+<form [formGroup]="stockForm">
+   <!--- <mat-form-field appearance="fill">
+        <mat-label>State</mat-label>
+        <mat-select formControlName="state">
+        <mat-option *ngFor="let state of ['M.P.','U.P.']" [value]="state"
+                >
+                {{state}}
+            </mat-option>
+        </mat-select>  
+    </mat-form-field>
+     
+    <mat-form-field appearance="fill" MatFormFieldControl>
+        <mat-label>Source Zone</mat-label>
+        <input  type="text" formControlName="source_zone" matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" MatFormFieldControl>
+        <mat-label>Delivery Zone</mat-label>
+        <input  type="text" formControlName="delivery_zone" matInput>
+    </mat-form-field>
+-->
+ <div class="row mx-0">
+     <div class="col-12">
+         <h4>Ready Stock Estimate Time in Days</h4>
+     </div>
+     <div class="col-6">
+        <mat-form-field appearance="fill" MatFormFieldControl>
+            <mat-label>Mininmum Time</mat-label>
+            <input  type="number" formControlName="min_ready_eta" matInput>
+            <span class="text-danger pt-2" *ngIf="this.stockForm.controls.min_ready_eta.invalid && (this.stockForm.controls.min_ready_eta.dirty || this.stockForm.controls.min_ready_eta.touched)">
+                Minimum time is required
+            </span>
+        </mat-form-field>
+     </div>
+     <div class="col-6">
+        <mat-form-field appearance="fill" MatFormFieldControl>
+            <mat-label>Maximum Time</mat-label>
+            <input  type="number" formControlName="max_ready_eta" matInput (change)="readyStockMinValidation=false">
+            <span class="text-danger pt-2" *ngIf="this.stockForm.controls.max_ready_eta.invalid && (this.stockForm.controls.max_ready_eta.dirty || this.stockForm.controls.max_ready_eta.touched)">
+                Maximum time is required
+            </span>
+            <span *ngIf="readyStockMinValidation">
+                Maximum time is less than to Minimum time.
+            </span>
+        </mat-form-field>
+     </div>
+     <div class="col-12">
+        <h4>Made To Stock Estimate Time in Days</h4>
+    </div>
+    <div class="col-6">
+       <mat-form-field appearance="fill" MatFormFieldControl>
+           <mat-label>Mininmum Time</mat-label>
+           <input  type="number" formControlName="min_mto_eta" matInput (change)="madeStockMinValidation=false">
+           <span class="text-danger pt-2" *ngIf="this.stockForm.controls.min_mto_eta.invalid && (this.stockForm.controls.min_mto_eta.dirty || this.stockForm.controls.min_mto_eta.touched)">
+            Minimum time is required
+        </span>
+       </mat-form-field>
+    </div>
+    <div class="col-6">
+       <mat-form-field appearance="fill" MatFormFieldControl>
+           <mat-label>Maximum Time</mat-label>
+           <input  type="number" formControlName="max_mto_eta" matInput (change)="madeStockMinValidation=false">
+           <span class="text-danger pt-2" *ngIf="this.stockForm.controls.max_mto_eta.invalid && (this.stockForm.controls.max_mto_eta.dirty || this.stockForm.controls.max_mto_eta.touched)">
+            Maximum time is required
+           </span>
+           <span *ngIf="madeStockMinValidation">
+            Maximum time is less than to Minimum time.
+        </span>
+       </mat-form-field>
+    </div>
+ </div>
+    
+   
+</form>
+</div>
+<div mat-dialog-actions [hidden]="saving">
+    <button mat-button mat-dialog-close>Close</button>
+    <button mat-button (click)="Submit()">{{updateToggle ? 'Update' : 'Save'}}</button>
+</div>
+<mat-spinner [hidden]="!saving"></mat-spinner>

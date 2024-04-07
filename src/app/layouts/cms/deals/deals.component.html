@@ -1,0 +1,18 @@
+<div class="main-content">
+    <h3>Deals Mangement</h3>
+    <div class="container-fluid">
+       <div [@listAnimation]="deals?.length" >
+<mat-card>
+    <mat-selection-list #shoes [multiple]="false">
+        <mat-list-option *ngFor="let item of deals" [routerLink]="[item.id]">
+            {{item.deal_name | titlecase}}
+        </mat-list-option>
+    </mat-selection-list>
+</mat-card>
+       
+       
+       </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,170 @@
+<!-- <h1 mat-dialog-title>{{diologConfig?.title || 'Confirmation'}}</h1>
+<div mat-dialog-content>
+    <p>{{diologConfig?.question || 'Are you sure you want to perform this action ?'}}</p>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="primary" [mat-dialog-close]="{response: true}"
+    class="mat-focus-indicator btn mat-raised-button mat-button-base" *ngIf="diologConfig?.confirmText">{{diologConfig?.confirmText || 'Confirm'}}</button>
+    <button mat-button (click)="onNoClick()"
+    class="mat-focus-indicator btn mat-raised-button mat-button-base">{{diologConfig?.cancelText || 'Cancel'}}</button>
+</div> -->
+
+
+<h1 mat-dialog-title>{{diologConfig?.title || 'Update Stock'}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="addnewsku" novalidate autocomplete="off">
+
+        <div class="row form-group">
+            <!-- <div class="col-md-3" style="float: left;">
+                <mat-label>Available Stock:</mat-label>
+                <label style="color: black;font-weight:bold;">Available Stock:</label> 
+            </div> -->
+            <div class="col-md-4" style="float: left;margin-left:105px;">	
+                <mat-label>Adjustment</mat-label>	
+            </div>
+            <div clsss="col-md-4" style="float: left;">
+                <mat-label>New Value</mat-label>
+            </div>
+            <div clsss="col-md-4" style="float: left;margin-left: 145px;">
+                <mat-label>Current Value</mat-label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1" style="float: left;">
+                <mat-label>Available Stock</mat-label>
+            </div>
+            <div class="col-md-3" style="float: left;margin-left:45px;">
+                <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input formControlName="adjustment" matInput placeholder="eg. +10,-10"
+                        type="text" (input)="changevaluestock($event)" />
+                    <!-- <mat-error
+                        *ngIf="addnewsku.controls.adjustment.touched && addnewsku.controls.adjustment.errors?.required"
+                        required>Please
+                        Add  Stock Adjustment. 
+                    </mat-error> -->
+    
+                </mat-form-field>
+            </div>
+            <div class="col-md-3" style="float: left;margin-left:45px;">
+                <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input formControlName="result_adj" matInput 
+                        type="text" readonly />								
+    
+                </mat-form-field>
+            </div>
+            <div class="col-md-3" style="float: left;margin-left:25px;">
+                <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input [value]="diologConfig?.quantity" matInput placeholder="Quantity"
+                        type="text" readonly />								
+    
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1" style="float: left;">
+                <mat-label>Sample Stock</mat-label>
+            </div>
+            <div class="col-md-3" style="float: left;margin-left:45px;">
+                <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input formControlName="sampleadjustment" matInput placeholder="eg. +10,-10"
+                        type="text" (input)="changevaluesample($event)" />
+                    <!-- <mat-error
+                        *ngIf="addnewsku.controls.sampleadjustment.touched && addnewsku.controls.sampleadjustment.errors?.required"
+                        required>Please
+                        Add Sample Stock. 
+                    </mat-error> -->
+    
+                </mat-form-field>
+            </div>
+            <div class="col-md-3" style="float: left;margin-left:45px;">
+                <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input formControlName="result_sample" matInput
+                        type="text" readonly />	{{mquantity}}							
+    
+                </mat-form-field>
+            </div>
+            <div class="col-md-3" style="float: left;margin-left:25px;"> 
+                <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input  matInput placeholder="Sample Stock"
+                        type="text" readonly [value]="diologConfig?.sstock" />								
+    
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1" style="float: left;">
+                <mat-label>Reserve Stock</mat-label>
+            </div>
+            <div class="col-md-3" style="float: left;margin-left:45px;">
+                <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input formControlName="rstock" matInput placeholder="Reserve_Stock"
+                        type="text" (input)="changevaluerstock($event)"  />
+                    <!-- <mat-error
+                        *ngIf="addnewsku.controls.rstock.touched && addnewsku.controls.rstock.errors?.required"
+                        required>Please
+                        Add Reserve Stock. 
+                    </mat-error> -->
+    
+                </mat-form-field>
+            </div>
+            <div class="col-md-3" style="float: left;margin-left:45px;">
+                <mat-form-field class="example-full-width" MatFormFieldControl >
+                    <input formControlName="result_rstock" matInput
+                        type="text" readonly  />								
+    
+                </mat-form-field>
+            </div>
+            <div class="col-md-3" style="float: left;margin-left:25px;">
+                <mat-form-field class="example-full-width" MatFormFieldControl>
+                    <input [value]="diologConfig?.rstock" matInput placeholder="Reserve Stock"
+                        type="text" readonly />								
+    
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">							
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1" style="color: black;font-weight:bold;">Reason</label>
+                    <select class="form-control" id="exampleFormControlSelect1" formControlName="adjustment_reasone" 
+                     style="border: solid 0.5px lightgrey;padding-left: 10px;" (change)="changereason($event)">
+                      <option value="">Select Reason</option>
+                    <option value="Stock Received">Stock Received</option>
+                      <option value="Sample">Sample</option>
+                      <option value="Stock Revaluation" >Stock Revaluation</option>
+                      <option value="Stock Damaged">Stock Damaged</option>
+                      <option value="Stock Misplaced">Stock Misplaced</option>
+                    </select>
+                    <div *ngIf="addnewsku.controls.adjustment_reasone.touched && addnewsku.controls.adjustment_reasone.errors?.required" required>
+                        <span style="color:red">You must make a selection</span>
+                    </div>
+                  </div>						
+                </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label style="color: black;font-weight:bold;">Description</mat-label>
+                    <input name="adjustment_description" matInput placeholder="Description" type="text"
+                        formControlName="adjustment_description" (input)="changedescription($event)" />
+    
+                </mat-form-field>
+            </div>
+        </div>	
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button type="submit" class="btn btn-primary" [mat-dialog-close]="{response: true,adjustment:newadjustment,rstock:newrstock,sstock:newsstock,adjustment_reason:adjustment_reason,adjustment_description:adjustment_description}">							
+        Update Change
+      </button>
+      <button mat-button (click)="onNoClick()"
+    class="mat-focus-indicator btn mat-raised-button mat-button-base">{{diologConfig?.cancelText || 'Cancel'}}</button>
+    <!-- <button mat-raised-button color="primary" [mat-dialog-close]="{response: true}"
+    class="mat-focus-indicator btn mat-raised-button mat-button-base" *ngIf="diologConfig?.confirmText">{{diologConfig?.confirmText || 'Confirm'}}</button>
+    <button mat-button (click)="onNoClick()"
+    class="mat-focus-indicator btn mat-raised-button mat-button-base">{{diologConfig?.cancelText || 'Cancel'}}</button> -->
+</div> 
+
+
+
+

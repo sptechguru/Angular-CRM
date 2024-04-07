@@ -1,0 +1,76 @@
+<button mat-mini-fab color="warn" (click)="dialogRef.close()" class="sbm-close-btn">
+    <span class="material-icons">
+        close
+    </span>
+</button> 
+
+<h2 mat-dialog-title>App Versions</h2>
+
+<div mat-dialog-content>
+<mat-nav-list disableRipple = "true" class="w-100">
+
+    <a mat-list-item *ngIf="!editAndroidVersion" (click)="editAndroidVersion = true">
+        <i class="material-icons">android</i>
+        <span mat-line>Android</span>
+
+        <span mat-line>Version v{{androidVersion}}</span>
+
+    </a>
+    <mat-list *ngIf="editAndroidVersion" class="mt-3 no-hover-bg">
+        <mat-list-item>
+            <i mat-list-icon class="material-icons">android</i>
+            <div mat-line>Android v{{androidVersion}}</div>
+            <mat-form-field appearance="outline" mat-line class="example-full-width">
+                <mat-label>Version</mat-label>
+                <input type="number" matInput #android placeholder="Ex. 0.1" [value]="androidVersion">
+
+            </mat-form-field>
+            <button mat-button><i class="material-icons"
+                    (click)="updateApkVersion('android',android.value);editAndroidVersion = false">upgrade</i></button>
+            <button mat-button><i class="material-icons" (click)="editAndroidVersion = false">highlight_off</i></button>
+        </mat-list-item>
+    </mat-list>
+    <mat-divider></mat-divider>
+    <a mat-list-item *ngIf="!editResellerVersion" (click)="editResellerVersion = true">
+        <i class="material-icons">store</i>
+        <span mat-line>Reseller</span>
+        <span mat-line>Version v{{resellerVersion}}</span>
+    </a>
+    <mat-list *ngIf="editResellerVersion" class="mt-3 no-hover-bg">
+        <mat-list-item>
+            <i mat-list-icon class="material-icons">store</i>
+            <div mat-line>Reseller v{{resellerVersion}}</div>
+            <mat-form-field appearance="outline" mat-line class="example-full-width">
+                <mat-label>Version</mat-label>
+                <input type="number" matInput #reseller placeholder="Ex. 0.1" [value]="resellerVersion">
+
+            </mat-form-field>
+            <button mat-button><i class="material-icons"
+                    (click)="updateApkVersion('reseller',reseller.value);editResellerVersion = false">upgrade</i></button>
+            <button mat-button><i class="material-icons"
+                    (click)="editResellerVersion = false">highlight_off</i></button>
+        </mat-list-item>
+    </mat-list>
+    <mat-divider></mat-divider>
+    <a mat-list-item *ngIf="!editCrmVersion" (click)="editCrmVersion = true">
+        <i class="material-icons">support_agent</i>
+        <span mat-line>CRM</span>
+        <span mat-line>Version v{{crmVersion}}</span>
+    </a>
+
+    <mat-list *ngIf="editCrmVersion" class="mt-3 no-hover-bg">
+        <mat-list-item>
+            <i mat-list-icon class="material-icons">support_agent</i>
+            <div mat-line>CRM v{{crmVersion}}</div>
+            <mat-form-field appearance="outline" mat-line class="example-full-width">
+                <mat-label>Version</mat-label>
+                <input type="number" matInput #crm placeholder="Ex. 0.1" [value]="crmVersion">
+
+            </mat-form-field>
+            <button mat-button><i class="material-icons"
+                    (click)="updateApkVersion('crm',crm.value);editCrmVersion = false">upgrade</i></button>
+            <button mat-button><i class="material-icons" (click)="editCrmVersion = false">highlight_off</i></button>
+        </mat-list-item>
+    </mat-list>
+</mat-nav-list>
+</div>

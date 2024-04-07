@@ -1,0 +1,145 @@
+<div class="main-content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header card-header-danger">
+						<h4 class="card-title ">Bill List</h4>
+						<p class="card-category">List of all bills of order number {{1}}.</p>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="">
+									<app-common-search (onQuery)="searchUserByQuery($event)"
+										[placeholderText]="'Search'" [isSearchAsTypeOn]="true">
+									</app-common-search>
+								</div>
+							</div>
+							<div class="col-md-4">
+							</div>
+							<div class="col-md-4">
+								<div class="">
+									<button
+										class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base mb-2"
+										[routerLink]="['/crm/order-management/order-details', orderID]">
+										<span class="material-icons">
+											arrow_back
+										</span>
+										<span class="mat-button-wrapper">Back</span>
+										<div class="mat-ripple mat-button-ripple"></div>
+										<div class="mat-button-focus-overlay"></div>
+									</button>
+									<!--<button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base"
+									[routerLink]="['/crm/order-management/add-bill-to-order',orderID]">
+                                        <span class="mat-button-wrapper">Add Shipment</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>-->
+								</div>
+							</div>
+						</div>
+						<div class="table-responsive">
+							<table class="table">
+								<thead class=" text-primary">
+									<th>Shipment ID</th>
+									<th>Invoice</th>
+									<th>E-way Bill</th>
+									<th>Challan Bill</th>
+									<th>Packaging List</th>
+									<th>Created at</th>
+									<th>Action</th>
+								</thead>
+								<tbody *ngIf="!isListLoading">
+									<tr *ngFor="let billList of shipmentData; let i = index">
+										<td>{{billList?.id}}</td>
+										<!-- <td>
+											<a *ngIf="(billList?.invoice)" [href]="billList?.invoice" target="_blank">
+												<i class="icon-cloud-download">
+													<span class="material-icons">
+														cloud_download
+													</span>
+												</i>
+											</a>
+											<span *ngIf="(!billList?.invoice)">N/A</span>
+										</td> -->
+										<!-- <td *ngIf="(!billList?.eway_bill)">N/A</td> -->
+											<td>
+												<button *ngIf="(billList?.invoice_code)" (click)="getInvoiceFromUnicommerce(billList?.invoice_code)" mat-icon-button color="primary" >
+													<i class="icon-cloud-download">
+														<span class="material-icons">
+															cloud_download
+														</span>
+													</i>
+												</button>
+											
+												<span *ngIf="(!billList?.invoice_code)">N/A</span>
+											</td>
+										<td>
+											<a *ngIf="(billList?.eway_bill)" [href]="billList?.eway_bill"
+												target="_blank">
+												<i class="icon-cloud-download">
+													<span class="material-icons">
+														cloud_download
+													</span>
+												</i>
+											</a>
+											<span *ngIf="(!billList?.eway_bill)">N/A</span>
+										</td>
+										<td>
+											<a *ngIf="(billList?.challan)" [href]="billList?.challan" target="_blank">
+												<i class="icon-cloud-download">
+													<span class="material-icons">
+														cloud_download
+													</span>
+												</i>
+											</a>
+											<span *ngIf="(!billList?.challan)">N/A</span>
+										</td>
+										<td>
+											<a *ngIf="(billList?.packaging_list)" [href]="billList?.packaging_list"
+												target="_blank">
+												<i class="icon-cloud-download">
+													<span class="material-icons">
+														cloud_download
+													</span>
+												</i>
+											</a>
+											<span *ngIf="(!billList?.packaging_list)">N/A</span>
+										</td>
+										<td>{{billList?.created_at | customdate}}</td>
+										<td>
+											<div class="dropdown">
+												<button type="button" class="btn btn-outline-primary dropdown-toggle"
+													data-toggle="dropdown">Actions
+												</button>
+												<div class="dropdown-menu">
+													<a class="dropdown-item" ngbTooltip="Delete"
+														href="javascript:void(0)">Delete</a>
+													<a class="dropdown-item" ngbTooltip="Edit"
+														[routerLink]="['/crm/order-management/add-bill-to-order',orderID,billList?.id]">
+														Edit</a>
+													<a class="dropdown-item" ngbTooltip="Update Packaging List"
+														[routerLink]="['/crm/order-management/order-packaging-list',orderID,billList?.id]">
+														Update Packaging List</a>
+												</div>
+											</div>
+										</td>
+									</tr>
+
+								</tbody>
+								<tbody *ngIf="isListLoading">
+									<tr>
+										<td colspan="9">
+											<app-data-loader></app-data-loader>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

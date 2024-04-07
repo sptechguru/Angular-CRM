@@ -1,0 +1,209 @@
+/*!
+
+=========================================================
+* Material Dashboard Angular - v2.4.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard-angular2
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/material-dashboard-angular2/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
+@import "../fonts/segoe-ui/style.css";
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a {
+  font-family: "Segoe UI";
+  font-weight: 400;
+}
+body {
+  font-weight: 400;
+  font-size: 16px;
+}
+.table th,
+.table td {
+  font-size: 16px;
+  text-transform: capitalize;
+}
+.tim-typo {
+  padding-left: 25%;
+  margin-bottom: 40px;
+  position: relative;
+  width: 100%;
+}
+.tim-typo .tim-note {
+  bottom: 5px;
+  color: #c0c1c2;
+  display: block;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 15px;
+  left: 0;
+  margin-left: 20px;
+  position: absolute;
+  width: 260px;
+}
+.sidebar .logo-img {
+  max-height: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+}
+.sidebar .logo-img img {
+  width: 100%;
+  top: unset;
+  position: static;
+  max-width: 60%;
+}
+.form-control {
+  height: 50px;
+}
+.admin-login-wrap {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.mat-paginator-range-label,
+.mat-paginator-page-size-label {
+  font-weight: 600;
+}
+td.text-email-small {
+  text-transform: lowercase;
+}
+/* modal */
+.cdk-overlay-pane {
+  /* width: 100% !important; */
+  max-width: 800px !important;
+  /*min-height: 250px;
+  */
+  margin: 0 auto;
+}
+.dialog-2.mat-dialog-content {
+  overflow-y: hidden;
+  width: 100%;
+  margin: 0;
+}
+.cdk-overlay-pane .mat-dialog-container {
+  display: flex;
+  align-items: center;
+}
+.cdk-overlay-pane dialog-overview-example {
+  width: 100%;
+}
+.dialog-btn-wrap {
+  justify-content: center;
+  margin-top: 20px;
+}
+.dialog-btn-wrap .btn.btn-primary {
+  margin: 0 10px;
+}
+
+
+/* sidebar-css */
+.cstm-toggle-btn {
+  display: none;
+}
+@media (min-width: 992px) {
+  .nav-small-open .sidebar {
+    width: 70px;
+    z-index: 9999;
+  }
+  .cstm-toggle-btn {
+    display: block;
+  }
+  .nav-small-open .sidebar .sidebar-wrapper {
+    width: 100%;
+    overflow: visible !important;
+  }
+  .nav-small-open .sidebar .nav li a,
+  .nav-small-open .sidebar .nav li .dropdown-menu a {
+    margin: 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0;
+  }
+  button.navbar-toggler {
+    width: 35px;
+    height: 35px;
+    min-width: auto;
+    margin: 0;
+    padding: 6px;
+  }
+  .nav-small-open .main-panel {
+    width: calc(100% - 70px);
+  }
+  .nav-small-open .sidebar .nav p {
+    display: none;
+  }
+  .nav-small-open .sidebar .nav a:hover p {
+    display: block;
+    position: absolute;
+    width: 180px;
+    left: 70px;
+    background: #fff;
+    padding: 10px;
+    box-shadow: 7px 0px 10px -3px #595454;
+    min-height: 49px;
+  }
+  .nav-small-open .sidebar .nav li.nav-item.active a p {
+    background: #f44336;
+  }
+}
+.sidebar .nav i {
+  font-size: 28px;
+}
+.nav-small-open .sidebar .nav i {
+  margin-right: 0;
+}
+/* sidebar-css */
+/* 1-03-21 */
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background: linear-gradient(60deg, #ef5350, #e53935);
+}
+.mat-slide-toggle.mat-checked .mat-ripple-element {
+  background: linear-gradient(60deg, #ef5350, #e53935);
+}
+/* .mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-bar {
+  background-color: rgba(63,81,181,.54);
+} */
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: rgb(244 64 52 / 54%);
+}
+.mat-slide-toggle-thumb {
+  box-shadow: 0px 2px 6px 1px rgb(0 0 0 / 20%), 0px 2px 1px 0px rgb(0 0 0 / 14%),
+    0px 1px 3px 0px rgb(0 0 0 / 12%);
+}
+.mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: #f44336;
+}
+
+.crop-image-dialog {
+  /* max-width: 80% !important;
+  padding: 50px;
+  margin: 0 auto; */
+  max-width: unset !important;
+  padding: 50px;
+  margin: 0 auto;
+  width: auto !important;
+}
+.crop-image-dialog .mat-dialog-container {
+  height: auto;
+  justify-content: center;
+}

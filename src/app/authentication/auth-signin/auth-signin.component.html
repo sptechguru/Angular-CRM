@@ -1,0 +1,49 @@
+<div class="main-content admin-login-wrap">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="card">
+          <div class="card-header card-header-danger text-center">
+            <h4 class="card-title">CRM Panel</h4>
+            <p class="card-category">Sign In</p>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="loginForm" (ngSubmit)="handleSubmit()" novalidate>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <input [formControl]="email" matInput placeholder="Email address" type="email">
+                    <mat-error *ngIf="email.touched && email.errors?.required">{{errorMessages.EMAIL_REQUIRED}}
+                    </mat-error>
+                    <mat-error *ngIf="email.dirty && email.errors?.pattern">{{errorMessages.EMAIL_INCORRECT_FORMAT}}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <input [formControl]="password" matInput placeholder="Password" type="password">
+                    <mat-error *ngIf="password.touched && password.errors?.required">{{errorMessages.PASSWORD_REQUIRED}}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <button mat-raised-button [disabled]="isLoginProcessing" type="submit"
+                class="btn btn-block btn-danger mb-4">
+                <mat-spinner *ngIf="isLoginProcessing" [diameter]="20"></mat-spinner>
+                <span *ngIf="!isLoginProcessing">Submit</span>
+              </button>
+              <div class="clearfix"></div>
+              <!-- <p class="text-center mt-4 cursor"><a style="cursor: pointer;"
+                  [routerLink]="['/auth/forgot-password']">Forgot Password?</a></p> -->
+              <p class="mb-0 text-muted text-center">Forgot password ? <a [routerLink]="['/auth/forgot-password']"
+                  class="f-w-400">Reset here</a>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

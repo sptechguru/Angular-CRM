@@ -1,0 +1,341 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Sales Order</h4>
+                    </div>
+                    <div class="card-body bg-light">
+                        <div class="row">
+                            <div class="col-md-2 my-3">
+                                <mat-label style="color: red;">Customer Name *</mat-label>
+                            </div>
+                            <div class="col-md-8">
+                                <form class="example-form">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <input type="text" placeholder="Pick one" aria-label="Number" matInput
+                                            [formControl]="myControl" [matAutocomplete]="auto"
+                                            placeholder="Select or Add Customer"(click)="getSearch()">
+                                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                            <mat-option *ngFor="let item of options" [value]="item.user.full_name">
+                                                {{item.user.full_name}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </form>
+
+                                <div class="row" *ngIf="search_details" >
+                                    <div class="col-md-6">
+                                        <mat-label style="color: #ccc;">BILLING ADDRESS</mat-label> <br/>
+                                        <mat-label style="color: blue;">Add new address</mat-label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-label style="color: #ccc;">SHIPPING ADDRESS</mat-label> <br/>
+                                     AAROGYAVAT PHARMACY
+                                 SHOP NO 10, PRASAD CHSL, CHAPHEKAR BANDHU RD, MULUND EAST, Mumbai
+                                  Maharashtra 400081  India
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        GST Treatment: Unregistered Business 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="row" *ngIf="search_details">
+                            <div class="col-md-2">
+                                <mat-label style="color: red;">Place Of Supply *</mat-label>
+                            </div>
+                            <div class="col-md-4">
+                                           <mat-form-field appearance="outline">
+                        <mat-select disableRipple>
+                            <mat-option value="1">Option 1</mat-option>
+                            <mat-option value="2">Option 2</mat-option>
+                            <mat-option value="3">Option 3</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                            </div>
+                        </div>
+
+
+      
+
+                        <div class="row">
+                            <div class="col-md-2  my-3">
+                                <mat-label style="color: red;">Sales Order *</mat-label>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <input matInput>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-2  my-3">
+                                <mat-label>Reference#</mat-label>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <input matInput>
+                                </mat-form-field>
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-2  my-3">
+                                <mat-label style="color: red;">Sales Order Date*</mat-label>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Choose a date</mat-label>
+                                    <input matInput [matDatepicker]="picker">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                                <mat-hint>To create transaction dated before 01/07/2017, <span
+                                        style="color:blue; cursor: pointer">click here</span></mat-hint>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-2  my-3">
+                                <mat-label>Expected Shipment Date</mat-label>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Choose a date</mat-label>
+                                    <input matInput [matDatepicker]="picker2">
+                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker2></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-md-2  my-3">
+                                <mat-label>Payment Terms</mat-label>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="outline">
+                                    <mat-select disableRipple>
+                                        <mat-option value="1">Option 1</mat-option>
+                                        <mat-option value="2">Option 2</mat-option>
+                                        <mat-option value="3">Option 3</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-2  my-3">
+                                <mat-label>Delivery Method </mat-label>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="outline">
+                                    <mat-select disableRipple>
+                                        <mat-option value="1">Option 1</mat-option>
+                                        <mat-option value="2">Option 2</mat-option>
+                                        <mat-option value="3">Option 3</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2  my-3">
+                                <mat-label style="color: red;">Warehouse Name * </mat-label>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="outline">
+                                    <mat-select disableRipple>
+                                        <mat-option value="1">Option 1</mat-option>
+                                        <mat-option value="2">Option 2</mat-option>
+                                        <mat-option value="3">Option 3</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-2  my-3">
+                                <mat-label>Salesperson</mat-label>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="outline">
+                                    <mat-select disableRipple>
+                                        <mat-option value="1">Option 1</mat-option>
+                                        <mat-option value="2">Option 2</mat-option>
+                                        <mat-option value="3">Option 3</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-2  my-3">
+                                <mat-label style="color: red;">Auto Gen*</mat-label>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field class="example-full-width" disabled="true" appearance="outline">
+                                    <input matInput>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                        <br />
+                        <br />
+
+
+                        <div class="col-md-12 p-3">
+                            <table class="table table-bordered">
+                                <thead class="text-primary" style="font-size: 26px; font-weight: bold;">
+                                    <tr>
+                                        <th scope="col">Item Details</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Rate</th>
+                                        <th scope="col">Tax</th>
+                                        <th scope="col">Amount</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                        <td>Tax</td>
+                                        <td>10</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>@fat</td>
+                                        <td>Tax</td>
+                                        <td>10</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button mat-raised-button color="primary">
+                                    <mat-icon>add</mat-icon>
+                                    Add Another Line
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                 <div class="row">
+                                     <div class="col-md-4">
+                                        <h4>Sub Total</h4>
+                                     </div>
+                                     <div class="col-md-4">
+                                        <!-- <h4 class="mx-5" style="margin-left: 50px;">0.00</h4> -->
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h4 class="mx-1">0.00</h4>
+                                    </div>
+                                 </div>
+
+                                 <div class="row">
+                                    <div class="col-md-4">
+                                       <h4>Discount</h4>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field  disabled="true" appearance="outline">
+                                            <input matInput>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4  my-3">
+                                       <h4>0.00</h4>
+                                   </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                    <mat-form-field class="example-full-width" placeholder="Adjustment" appearance="outline">
+                                        <input matInput>
+                                    </mat-form-field>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                    <mat-form-field class="example-full-width" disabled="true" appearance="outline">
+                                        <input matInput>
+                                    </mat-form-field>
+
+                                    </div>
+                                    <div class="col-md-4 my-3">
+                                       <h4>0.00</h4>
+                                   </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6  my-3">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>Customer Notes</mat-label>
+                                    <textarea matInput placeholder="Additional Instructions"></textarea>
+                                </mat-form-field>
+                            </div>
+
+
+                            <div class="col-md-3 my-5">
+                                <h3 class="font-weight-bold">Total ( ₹ )</h3>
+                            </div>
+                            <div class="col-md-3 my-5">
+                                <h3 class="font-weight-bold">0.00</h3>
+                            </div>
+                        </div>
+                        
+                        <br />
+
+
+
+                        <div class="row">
+                            <div class="col-md-8  my-3">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>Terms & Conditions</mat-label>
+                                    <textarea matInput placeholder="Additional Instructions"></textarea>
+                                </mat-form-field>
+
+                            </div>
+                            <div class="col-md-4 my-3">
+                                <mat-label>Attach File(s) to Sales Order</mat-label>
+                                <br />
+                                <br />
+                                <div (click)="uploadFile.click()">
+                                    <button mat-raised-button><span class="material-icons">file_download</span>Upload
+                                        File</button>
+                                    <input #uploadFile (change)="upload($event)" type='file' style="display:none" />
+                                </div>
+                            </div>
+                        </div>
+                        <p>Additional Fields: Add custom fields to your sales orders by going to Settings Preferences
+                            Sales orders Field Customization.</p>
+
+                        <br />
+                        <br />
+
+                        <button mat-raised-button class="mx-3">Save as Draft</button>
+                        <button mat-raised-button color="primary" class="mx-3">Save and Send</button>
+                        <button mat-raised-button class="mx-3">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

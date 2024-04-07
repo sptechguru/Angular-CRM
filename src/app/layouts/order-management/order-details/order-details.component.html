@@ -1,0 +1,326 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">{{orderData?.user?.reseller_profile?.business_name | titlecase}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless">
+                                        <tbody>
+                                            <tr>
+                                                <td class="fw_600">
+                                                    Order ID
+                                                </td>
+                                                <td>
+                                                    #{{orderData?.tracking_number}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw_600">
+                                                    Address
+                                                </td>
+                                                <td>
+                                                    {{orderData?.user_address?.address_line_1}}     
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw_600">
+                                                    Contact
+                                                </td>
+                                                <td>
+                                                    {{orderData?.user?.phone_number}}       
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw_600">
+                                                  Tax
+                                                </td>
+                                                <td>
+                                                    {{toFixedFun(TotalGST) | number}}/-
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw_600">
+                                                    Delivery Type
+                                                </td>
+                                                <td *ngIf="orderData?.delivery_type === 'logistic_delevery'">
+                                                    Logistic Delivery
+                                                </td>
+                                                <td *ngIf="orderData?.delivery_type != 'logistic_delevery'">
+                                                    {{orderData?.delivery_type}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw_600">
+                                                    Created At
+                                                </td>
+                                                <td>
+                                                    {{orderData?.created_at | date:'dd/MM/yyyy h:mm a'}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless">
+                                        <tbody *ngIf="orderData?.total_amount">
+                                            <tr>
+                                                <td class="fw_600">
+                                                    Delivery Charge
+                                                </td>
+                                                <td>
+                                                    {{toFixedFun(deliveryCharges+total_shipping_tax) | number}}/-
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw_600">
+                                                    Total Amount
+                                                </td>
+                                                <td>
+                                                    {{toFixedFun(total_amount) | number}}/-
+                                                </td>
+                                            </tr>
+                                          
+                                            <tr>
+                                                <td class="fw_600">
+                                                   Paid Amount
+                                                </td>
+                                                <td>
+                                                    {{toFixedFun(paid_amount) | number}}/-
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw_600">
+                                                   Pending Amount
+                                                </td>
+                                                <td *ngIf="pending_amount>0">
+                                                    {{toFixedFun(pending_amount) | number}}/-
+                                                </td>
+                                                <td *ngIf="pending_amount <= 0">
+                                                   0
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw_600">
+                                                    Branding
+                                                </td>
+                                                <td>
+                                                {{orderData?.is_item_branding}}
+                                                </td>
+                                            </tr>
+                                           
+                                            <!--<tr>
+                                                <td class="fw_600">
+                                                    Discount
+                                                </td>
+                                                <td>
+                                                    {{orderData?.discount_amount}}
+                                                </td>
+                                            </tr>-->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                         
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="">
+                                    <app-common-search (onQuery)="searchUserByQuery($event)"
+                                        [placeholderText]="'Search'" [isSearchAsTypeOn]="true">
+                                    </app-common-search>
+                                </div>
+                            </div>
+                            <!--<div class="col-md-3 text-right" *ngIf="orderData?.order_bill">
+                                <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base" data-toggle="modal" data-target="#exampleModal">
+                                    <span class="mat-button-wrapper">View Bills</span>
+                                    <div class="mat-ripple mat-button-ripple"></div>
+                                    <div class="mat-button-focus-overlay"></div>
+                                </button>
+                            </div>
+                            <div class="col-md-3 text-right">
+                                <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base" [routerLink]="['/crm/order-management/add-bill-to-order',orderData?.id]">
+                                    <span class="mat-button-wrapper">Add Bills</span>
+                                    <div class="mat-ripple mat-button-ripple"></div>
+                                    <div class="mat-button-focus-overlay"></div>
+                                </button>
+                            </div>-->
+                            <div class="col-md-3 text-right">
+                                <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base" 
+                                [routerLink]="['/crm/order-management/bill-list',orderID]">
+                                    <span class="mat-button-wrapper">View Bills</span>
+                                    <div class="mat-ripple mat-button-ripple"></div>
+                                    <div class="mat-button-focus-overlay"></div>
+                                </button>
+                            </div>
+                            <div class="col-md-3 text-right">
+                                <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base" 
+                                [routerLink]="['/crm/order-management/payment-list',orderID]">
+                                    <span class="mat-button-wrapper">View Payments</span>
+                                    <div class="mat-ripple mat-button-ripple"></div>
+                                    <div class="mat-button-focus-overlay"></div>
+                                </button>
+                            </div>
+                            <div class="col-md-3 text-right">
+                                <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base" 
+                                (click)="router.navigate(['/crm/order-management' ,{ pageIndex :activatedRoute.snapshot.params.pageIndex}]);">
+                                    <span class="mat-button-wrapper">Back</span>
+                                    <div class="mat-ripple mat-button-ripple"></div>
+                                    <div class="mat-button-focus-overlay"></div>
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class=" text-primary">
+                                        <th>ID</th>
+                                        <th>Product</th>
+                                        <th>Branding</th>
+                                        <th>Branding Amount</th>
+                                        <th>Qty</th>
+                                        <th>Per Unit Price</th>
+                                    <!-- <th>Discount</th>-->
+                                        <th>Sub-total</th>
+                                        <th>Action</th>
+                                    </thead>
+                                    <tbody *ngIf="!isListLoading">
+                                        <tr *ngFor="let item of order_items">
+                                            <td>{{item?.id}}</td>
+                                            <td *ngIf="item?.product_variant?.variant_name != null">{{item?.product_variant?.variant_name}}</td>
+                                            <td *ngIf="item?.product_variant?.variant_name == null">{{item?.item_name}}</td>
+                                            <td>{{item?.is_branding}}</td>
+                                            <td>{{item?.branding_amount | number}}</td>
+                                            <td>{{item?.quantity}}</td>
+                                            <td>{{item?.sale_price | number}}</td>
+                                        <!-- <td>{{item?.business_type}}</td>-->
+                                            <td>{{item?.sub_total | number}}</td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn btn-outline-primary dropdown-toggle"
+                                                        data-toggle="dropdown" [disabled]="item?.is_branding === 'no' || 
+                                                        item?.branding_amount > 0">
+                                                        Actions
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" ngbTooltip="View Details"
+                                                        [routerLink]="['/crm/order-management/add-branding-amount',orderData?.id,item.id,item?.quantity]">Add Branding Amount</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        <!--<td *ngIf="item?.branding_amount != 0" style="color:red;">
+                                                Branding amound is already added
+                                            </td>-->
+                                        </tr>
+                                        <tr *ngIf="!orderData?.order_items.length">
+                                            <td colspan="6">
+                                                <div class="text-center">No record found.</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody *ngIf="isListLoading">
+                                        <tr>
+                                            <td colspan="6">
+                                                <app-data-loader></app-data-loader>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <mat-card>  
+                            <mat-card-header>
+                                <mat-card-title class="text-dark">Comment And History</mat-card-title>
+                                <mat-card-subtitle>
+                                   <div class="d-flex"> 
+                                        <mat-form-field class="example-form-field">
+                                            <mat-label>Comment</mat-label>
+                                            <input matInput type="text" [(ngModel)]="comment">
+                                            <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="comment=''">
+                                                <mat-icon>close</mat-icon>
+                                            </button>
+                                        </mat-form-field>
+                                        <div class="example-button-container ml-4">
+                                            <button (click)="addComment()" [disabled]="isCommenting" mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon">
+                                                <mat-icon>filter_list</mat-icon>
+                                            </button>
+                                        </div>
+                                   </div>
+                                </mat-card-subtitle>
+                              
+                                
+                            </mat-card-header>
+                            <mat-card-content>
+                                <mat-list>
+                                    <div mat-subheader>Comments</div>
+                                    <mat-list-item *ngFor="let comment of dataList">
+                                        <mat-icon mat-list-icon>comment</mat-icon>
+                                        <h6 mat-line>{{comment.user.full_name}}</h6>
+                                        <div mat-line>{{comment.comments}}</div>
+                                        <div mat-line> {{comment.created_at | date: 'medium'}} </div>
+                                        <mat-divider></mat-divider>
+                                    </mat-list-item>
+                            
+                            
+                                </mat-list>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Bills</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6 mb-2" *ngIf="orderData?.order_bill?.challan">
+                    <h4 class="mb-0">Challan</h4>
+                    <a class="mat-focus-indicator btn btn-danger mr-2 mb-2 mat-raised-button mat-button-base"
+                    href="{{orderData?.order_bill?.challan}}" target="_blank">
+                        <span class="mat-button-wrapper">View</span>
+                        <div class="mat-ripple mat-button-ripple"></div>
+                        <div class="mat-button-focus-overlay"></div>
+                    </a>
+                </div>
+                <div class="col-md-6 mb-2" *ngIf="orderData?.order_bill?.invoice">
+                    <h4 class="mb-0">Invoice</h4>
+                    <a class="mat-focus-indicator btn btn-danger mr-2 mb-2 mat-raised-button mat-button-base"
+                    href="{{orderData?.order_bill?.invoice}}" target="_blank">
+                        <span class="mat-button-wrapper">View</span>
+                        <div class="mat-ripple mat-button-ripple"></div>
+                        <div class="mat-button-focus-overlay"></div>
+                    </a>
+                </div>
+                <div class="col-md-6 mb-2" *ngIf="orderData?.order_bill?.eway_bill">
+                    <h4 class="mb-0">Eway Bill</h4>
+                    <a class="mat-focus-indicator btn btn-danger mr-2 mb-2 mat-raised-button mat-button-base"
+                    href="{{orderData?.order_bill?.eway_bill}}" target="_blank">
+                        <span class="mat-button-wrapper">View</span>
+                        <div class="mat-ripple mat-button-ripple"></div>
+                        <div class="mat-button-focus-overlay"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>

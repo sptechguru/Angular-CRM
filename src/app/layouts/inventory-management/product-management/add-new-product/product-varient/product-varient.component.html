@@ -1,0 +1,495 @@
+<!---
+<div class="py-2">
+    <form class="p-3 form-shadow">
+        <div class="row">
+            <div class="col-12">
+                <h2>Product Varient</h2>
+            </div>
+            <div class="col-12">
+                <form [formGroup]="varientForm">
+                    <div class="form-shadow" formArrayName="varientlist">
+                        <div *ngFor="let i of varientForm.controls.varientlist.controls;let j=index">
+                            <div class="p-3" [formGroupName]="j">
+                                <div>
+                                    <div class="d-flex varient_option_container">
+                                        <div>
+                                            <mat-icon>drag_indicator</mat-icon>
+                                        </div>
+                                        <div class="option_name">
+                                            <ng-container
+                                                *ngIf="!varientForm.controls.varientlist.controls[j].get('varient_status').value">
+                                                <mat-form-field appearance="outline" class="example-full-width">
+                                                    <mat-label>Option Name</mat-label>
+                                                    <mat-select formControlName="varient_option_name">
+                                                        <mat-option value="Size">Size</mat-option>
+                                                        <mat-option value="Color">Color</mat-option>
+                                                        <mat-option value="Material">Material</mat-option>
+                                                        <mat-option value="Style">Style</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="varientForm.controls.varientlist.controls[j].get('varient_status').value">
+                                                <span class="d-block pb-1">
+                                                    {{varientForm.controls.varientlist.controls[j].get('varient_option_name').value}}
+                                                </span>
+                                                <span class="d-block mr-3 pr-2">
+                                                    <mat-chip-list class="example-chip">
+                                                        <ng-container
+                                                            *ngFor="let varientchip of varientForm.controls.varientlist.controls[j].get('varient_option_value_list')['controls'];let optionIndex=index;">
+                                                            <mat-chip
+                                                                *ngIf="varientchip.controls.varient_option_name.value!='' && varientchip.controls.varient_option_name.value!=null && varientchip.controls.varient_option_name.value!=undefined"
+                                                                class="example-box">
+                                                                <span>{{varientchip.controls.varient_option_name.value}}</span>
+                                                            </mat-chip>
+                                                        </ng-container>
+
+                                                    </mat-chip-list>
+                                                </span>
+
+
+
+
+                                            </ng-container>
+                                        </div>
+                                        <div>
+                                            <ng-container
+                                                *ngIf="varientForm.controls.varientlist.controls[j].get('varient_status').value">
+                                                <button mat-stroked-button
+                                                    (click)="varientForm.controls.varientlist.controls[j].get('varient_status').setValue(false)">Edit</button>
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="!varientForm.controls.varientlist.controls[j].get('varient_status').value">
+                                                <i *ngIf="varientForm.controls.varientlist.controls.length > 1"
+                                                    class="material-icons text-danger cp"
+                                                    (click)="deleteVarientOptionName(j)">delete</i>
+                                            </ng-container>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div *ngIf="!varientForm.controls.varientlist.controls[j].get('varient_status').value"
+                                    formArrayName="varient_option_value_list">
+                                    <div
+                                        *ngFor="let option of varientForm.controls.varientlist.controls[j].get('varient_option_value_list')['controls'];let optionIndex=index;">
+                                        <div [formGroupName]="optionIndex">
+                                            <div class="d-flex varient_option_container">
+                                                <div class="justify-content-end pr-3">
+                                                    <mat-icon>drag_indicator</mat-icon>
+                                                </div>
+                                                <div class="option_name">
+                                                    <mat-form-field appearance="outline" class="example-full-width">
+                                                        <mat-label>Option Value</mat-label>
+                                                        <input matInput formControlName="varient_option_name"
+                                                            type="text"
+                                                            (input)="addVarientOptionValue(j,optionIndex)" />
+                                                    </mat-form-field>
+
+                                                </div>
+                                                <div>
+
+                                                    <i *ngIf="varientForm.controls.varientlist.controls[j].get('varient_option_value_list')['controls'].length > 1" class="material-icons text-danger cp"
+                                                        (click)="deleteVarientOptionValue(j,optionIndex,option)">delete</i>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        *ngIf="!varientForm.controls.varientlist.controls[j].get('varient_status').value">
+                                        <button mat-stroked-button class="ml-50px"
+                                            (click)="varientForm.controls.varientlist.controls[j].get('varient_status').setValue(true)">Done</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <mat-divider></mat-divider>
+                        </div>
+
+                        <div class="varient_add_button">
+                            <button mat-button class="w-100 text-left d-block py-2" (click)="addVarientOptionName();">
+                                <div class="d-inline-flex">
+                                    <mat-icon>add</mat-icon>
+                                </div>
+                                <div class="d-inline-flex align-items-center">Add another option</div>
+                            </button>
+                        </div>
+
+                    </div>
+                    
+                    <div  class="p-3 form-shadow my-3" *ngIf="varientForm.controls.varientCombinationList.controls.length >0">
+                        
+                        <table class="table varient_table">
+                            <thead>
+                              <tr>
+                                <th class="font-weight-bold">Varient</th>
+                                <th class="font-weight-bold">Price</th>
+                                <th class="font-weight-bold">Quantity</th>
+                                <th class="font-weight-bold">Sku</th>
+                                <th class="font-weight-bold">Barcode</th>
+                                <th class="font-weight-bold">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody formArrayName="varientCombinationList">
+                              <tr *ngFor="let i of varientForm.controls.varientCombinationList.controls;let j=index;">
+                                <ng-container [formGroupName]="j">
+                                <td class="vertical-align-initial">
+                                    <div>{{varientForm.controls.varientCombinationList.controls[j].controls.varient.value}}</div></td>
+                                <td>  
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>Price</mat-label>
+                                    <input matInput type="text" formControlName="price" />
+                                </mat-form-field>
+                            </td>
+                                <td>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Quantity</mat-label>
+                                        <input matInput type="text" formControlName="quantity"/>
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Sku</mat-label>
+                                        <input matInput type="text" formControlName="sku"/>
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field appearance="outline" class="example-full-width">
+                                        <mat-label>Barcode</mat-label>
+                                        <input matInput type="text" formControlName="barcode"/>
+                                    </mat-form-field>
+                                </td>
+                                <td class="vertical-align-initial">
+                                    <div><i class="material-icons text-danger cp"
+                                        (click)="deleteVarient(j)">delete</i></div></td>
+                                        </ng-container>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                
+                </form>
+                
+            </div>
+            <div class="col-12">
+                <div class="d-flex justify-content-between">
+                    <button mat-flat-button color="warn">Prev</button>
+                    <button mat-flat-button color="warn">Next</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+-->
+
+<div class="py-2">
+    <form class="p-3 form-shadow">
+        <div class="row">
+            <div class="col-12">
+                <h2>Product Varient</h2>
+            </div>
+            <div class="col-12">
+                <form [formGroup]="varientForm">
+                    <div class="form-shadow" formArrayName="varientlist" *ngIf="varientForm.get('varientlist')?.controls.length > 0">
+                        <div *ngFor="let i of varientForm?.controls.varientlist?.controls;let j=index">
+                            <div class="p-3" [formGroupName]="j">
+                                <div>
+                                   
+                                    <div style="display: inline-block;width:calc(100% - 32px);">
+                                        <mat-form-field appearance="outline" class="example-full-width">
+                                            <mat-label>Varient Name</mat-label>
+                                            <input type="text" matInput formControlName="varient_option_name">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="text-right d-inline-block pl-2" *ngIf="varientForm.controls.varientlist.controls.length > 1">
+                                         
+                                        <i 
+                                            class="material-icons text-danger cp"
+                                            (click)="deleteVarient(j)">delete</i>
+                                
+                                </div>
+                                    <div>
+                                      <div class="form-shadow p-3 mb-3">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <mat-checkbox class="example-margin" color="warn"
+                                                    formControlName="flatprice"
+                                                    (change)="varientForm.controls.varientlist.controls[j].controls.slabprice.setValue(!varientForm.controls.varientlist.controls[j].controls.flatprice.value)">
+                                                    Flat Price</mat-checkbox>
+                                            </div>
+                                            <div class="col-4">
+                                                <mat-checkbox class="example-margin" color="warn"
+                                                    formControlName="slabprice"
+                                                    (change)="varientForm.controls.varientlist.controls[j].controls.flatprice.setValue(!varientForm.controls.varientlist.controls[j].controls.slabprice.value)">
+                                                    Slabwise Price</mat-checkbox>
+                                            </div>
+                                            <div class="col-4 text-right"
+                                                *ngIf="varientForm.controls.varientlist.controls[j].controls.slabprice.value">
+                                                <button mat-flat-button (click)="addSlab(j)" color="warn">New Slabwise
+                                                    Price</button>
+                                            </div>
+                                        </div>
+                                        <div class="row"
+                                            *ngIf="varientForm.controls.varientlist.controls[j].controls.flatprice.value">
+                                            <div class="col-4">
+                                                <mat-form-field appearance="outline" class="example-full-width">
+                                                    <mat-label>Offer Price (Without GST)</mat-label>
+                                                    <input type="text" matInput formControlName="offerprice">
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div
+                                            *ngIf="varientForm.controls.varientlist.controls[j].controls.slabprice.value">
+                                            <div>
+                                                <table class="table varient_table mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="font-weight-bold">Offer Price (Without GST) </th>
+                                                            <th class="font-weight-bold text-center" colspan="2">
+                                                                Quantity wise slabs</th>
+                                                            <th class="font-weight-bold">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody formArrayName="slabwise">
+                                                        <tr
+                                                            *ngFor="let slab of varientForm.controls.varientlist.controls[j].controls.slabwise.controls;let slabindex=index;">
+                                                            <ng-container [formGroupName]="slabindex">
+
+                                                                <td>
+                                                                    <mat-form-field appearance="outline"
+                                                                        class="example-full-width">
+                                                                        <mat-label>Offer Price (Without GST)</mat-label>
+                                                                        <input type="text" matInput
+                                                                            formControlName="slabofferprice">
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td>
+                                                                    <mat-form-field appearance="outline"
+                                                                        class="example-full-width">
+                                                                        <mat-label>Min Quantity Range</mat-label>
+                                                                        <input type="text" matInput
+                                                                            formControlName="slabstartprice">
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td>
+                                                                    <mat-form-field appearance="outline"
+                                                                        class="example-full-width">
+                                                                        <mat-label>Max Quantity Range</mat-label>
+                                                                        <input type="text" matInput
+                                                                            formControlName="slabendprice">
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td *ngIf="varientForm.controls.varientlist.controls[j].controls.slabwise.controls.length > 1">
+                                                                    <i 
+                                                                        class="material-icons text-danger cp"
+                                                                        (click)="deleteSlab(j,slabindex)">delete</i>
+                                                                </td>
+
+                                                            </ng-container>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div class="form-shadow p-3 mb-3">
+                                            <div class="d-flex justify-content-between pb-2">
+                                                <div>
+                                                    <h3 class="mb-0">Manufacturing Or Supplying Capacity</h3>
+                                                </div>
+                                                <div>
+                                                    <button mat-flat-button color="warn"
+                                                        (click)="addSuplyCapcity(j)">Add</button>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <table class="table varient_table mb-0">
+                                                    <tbody formArrayName="supply_capcity">
+                                                        <tr
+                                                            *ngFor="let supply_capcity of varientForm.controls.varientlist.controls[j].controls.supply_capcity.controls;let index=index;">
+                                                            <ng-container [formGroupName]="index">
+                                                                <td class="text-right">Within</td>
+                                                                <td>
+                                                                    <mat-form-field appearance="outline"
+                                                                        class="example-full-width">
+                                                                        <mat-label>Days</mat-label>
+                                                                        <input type="text" matInput
+                                                                            formControlName="within_days">
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td>days</td>
+                                                                <td class="text-right">Upto</td>
+                                                                <td>
+                                                                    <mat-form-field appearance="outline"
+                                                                        class="example-full-width">
+                                                                        <mat-label>units</mat-label>
+                                                                        <input type="text" matInput
+                                                                            formControlName="upto_units">
+                                                                    </mat-form-field>
+                                                                </td>
+                                                                <td>
+                                                                    units
+                                                                </td>
+                                                                <td *ngIf="varientForm.controls.varientlist.controls[j].controls.supply_capcity.controls.length > 1">
+                                                                    <i 
+                                                                        class="material-icons text-danger cp"
+                                                                        (click)="deleteSupplyCapcity(j,index)">delete</i>
+                                                                </td>
+                                                            </ng-container>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-shadow p-3 mb-3">
+                                            <h3 class="mb-2">Minimum order quantity information:</h3>
+                                            <div>
+                                                <table class="table mb-0 varient_table table-width">
+                                                    <tbody>
+                                                        <tr>
+
+                                                            <td>For Ready Stock</td>
+                                                            <td>
+                                                                <mat-form-field appearance="outline"
+                                                                    class="example-full-width">
+                                                                    <mat-label>For Ready Stock</mat-label>
+                                                                    <input type="text" matInput>
+                                                                </mat-form-field>
+                                                            </td>
+
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>For Made To Order</td>
+                                                            <td>
+                                                                <mat-form-field appearance="outline"
+                                                                    class="example-full-width">
+                                                                    <mat-label>For Made To Order</mat-label>
+                                                                    <input type="text" matInput>
+                                                                </mat-form-field>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>For Customisation Order </td>
+                                                            <td>
+                                                                <mat-form-field appearance="outline"
+                                                                    class="example-full-width">
+                                                                    <mat-label>For Customisation Order</mat-label>
+                                                                    <input type="text" matInput>
+                                                                </mat-form-field>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>For Customised Box</td>
+                                                            <td>
+                                                                <mat-form-field appearance="outline"
+                                                                    class="example-full-width">
+                                                                    <mat-label>For Customised Box</mat-label>
+                                                                    <input type="text" matInput>
+                                                                </mat-form-field>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-shadow p-3 mb-3">
+                                            <h3 class="mb-2">Varient Image</h3>
+                                            <div>
+                                                <div class="row">
+
+                                                    <ng-container FormArrayName="imageList"
+                                                        *ngIf="varientForm.controls.varientlist.controls[j].controls.imageList.controls.length >0">
+                                                        <div class="col-3"
+                                                            *ngFor="let i of varientForm.controls.varientlist.controls[j].controls.imageList.controls;let index=index;">
+                                                            <ng-container>
+                                                                <div class="form-shadow  position-relative">
+                                                                    <div class="position-absolute cross-button">
+                                                                        <button mat-mini-fab color="warn"
+                                                                            aria-label="Example icon button with a filter list icon"
+                                                                            (click)="delteFeatreKey(j,index)">
+                                                                            <mat-icon>close</mat-icon>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div>
+                                                                        <img [src]="varientForm.controls.varientlist.controls[j].controls.imageList.controls[index].controls.img_url.value"
+                                                                            class="img-fluid"
+                                                                            style="height:200px;width:100%;border-radius:4px;">
+                                                                    </div>
+                                                                    <!--(click)="delteFeatreKey(j)"-->
+
+                                                                </div>
+                                                            </ng-container>
+                                                        </div>
+                                                    </ng-container>
+
+                                                    <div class="col-3">
+                                                        <div class="form-shadow position-relative">
+                                                            <div class="position-absolute cross-button"
+                                                                *ngIf="imgDataUrl">
+                                                                <button mat-mini-fab color="warn"
+                                                                    aria-label="Example icon button with a filter list icon"
+                                                                    (click)="addimgeObj(j)">
+                                                                    <mat-icon>check</mat-icon>
+                                                                </button>
+                                                            </div>
+                                                            <input type="file" class="d-none"
+                                                                accept="image/jpeg,image/gif,image/png"
+                                                                (change)="onChangeKeyFeature($event.target.files)"
+                                                                #fileKeyFeature />
+                                                            <div *ngIf="!imgDataUrl"
+                                                                class="d-flex justify-content-center align-items-center cp"
+                                                                (click)="fileKeyFeature.click()"
+                                                                style="background-color: #eee;height:200px">
+                                                                <mat-icon
+                                                                    style="height: 50px;width:50px;font-size:50px;">
+                                                                    cloud_upload</mat-icon>
+                                                            </div>
+                                                            <div *ngIf="imgDataUrl">
+                                                                <img [src]="imgDataUrl"
+                                                                    style="height:200px;border-radius:4px;width:100%;">
+                                                            </div>
+
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <mat-divider></mat-divider>
+                        </div>
+
+                        <div class="varient_add_button">
+                            <button mat-button class="w-100 text-left d-block py-2" (click)="addVarientOptionName();">
+                                <div class="d-inline-flex">
+                                    <mat-icon>add</mat-icon>
+                                </div>
+                                <div class="d-inline-flex align-items-center">Add another option</div>
+                            </button>
+                        </div>
+
+                    </div>
+
+
+                </form>
+
+            </div>
+            <div class="col-12">
+                <div class="d-flex justify-content-between">
+                    <button mat-flat-button color="warn" (click)="data.emit(varientForm.value);stepper.previous()">Prev</button>
+                    <button mat-flat-button color="warn" (click)="data.emit(varientForm.value);stepper.next()">Next</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

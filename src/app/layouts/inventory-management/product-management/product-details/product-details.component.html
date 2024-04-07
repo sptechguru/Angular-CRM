@@ -1,0 +1,96 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Product Details</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="">
+                                    <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base mb-2" 
+                                    [routerLink]="['/crm/inventory-management/product-management']">
+                                        <span class="material-icons">
+                                        arrow_back
+                                        </span> 
+                                        <span class="mat-button-wrapper">Back</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                  <!--  <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base mb-2" 
+                                    [routerLink]="['/crm/inventory-management/product-attribute-management/add-attribute-to-product',productId]" 
+                                    (click)="setAttributeData();">
+                                        <span class="mat-button-wrapper">Add Product Attributes</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>-->
+                                    <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base mb-2" 
+                                    [routerLink]="['/crm/inventory-management/product-attribute-management/attribute-value-list',productId]" 
+                                    (click)="setAttributeData();">
+                                        <span class="mat-button-wrapper">View Product Attributes</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                    <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base mb-2" 
+                                    [routerLink]="['/crm/inventory-management/product-variant-management/variant-list',productId]">
+                                        <span class="mat-button-wrapper">View Product Variants</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row product-detail-row">
+                            <div class="col-md-6 mt-3">
+                                <p class="text-primary border-bottom">Product Name</p>
+                                <h4>{{productData?.product_name}}</h4>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <p class="text-primary border-bottom">Product Description</p>
+                                <h4>{{productData?.product_description}}</h4>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <p class="text-primary border-bottom">Business Partner</p>
+                                <h4>{{productData?.master_business_partner?.business_partner}}</h4>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <p class="text-primary border-bottom">Business Type</p>
+                                <h4>{{productData?.master_business_type?.business_type}}</h4>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <p class="text-primary border-bottom">Client Name</p>
+                                <h4>{{productData?.master_business_client?.business_client}}</h4>
+                            </div>
+                            
+                            <div class="col-md-6 mt-3">
+                                <p class="text-primary border-bottom">Branding Possibilities</p>
+                                <h4>{{productData?.branding_possibilities}}</h4>
+                            </div>
+
+                            <div class="col-md-6 mt-3">
+                                <p class="text-primary border-bottom">Product service type</p>
+                                <h4>{{productData?.product_service_type}}</h4>
+                            </div>
+
+                            <div class="col-md-6 mt-3">
+                                <p class="text-primary border-bottom">Status</p>
+                                <p>
+                                    <span class="badge badge-pill"
+                                    [ngClass]="{'badge-primary': ( productData?.status == 'pending' ), 
+                                    'badge-success': ( productData?.status == 'active' ), 
+                                    'badge-danger': ( productData?.status == 'inactive' )}">
+                                        {{ productData?.status | uppercase }}
+                                    </span>
+                                </p>
+                            </div>
+
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

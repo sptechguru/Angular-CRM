@@ -1,0 +1,30 @@
+.flex{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+span.bold-txt {
+    font-weight: 700;
+}
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4{
+    font-weight: 400;
+}
+p{
+    font-weight: 400;
+    margin-bottom: 0;
+}
+.flex-col {
+    -webkit-flex: 0 0 20%;
+    flex: 0 0 20%;
+    max-width: 20%;
+    padding: 10px;
+}
+.table img {
+    max-width: 110px;
+}
+.cstm-table td{
+    width: 25%;
+}
+.flex-col img {
+    max-height: 50px;
+}

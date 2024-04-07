@@ -1,0 +1,14 @@
+<div mat-dialog-content>
+  <p>What is the Reject Reason?</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Reject Reason</mat-label>
+    <input matInput [(ngModel)]="data.name">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button  style="color:white;"></button>
+  <button mat-button [mat-dialog-close]="data.name" cdkFocusInitial class="btn btn-danger ml-4">Ok</button>
+</div>
+
+
+

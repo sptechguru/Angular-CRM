@@ -1,0 +1,98 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Blog List</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="">
+                                    <app-common-search (onQuery)="searchUserByQuery($event)"
+                                        [placeholderText]="'Search'" [isSearchAsTypeOn]="true">
+                                    </app-common-search>
+                                </div>
+                            </div>
+                            <button mat-fab routerLink="add-blog" color="primary"
+                                aria-label="Example icon button with a home icon">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>#</th>
+                                    <th>Title</th>
+                                    <!-- <th>Sub Title</th> -->
+                                    <!-- <th>Contact</th> -->
+                                    <th>Status</th>
+                                    <th>Position </th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of dataList ; let i = index">
+                                        <td>{{(i +1) + ((page -1) * 10)}}</td>
+                                        <td>
+                                            {{item?.title}}
+                                        </td>
+                                        <!-- <td>{{item.sub_title }}</td> -->
+                                        <!-- <td>{{item.phone_number}}</td> -->
+                                        <td><span style="cursor:pointer" class="badge badge-pill" [ngClass]="{'badge-primary': ( item?.status == 'pending' ), 
+                                                'badge-success': ( item.status == 'active' ), 
+                                                'badge-danger': ( item.status == 'inactive' )}">
+                                                {{ item.status | uppercase }}
+                                            </span>
+                                        </td>
+                                        <th>{{item?.position}}</th>
+                                        <td>{{item?.created_at | customdate}}</td>
+
+                                        <td>
+
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-outline-primary dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                    Actions
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" [routerLink]="[item.id]">Edit</a>
+                                                    <a class="dropdown-item" (click)=" deleteBlog(item.id)">Delete</a>
+                                                </div>
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+                                    <tr *ngIf="!dataList.length">
+                                        <td colspan="6">
+                                            <div class="text-center">No record found.</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="pull-right">
+                                                <app-ngb-pagination [collectionSize]="totalQueryableData" [page]="page"
+                                                    (pageChange)="handlePageChange($event)"
+                                                    [isDisabled]="isListLoading">
+                                                </app-ngb-pagination>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isListLoading">
+                                    <tr>
+                                        <td colspan="6">
+                                            <app-data-loader></app-data-loader>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

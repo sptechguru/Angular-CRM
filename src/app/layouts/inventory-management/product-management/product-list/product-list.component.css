@@ -1,0 +1,89 @@
+.btn_download{
+    width: 24px;
+    height: 36px;
+    text-align: center;
+    border-radius: 100%;
+}
+
+.belicon{
+    width: 60px;
+    height: 60px;
+    background-color: red;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    fill: rgb(71, 71,71);
+    box-shadow: 0px 4px 3px rgb(71, 71,71,0.2);
+    border-radius: 0.2rem;
+    cursor: pointer;
+    position: relative;
+    margin-left: 151px;
+}
+
+.belicon .badges {
+    background-color:black;
+    width: 29px;
+    height: 26px;
+    color: #ffff;
+    padding: 0rem 0.2rem;
+    border-radius: 100%;
+    position: absolute;
+    top: 0.1rem;
+    right: 0rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: bold;
+    box-shadow: 0px 4px 3px rgb(255 42 42 / 20%);
+}
+
+.icons {
+    font-size: 1rem;
+    color: #ffff !important;
+    font-size: 2.5rem;
+    margin-bottom: -7px;
+}
+
+
+.boxcount{
+    width: 28px;
+    height: 25px;
+    font-weight: 800;
+    font-size: 12px;
+    margin-left: 76px;
+    /* padding-top: 4px; */
+    text-align: center;
+    border-radius: 100%;
+    background-color: red;
+}
+.docicon{
+    top: 1px;
+    margin-left: -14px;
+    font-size: 1.8rem;
+}
+
+.mat-menu-item{
+    line-height: 30px !important;
+    height: auto;
+}
+
+.totalcard{
+    height: 148px;
+}
+.boxnotify{
+    margin-left: 300px;
+    background-color: rebeccapurple;
+}
+
+.content{
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+
+::ng-deep .cdk-overlay-pane {
+    width: auto !important;
+    /* top: 167px !important; */
+    right: auto !important;
+}
+

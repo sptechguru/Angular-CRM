@@ -1,0 +1,54 @@
+<div class="py-2">
+    <form class=" form-shadow">
+        <div class="row">
+           
+            <div class="col-12">
+                <mat-toolbar style="background-color: #f44336;color:white;" class="w-100">
+                    <mat-toolbar-row>
+                        <div class="w-100 d-flex justify-content-between">
+                         <div>
+                            <span>Product Action</span>
+                         </div>
+                         <div>
+                            <button (click)="save()" mat-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+                                Save
+                              </button>
+                              <button mat-button class="example-icon ml-3" aria-label="Example icon-button with share icon">
+                                Download PDF                        </button>
+                                <!--<button (click)="preview()" mat-button class="example-icon ml-3" aria-label="Example icon-button with share icon">
+                                  Preview</button>-->
+                         </div>
+                        </div>    
+                      </mat-toolbar-row>
+                </mat-toolbar>
+               <div class="p-3">
+                <mat-radio-group [formControl]="action">
+                    <div class="py-1">
+                        <mat-radio-button  class="example-radio-button" value="Save As Draft">
+                            Save As Draft
+                        </mat-radio-button>
+                    </div>
+                <div class="py-1">
+                    <mat-radio-button class="example-radio-button" value="Disable Product">
+                        Disable Product
+                    </mat-radio-button>
+                </div>
+                <div class="py-1">
+                    <mat-radio-button class="example-radio-button" value="Publish Product">
+                        Publish Product
+                    </mat-radio-button>
+                </div>
+              </mat-radio-group>
+
+               
+               </div>
+               <div class="p-3">
+                <div class="d-flex justify-content-between">
+                    <button mat-flat-button color="warn" (click)="stepper.previous();">Prev</button>
+                    <button mat-flat-button color="warn" (click)="submit()">Save</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </form>
+</div>

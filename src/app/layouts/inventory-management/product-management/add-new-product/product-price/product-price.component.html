@@ -1,0 +1,63 @@
+<div class="py-2">
+
+    <form class="p-3 form-shadow" [formGroup]="priceForm">
+        <div class="row">
+            <div class="col-12">
+                <h2>Product Price</h2>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Price</mat-label>
+                    <input matInput placeholder="Customisation Set Up Cost" type="text" formControlName="product_price" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Compare at price</mat-label>
+                    <input matInput placeholder="Customisation Cost" type="text" formControlName="product_compare_price"/>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Cost per item</mat-label>
+                    <input matInput placeholder="Customisation Cost" type="text" formControlName="product_cost_per_item"/>
+                    <mat-label>Customers won’t see this</mat-label>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Quantity</mat-label>
+                    <input matInput placeholder="Customisation Cost" type="text" formControlName="product_quantity"/>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6 mb-md-3">
+                <mat-checkbox color="primary" formControlName="charge_on_tax"><span class="pl-2">
+                    Charge tax on this product</span></mat-checkbox>
+           
+        </div>
+            <div class="col-md-6 mb-3">
+                <div class="row">
+                    <div class="col-6">
+                        <mat-label class="d-block pb-1">Margin</mat-label>
+                        <mat-label class="d-block">98%</mat-label>
+                    </div>
+                    <div class="col-6">
+                        <mat-label class="d-block pb-1">Profit</mat-label>
+                        <mat-label class="d-block">₹98</mat-label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12">
+                <div class="d-flex justify-content-between">
+                    <button mat-flat-button color="warn" (click)="data.emit(priceForm.value);stepper.previous()">Prev</button>
+                    <button mat-flat-button color="warn" (click)="data.emit(priceForm.value);stepper.next()">Next</button>
+                </div>
+                
+               
+            </div>
+        </div>
+    </form>
+</div>
+

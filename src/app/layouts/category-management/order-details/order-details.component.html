@@ -1,0 +1,173 @@
+<!--<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Royal Electronics</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <td class="fw_600">
+                                                Address
+                                            </td>
+                                            <td>
+                                                    489, Usha Nagar, Indore MP
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw_600">
+                                                Contact
+                                            </td>
+                                            <td>
+                                                    9876543212
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw_600">
+                                                Email
+                                            </td>
+                                            <td>
+                                                test@gmail.com
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-4">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <td class="fw_600">
+                                                Address
+                                            </td>
+                                            <td>
+                                                    489, Usha Nagar, Indore MP
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw_600">
+                                                Contact
+                                            </td>
+                                            <td>
+                                                    9876543212
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw_600">
+                                                Email
+                                            </td>
+                                            <td>
+                                                test@gmail.com
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-4">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <td class="fw_600">
+                                                Address
+                                            </td>
+                                            <td>
+                                                    489, Usha Nagar, Indore MP
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw_600">
+                                                Contact
+                                            </td>
+                                            <td>
+                                                    9876543212
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw_600">
+                                                Email
+                                            </td>
+                                            <td>
+                                                test@gmail.com
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="">
+                                    <app-common-search (onQuery)="searchUserByQuery($event)"
+                                        [placeholderText]="'Search'" [isSearchAsTypeOn]="true">
+                                    </app-common-search>
+                                </div>
+                            </div>
+                           
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>Order ID</th>
+                                    <th>Date</th>
+                                    <th>Reseller Name</th>
+                                    <th>Product</th>
+                                    <th>Branding Yes/No</th>
+                                    <th>No of Item</th>
+                                    <th>Total Qty</th>
+                                    <th>Amount</th>
+                                    <th>Payment Status</th>
+                                    <th>Order Status</th>
+                                </thead>
+                                <tbody *ngIf="!isListLoading">
+                                    <tr *ngFor="let reseller of dataList; let i = index">
+                                        <td><a href="javascript:void(0);">{{reseller?.business_name}}</a></td>
+                                        <td>{{reseller?.user?.email}}</td>
+                                        <td>{{reseller?.user?.full_name}}</td>
+                                        <td>{{reseller?.user?.phone_number}}</td>
+                                        <td>{{reseller?.business_type}}</td>
+                                        <td>{{reseller?.business_type}}</td>
+                                        <td>{{reseller?.business_type}}</td>
+                                        <td>{{reseller?.business_type}}</td>
+                                        <td>{{reseller?.created_at | customdate}}</td>
+                                        <td>
+                                            <span class="badge badge-pill"
+                                                [ngClass]="{'badge-primary': ( reseller.status == 'pending' ), 'badge-success': ( reseller.status == 'active' ), 'badge-danger': ( reseller.status == 'inactive' )}">{{ reseller.status | uppercase }}</span>
+                                        </td>
+                                    
+                                    </tr>
+                                    <tr *ngIf="!dataList.length">
+                                        <td colspan="6">
+                                            <div class="text-center">No record found.</div>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!dataList.length">
+                                        <td colspan="7">
+                                            <div class="pull-right">
+                                                <app-ngb-pagination [collectionSize]="totalQueryableData" [page]="page"
+                                                    (pageChange)="handlePageChange($event)"
+                                                    [isDisabled]="isListLoading">
+                                                </app-ngb-pagination>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isListLoading">
+                                    <tr>
+                                        <td colspan="6">
+                                            <app-data-loader></app-data-loader>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->

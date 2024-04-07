@@ -1,0 +1,226 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Create Packaging List</h4>
+                        <p class="card-category"></p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <form [formGroup]="packagingsForm">
+                                <!-- <form [formGroup]="packagingsForm"> -->
+                                <table class="table cstm-table nested-table-wrap-1">
+                                    <thead class="top-header">
+                                        <tr>
+                                            <th><strong>Packing List</strong></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding: 0;">
+                                                <table width="100%" class="table-wrap">
+                                                    <thead class="main-header">
+                                                        <tr>
+                                                            <th class="first" width="10%">Model Number</th>
+                                                            <th width="30%">Product Name</th>
+                                                            <th>Qty</th>
+                                                            <th class="nested-header"><span>Cartoon Dimension
+                                                                    (cm)</span>
+                                                                <table width="100%">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>L</th>
+                                                                            <th>W</th>
+                                                                            <th>H</th>
+                                                                        </tr>
+                                                                    </thead>
+
+
+                                                                </table>
+                                                            </th>
+                                                            <th class="nested-header"><span>Weight / per cartoon</span>
+                                                                <table width="100%">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Net Weight</th>
+                                                                            <th>Gross Weight</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                </table>
+                                                            </th>
+                                                            <th>Total cartoon</th>
+                                                            <th class="nested-header"><span>Overall Weight(kg)</span>
+                                                                <table width="100%">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Net Weight</th>
+                                                                            <th>Gross Weight</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                </table>
+                                                            </th>
+                                                            <th>Cubic Meter</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <ng-container formArrayName="packagings"
+                                                            *ngFor="let _ of packagings.controls; index as i">
+                                                            <tr [formGroupName]="i">
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <input type="text" placeholder="Model Number"
+                                                                            formControlName="model_number"
+                                                                            class="form-control" />
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <input type="text" placeholder="Product Name"
+                                                                            formControlName="product_name"
+                                                                            class="form-control" />
+                                                                    </div>
+                                                                </td>
+                                                                <td class="qty-1">
+                                                                    <div class="form-group">
+                                                                        <input type="number" placeholder="quantity"
+                                                                            formControlName="quantity"
+                                                                            class="form-control" />
+                                                                    </div>
+                                                                </td>
+                                                                <td class="cstm-padding nested-td-wrap">
+                                                                    <table width="100%" class="nested-table-data">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <div class="form-group">
+                                                                                        <input type="number"
+                                                                                            placeholder="L"
+                                                                                            formControlName="length"
+                                                                                            (change)="createCalculations(i)"
+                                                                                            class="form-control" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <div class="form-group">
+                                                                                        <input type="number"
+                                                                                            placeholder="W"
+                                                                                            formControlName="width"
+                                                                                            (change)="createCalculations(i)"
+                                                                                            class="form-control" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <div class="form-group">
+                                                                                        <input type="number"
+                                                                                            placeholder="H"
+                                                                                            formControlName="height"
+                                                                                            (change)="createCalculations(i)"
+                                                                                            class="form-control" />
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                                <td class="cstm-padding">
+                                                                    <table width="100%" class="nested-table-data">
+                                                                        <tr>
+                                                                            <td>
+                                                                                <div class="form-group">
+                                                                                    <input type="number"
+                                                                                        [readonly]="true"
+                                                                                        placeholder="Net Weight"
+                                                                                        formControlName="cartoon_net_weight"
+                                                                                        class="form-control" />
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="form-group">
+                                                                                    <input type="number"
+                                                                                        [readonly]="true"
+                                                                                        placeholder="Gross Weight"
+                                                                                        formControlName="cartoon_gross_weight"
+                                                                                        class="form-control" />
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <input type="number" placeholder="Total Cartoon"
+                                                                            formControlName="total_cartoon"
+                                                                            (change)="createCalculations(i)"
+                                                                            class="form-control" />
+                                                                    </div>
+                                                                </td>
+                                                                <td class="cstm-padding">
+                                                                    <table width="100%" class="nested-table-data">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <div class="form-group">
+                                                                                        <input type="number"
+                                                                                            [readonly]="true"
+                                                                                            placeholder="Net Weight"
+                                                                                            formControlName="overall_net_weight"
+                                                                                            class="form-control" />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <div class="form-group">
+                                                                                        <input type="number"
+                                                                                            placeholder="Gross Weight"
+                                                                                            formControlName="overall_gross_weight"
+                                                                                            (change)="createCalculations(i)"
+                                                                                            class="form-control" />
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <input type="number" [readonly]="true"
+                                                                            placeholder="Cubic Meter"
+                                                                            formControlName="cubic_metre"
+                                                                            class="form-control" />
+                                                                    </div>
+                                                                </td>
+                                                                <td *ngIf="(i != 0)">
+                                                                    <button
+                                                                        [disabled]="(i == 0) && this.isPackagingListProcessing"
+                                                                        (click)="removeItem(i)"
+                                                                        class="btn btn-warning">Remove</button>
+                                                                </td>
+                                                            </tr>
+                                                        </ng-container>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="btn-wrap">
+                                    <button type="submit" [disabled]="this.isPackagingListProcessing"
+                                        class="btn btn-danger pull-right" (click)="onSubmit()">Submit</button>
+                                    <button type="submit" [disabled]="this.isPackagingListProcessing"
+                                        (click)="addItem();" class="btn btn-success pull-right">Add
+                                        Item</button>
+                                    <button type="button" [disabled]="this.isPackagingListProcessing"
+                                        (click)="router.navigate(['/crm/order-management/bill-list', 2]);"
+                                        class="btn btn-danger pull-right">Back</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

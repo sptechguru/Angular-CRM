@@ -1,0 +1,91 @@
+<div class="py-2">
+
+    <form class="p-3 form-shadow" [formGroup]="productConfigrationForm">
+        <div class="row">
+            <div class="col-12">
+                <h2>Product Configration</h2>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Customisation Possible</mat-label>
+                    <mat-select formControlName="customisation_possible">
+                        <mat-option>Yes</mat-option>
+                        <mat-option>No</mat-option>
+
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Type of Customisation </mat-label>
+                    <mat-select formControlName="customisation_type">
+                        <mat-option>Engraving</mat-option>
+                        <mat-option>Screen Print</mat-option>
+                        <mat-option>Digital print</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Customised Sample</mat-label>
+                    <mat-select formControlName="customised_sample">
+                        <mat-option>Yes</mat-option>
+                        <mat-option>No</mat-option>
+
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Customisation Position</mat-label>
+                    <mat-select formControlName="customisation_position">
+                        <mat-option>Left</mat-option>
+                        <mat-option>Right Centre</mat-option>
+                        <mat-option>Top right</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="outline">
+
+                    <mat-label>Customisation Location </mat-label>
+                    <mat-select formControlName="customisation_location">
+                        <mat-option> On Box</mat-option>
+                        <mat-option>On Product</mat-option>
+                        <mat-option>On Flap</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Customisation Set Up Cost </mat-label>
+                    <input matInput placeholder="Customisation Set Up Cost" type="text" formControlName="customisation_setup_cost"/>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Customisation Cost </mat-label>
+                    <input matInput placeholder="Customisation Cost" type="text" formControlName="customisation_cost"/>
+                </mat-form-field>
+            </div>
+             
+            <div class="col-md-6">
+                <input type="file" class="d-none" accept="application/pdf"
+                (change)="onChangePdf($event.target.files)" #filePdf />
+                <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-label>Customisation Template</mat-label>
+                    <input matInput type="text" [value]="fileName" formControlName="customisation_template"/>
+                    <mat-icon matSuffix (click)="filePdf.click()"> attach_file</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="col-12">
+                <div class="d-flex justify-content-between">
+                    <button mat-flat-button color="warn" (click)="data.emit(productConfigrationForm.value);stepper.previous()">Prev</button>
+                    <button mat-flat-button color="warn" (click)="data.emit(productConfigrationForm.value);stepper.next()">Next</button>
+                </div>
+                
+               
+            </div>
+        </div>
+    </form>
+</div>

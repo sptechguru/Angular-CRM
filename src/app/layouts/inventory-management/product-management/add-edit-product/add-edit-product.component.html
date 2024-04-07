@@ -1,0 +1,122 @@
+<div class="main-content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header card-header-danger">
+						<h4 class="card-title">{{pageLabel}} Product</h4> </div>
+					<div class="card-body">
+						<form [formGroup]="addEditForm" (ngSubmit)='onSubmit()' novalidate autocomplete="off">
+							
+							<div class="row">
+								<div class="col-md-6">
+									<mat-form-field class="example-full-width" MatFormFieldControl>
+										<input [formControl]="product_name" matInput placeholder="Product Name" type="text" 
+										/>
+										<mat-error *ngIf="product_name.touched && product_name.errors?.required" required>Please fill Product name. </mat-error>
+									</mat-form-field>
+								</div>
+								<div class="col-md-6">
+									<mat-form-field class="example-full-width" MatFormFieldControl>
+										<input [formControl]="product_description" matInput placeholder="Product Description" type="text" />
+										<mat-error *ngIf="product_description.touched && product_description.errors?.required" required>Please fill Product Description. </mat-error>
+									</mat-form-field>
+								</div>
+								
+								<div class="col-md-6">
+									<mat-form-field class="example-full-width" MatFormFieldControl>
+										<mat-label>Product Category</mat-label>
+										<select [formControl]="master_product_category_id" matNativeControl>
+											<option [value]="category.id" *ngFor="let category of categoryList">{{category.product_category}}</option>
+										</select>
+										<mat-error *ngIf="master_product_category_id.touched && master_product_category_id.errors?.required" required>Please select Product Category. </mat-error>
+									</mat-form-field>
+								</div>
+								
+								<div class="col-md-6">
+									<mat-form-field class="example-full-width" MatFormFieldControl>
+										<mat-label>Business Client</mat-label>
+										<select [formControl]="master_business_client_id" matNativeControl>
+											<option [value]="client.id" *ngFor="let client of clientList">{{client.business_client}}</option>
+										</select>
+										<mat-error *ngIf="master_business_client_id.touched && master_business_client_id.errors?.required" required>Please select Business Client. </mat-error>
+									</mat-form-field>
+								</div>
+								
+								<div class="col-md-6">
+									<mat-form-field class="example-full-width" MatFormFieldControl>
+										<mat-label>Business Partner</mat-label>
+										<select [formControl]="master_business_partner_id" matNativeControl>
+											<option [value]="partner.id" *ngFor="let partner of partnerList">{{partner.business_partner}}</option>
+										</select>
+										<mat-error *ngIf="master_business_partner_id.touched && master_business_partner_id.errors?.required" required>Please select Business Partner. </mat-error>
+									</mat-form-field>
+								</div>
+								
+								<div class="col-md-6">
+									<mat-form-field class="example-full-width" MatFormFieldControl>
+										<mat-label>Business Type</mat-label>
+										<select [formControl]="master_business_type_id" matNativeControl>
+											<option [value]="businesstype.id" *ngFor="let businesstype of businessTypeList">{{businesstype.business_type}}</option>
+										</select>
+										<mat-error *ngIf="master_business_type_id.touched && master_business_type_id.errors?.required" required>Please select Business Type. </mat-error>
+									</mat-form-field>
+                </div>
+                
+								<div class="col-md-6">
+									<mat-form-field class="example-full-width" MatFormFieldControl>
+										<mat-label>Branding Possibilities</mat-label>
+										<select [formControl]="branding_possibilities" matNativeControl>
+                      <option value="yes">yes</option>
+                      <option value="no">no</option>
+										</select>
+										<mat-error *ngIf="branding_possibilities.touched && branding_possibilities.errors?.required" required>Please select branding possibilities</mat-error>
+									</mat-form-field>
+                </div>
+                 
+								<div class="col-md-6">
+									<mat-form-field class="example-full-width" MatFormFieldControl>
+										<mat-label>Product service type</mat-label>
+										<select [formControl]="product_service_type" matNativeControl>
+											<option value="express">Express</option>
+											<option value="non_express">Non express</option>
+										</select>
+										<mat-error *ngIf="product_service_type.touched && product_service_type.errors?.required" required>Please select product service type</mat-error>
+									</mat-form-field>
+								</div>
+
+								
+								
+								<div class="col-md-6">
+									<mat-form-field class="example-full-width" MatFormFieldControl>
+										<mat-label>Status</mat-label>
+										<select [formControl]="status" matNativeControl>
+											<option [value]="status.id" *ngFor="let status of statusList">{{status.title}}</option>
+										</select>
+										<mat-error *ngIf="status.touched && status.errors?.required" required>Please select Status. </mat-error>
+									</mat-form-field>
+								</div>
+
+								
+							</div>
+						
+						<div class="row">
+								<div class="col-md-6">
+									<mat-form-field class="example-full-width" MatFormFieldControl>
+										<input [formControl]="product_name" matInput placeholder="Product Name" type="text" 
+										/>
+										<mat-error *ngIf="product_name.touched && product_name.errors?.required" required>Please fill Product name. </mat-error>
+									</mat-form-field>
+								</div>
+								</div>
+							<button type="submit" class="btn btn-danger pull-right" [disabled]="isUserProcessing">
+								<mat-spinner *ngIf="isUserProcessing" [diameter]="20"></mat-spinner> Submit </button>
+							<button type="button" class="btn btn-primary ml-4" [disabled]="isUserProcessing" [routerLink]="['/crm/inventory-management/product-management']"> Back </button>
+							<div class="clearfix"></div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

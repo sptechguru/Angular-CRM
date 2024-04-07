@@ -1,0 +1,72 @@
+
+<h1 mat-dialog-title>Create Notification</h1>
+<div  mat-dialog-content>
+<form #form="ngForm">
+    <mat-form-field appearance="fill">
+        <mat-label>Title</mat-label>
+        <input required name="title" [(ngModel)]="title" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Message</mat-label>
+        <input required name="message" [(ngModel)]="message" matInput>
+    </mat-form-field>
+<mat-form-field appearance="fill">
+    <mat-label>Banner Type</mat-label>
+    <mat-select [(value)]="nav" name="nav">
+
+        <mat-option *ngFor="let data of navList" [value]="data.value">
+            {{data.viewValue}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field appearance="fill" *ngIf="nav === 'category' || nav === 'product'">
+    <mat-label>Category</mat-label>
+    <mat-select [(ngModel)]="category_id" name="category">
+
+        <mat-option *ngFor="let category of categories" [value]="category.id"
+            (onSelectionChange)="getProduct(category.id)">
+            {{category?.product_category}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field appearance="fill" *ngIf="nav ==='product'">
+    <mat-label>Product</mat-label>
+    <mat-select [(ngModel)]="product_id" name="product_id">
+       
+        <mat-option *ngFor="let product of productList" [value]="product?.id">
+            {{product?.product_name}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field appearance="fill" *ngIf="nav ==='product'">
+    <mat-label>Product Variant </mat-label>
+    <mat-select [(ngModel)]="product_variant_id" name="product_variant_id">
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let product of product_variant_list" [value]="product?.id">
+            {{product?.variant_name}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field appearance="fill" *ngIf="nav === 'deal'">
+    <mat-label>Deals</mat-label>
+    <mat-select [(ngModel)]="deal_id" name="food">
+        <mat-option *ngFor="let deal of deals" [value]="deal?.id">
+            {{deal?.deal_name}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+  
+
+    <label class="file">
+        <input type="file" accept="image/x-png,image/gif,image/jpeg"  id="file" (change)="handleFileInput($event.target.files)" aria-label="File browser example">
+        <span class="file-custom"></span>
+    </label>
+</form>
+</div>
+<div mat-dialog-actions [hidden]="saving">
+    <button mat-button mat-dialog-close>Close</button>
+    <button mat-button (click)="createNotification(form,'save');" [disabled]="form.invalid">Save</button>
+     <button mat-button (click)="createNotification(form,'send')" [disabled]="form.invalid">Send</button>
+</div>
+<mat-spinner [hidden]="!saving"></mat-spinner>

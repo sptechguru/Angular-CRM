@@ -1,0 +1,164 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Product Details</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="">
+                                    <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base mb-2" 
+                                    [routerLink]="['/crm/inventory-management/product-variant-management/variant-list',productId]">
+                                        <span class="material-icons">
+                                        arrow_back
+                                        </span> 
+                                        <span class="mat-button-wrapper">Back</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                   <!-- <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base mb-2" 
+                                    *ngIf="productId"
+                                    [routerLink]="['/crm/inventory-management/product-attribute-management/add-attribute-to-product',productId]" 
+                                    (click)="setAttributeData();">
+                                        <span class="mat-button-wrapper">Add Variant Attributes</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                    <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base mb-2" 
+                                    *ngIf="!productId"
+                                    [routerLink]="['/crm/inventory-management/product-attribute-management/add-attribute-to-product']" 
+                                    (click)="setAttributeData();">
+                                        <span class="mat-button-wrapper">Add Variant Attributes</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>-->
+                                    <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base mb-2" 
+                                    [routerLink]="['/crm/inventory-management/product-attribute-management/attribute-value-list',productId,variantId]" 
+                                    (click)="setAttributeData();">
+                                        <span class="mat-button-wrapper">View Variant Attributes</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                    <button class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base" 
+                                    [routerLink]="['/crm/inventory-management/product-variant-image-management/variant-image-list',productId,variantId]">
+                                        <span class="mat-button-wrapper">View Variant Images</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row product-detail-row">
+                            <div class="col-md-6 mt-2">
+                                <p class="text-primary border-bottom">Variant Name</p>
+                                <h4>{{variantData?.variant_name}}</h4>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <p class="text-primary border-bottom">Base Price</p>
+                                <h4>{{variantData?.base_price}}/-</h4>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <p class="text-primary border-bottom">GST</p>
+                                <h4>{{variantData?.gst}}</h4>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <p class="text-primary border-bottom">Color Map</p>
+                                <h4>{{variantData?.color_map}}</h4>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <p class="text-primary border-bottom">Dimension</p>
+                                <h4>{{variantData?.display_dimension}} (cm)</h4>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <p class="text-primary border-bottom">Packing Dimension</p>
+                                <h4>{{variantData?.display_dimension_with_packing}} (cm)</h4>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <p class="text-primary border-bottom">Max Retail Price</p>
+                                <h4>{{variantData?.max_retail_price}}/-</h4>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <p class="text-primary border-bottom">Minimum Order Quantity</p>
+                                <h4>{{variantData?.minimum_order_quantity}}</h4>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <p class="text-primary border-bottom">Packaging Avaibility</p>
+                                <h4>{{variantData?.package_avaibility}}</h4>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <p class="text-primary border-bottom">Packaging Quantity</p>
+                                <h4>{{variantData?.package_quantity}}</h4>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <p class="text-primary border-bottom">Weight</p>
+                                <h4>{{variantData?.weight}} (gm)</h4>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <p class="text-primary border-bottom">Packaging Weight</p>
+                                <h4>{{variantData?.weight_with_packing}} (gm)</h4>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <p class="text-primary border-bottom">Reserve Stock</p>
+                                <h4>{{variantData?.reserve_stock}}</h4>
+                            </div>
+
+                            <div class="col-md-6 mt-2">
+                                <p class="text-primary border-bottom">Minimum Quantity of Reserve Stock</p>
+                                <h4>{{variantData?.minimum_quantity_of_reserve_stock}}</h4>
+                            </div>
+                            
+                            <div class="col-md-6 mt-2">
+                                <p class="text-primary border-bottom">Reserve Stock Time in Days</p>
+                                <h4>{{variantData?.reserve_stock_dishpatch_time}}</h4>
+                            </div>
+
+                            <div class="col-md-6 mt-2">
+                                <p class="text-primary border-bottom">Ready Stock Time in Days</p>
+                                <h4>{{variantData?.live_stock_dishpatch_time}}</h4>
+                            </div>
+
+                            <div class="col-md-6 mt-2">
+                                <p class="text-primary border-bottom">Product Youtube Link</p>
+                                <h4>{{variantData?.youtube_link}}</h4>
+                            </div>
+
+                            <div class="col-md-6 mt-2">
+                                <p class="text-primary border-bottom">Status</p>
+                                <p>
+                                    <span class="badge badge-pill"
+                                    [ngClass]="{'badge-primary': ( variantData?.status == 'pending' ), 'badge-success': ( variantData?.status == 'active' ), 'badge-danger': ( variantData?.status == 'inactive' )}">{{ variantData?.status | uppercase }}</span>
+                                </p>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                <p class="text-primary border-bottom">Variant Description</p>
+                                <h4 [innerHTML]="variantData.variant_description"></h4>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                <p class="text-primary border-bottom">Catalogue Description</p>
+                                <h4 [innerHTML]="variantData.catalogue_description"></h4>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                <p class="text-primary border-bottom">Search Tags</p>
+                                <h4 >
+                                    <mat-chip-list #chipList aria-label="tag selection">
+                                        <mat-chip *ngFor="let tag of tagess" >
+                                            {{tag.tag }}
+                                          
+                                        </mat-chip>
+                                        <button *ngIf="remaingTags && !more" (click)="more=true;listOfTags(remaingTags + 10); " mat-button> {{remaingTags}}
+                                            + more</button>
+                                      </mat-chip-list>
+                                </h4>
+                            </div>
+                           
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

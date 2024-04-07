@@ -1,0 +1,22 @@
+.example-full-width {
+    width: 100%;
+  }
+  
+  .row {
+    padding: 10px;
+  }
+  .example-button-row {
+    text-align: center;
+  }
+  .example-flex-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .example-button-row .mat-button-base {
+    margin: 8px 30px 8px 0;
+  }
+  .table > thead > tr > th {
+    border-bottom-width: 1px;
+    font-weight: 700;
+  }

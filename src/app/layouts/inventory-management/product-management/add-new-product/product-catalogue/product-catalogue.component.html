@@ -1,0 +1,123 @@
+<div class="py-2">
+
+    <form class="p-3 form-shadow" [formGroup]="productCatalogueForm">
+        <div class="row">
+            <div class="col-12">
+                <h2>Product Catalogue</h2>
+            </div>
+            <div class="col-12">
+                <div class="p-3 form-shadow mb-3"> 
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>Upload Document</h2>
+                        </div>
+                            <div class="col-md-6">
+                                <input type="file" class="d-none" accept="image/jpeg,image/gif,image/png"
+                                 (change)="onChangeHeader($event.target.files)" #fileHeader />
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>Header Image</mat-label>
+                                    <input matInput type="text" formControlName="header_img"/>
+                                    <mat-icon matSuffix (click)="fileHeader.click()"> attach_file</mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="file" class="d-none" accept="application/pdf"
+                                (change)="onChangePdf($event.target.files)" #filePdf />
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <mat-label>PDF</mat-label>
+                                    <input matInput type="text" formControlName="pdffile"/>
+                                    <mat-icon matSuffix (click)="filePdf.click()"> attach_file</mat-icon>
+                                </mat-form-field>
+                            </div>
+                    
+                    </div>  
+           
+                </div>
+            </div>
+          <div class="col-12">
+            <div class="p-3 form-shadow mb-3"> 
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Upload Key Features</h2>
+                    </div>
+                    <div class="col-12">
+
+                        <div class="row" FormArrayName="featureKeyList">
+                           
+                            <ng-container *ngIf="productCatalogueForm.get('featureKeyList')?.controls.length >0">
+                                <div class="col-3" *ngFor="let i of productCatalogueForm.get('featureKeyList').controls;let j=index;">
+                                    <ng-container >
+                                        <div class="form-shadow">
+                                            <div>
+                                                <img [src]="productCatalogueForm.get('featureKeyList').controls[j].controls.img_url.value" class="img-fluid" style="height:200px;width:100%;border-radius:4px;">
+                                            </div>
+                                            <div class="p-3">
+                                             <div style="min-height:102.312px;" [innerHTML]="productCatalogueForm.get('featureKeyList').controls[j].controls.description.value">
+                                             
+                                             </div>
+                                             <div class="pt-2">
+                                                <button  mat-flat-button color="warn"
+                                                (click)="delteFeatreKey(j)">Delete</button>
+                                             </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                  </div>
+                            </ng-container>
+                            
+                          <div class="col-10 mt-3">
+                            <div class="form-shadow">
+                                <input type="file" class="d-none"
+                                accept="image/jpeg,image/gif,image/png"
+                                (change)="onChangeKeyFeature($event.target.files)"
+                                #fileKeyFeature />
+                                <div *ngIf="!imgDataUrl" class="d-flex justify-content-center align-items-center cp" (click)="fileKeyFeature.click()" style="background-color: #eee;height:200px;">
+                                    <mat-icon style="height: 50px;width:50px;font-size:50px;">cloud_upload</mat-icon>
+                                </div>
+                                <div class="text-center pt-3" *ngIf="imgDataUrl">
+                                    <img [src]="imgDataUrl"  style="height:200px;border-radius:4px;width:400px;">
+                                </div>
+                              
+                                <div class="p-3">
+                                 <div>
+                                    <quill-editor [(ngModel)]="featureDescription" [ngModelOptions]="{standalone: true}" ></quill-editor>
+                                  <!---  <mat-form-field class="example-full-width description" appearance="outline">
+                                        <mat-label>Description</mat-label>
+                                        <textarea matInput #featureDescription style="min-height: 70px;"></textarea>
+                                    </mat-form-field>
+                                -->
+                                 </div>
+                                 <div class="pt-2 text-right">
+                                    <button  mat-flat-button color="warn" [disabled]="!imgDataUrl"
+                                    (click)="addFeatureKey();">Save</button>
+                                 </div>
+                                </div>
+                            </div>
+                           
+                          </div>
+                          
+                        </div>
+                        
+                    </div>        
+                
+                </div>  
+       
+            </div> 
+          </div>
+          <div class="col-12">
+            <div class="d-flex justify-content-between">
+                <button mat-flat-button color="warn" (click)="data.emit(productCatalogueForm.value);stepper.previous()">Prev</button>
+                <button mat-flat-button color="warn" (click)="data.emit(productCatalogueForm.value);stepper.next()">Next</button>
+            </div>
+            
+           
+        </div>
+        </div>
+    </form>
+</div>
+
+	
+
+
+													
+													

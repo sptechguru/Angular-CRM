@@ -1,0 +1,118 @@
+<div class="main-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Collection List</h4>
+                        <p class="card-category"> List of all Collection.</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <!--- <div class="">
+                                    <app-common-search (onQuery)="searchUserByQuery($event)"
+                                        [value]="queryObject?.search_text" [placeholderText]="'Search'"
+                                        [isSearchAsTypeOn]="true">
+                                    </app-common-search>
+                                </div>
+                            -->
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="">
+                                    <button
+                                        class="mat-focus-indicator btn btn-danger pull-right mat-raised-button mat-button-base"
+                                        (click)="openDialog()">
+                                        <span class="mat-button-wrapper">Create Collection</span>
+                                        <div class="mat-ripple mat-button-ripple"></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>#</th>
+                                    <th>Banner</th>
+                                    <th>Category Id</th>
+                                    <th>Price</th>
+                                    <!-- <th>Redirection Url</th> -->
+                                    <th>Stock</th>
+                                    <!--<th>Status</th>-->
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let collection of dataList; let i = index">
+                                        <td>
+                                            <a>{{offset+i+1}}</a>
+                                        </td>
+                                        <td>
+                                            <span class="notification-table-img">
+                                                <img [src]="collection?.cover_image" alt="image" class="img-fluid"
+                                                    style="width: 100px;height:100px;">
+                                            </span>
+                                        </td>
+                                        <td>
+                                            {{collection.master_product_category_id}}
+                                        </td>
+                                        <td>{{collection.filters.base_price.min+' -
+                                            '+collection.filters.base_price.max}}</td>
+
+                                        <td>{{collection.filters.stock.min}}</td>
+
+                                        <td>
+
+                                            <div class="dropdown">
+                                                <button type="button" [disabled]="saving"
+                                                    class="btn btn-outline-primary dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                    Actions
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item cp" (click)="EditCollection(collection)"
+                                                        ngbTooltip="Edit collection">Edit</a>
+                                                    <a class="dropdown-item cp" (click)="deleteCollection(collection)"
+                                                        ngbTooltip="Send collection">Delete</a>
+                                                </div>
+                                            </div>
+
+
+
+
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!dataList.length">
+                                        <td colspan="6">
+                                            <div class="text-center">No record found.</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="pull-right">
+                                                <app-ngb-pagination [collectionSize]="totalQueryableData" [page]="page"
+                                                    (pageChange)="handlePageChange($event)"
+                                                    [isDisabled]="isListLoading">
+                                                </app-ngb-pagination>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isListLoading">
+                                    <tr>
+                                        <td colspan="6">
+                                            <app-data-loader></app-data-loader>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

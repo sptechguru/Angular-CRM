@@ -1,0 +1,184 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-8">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">Edit Profile</h4>
+                      <p class="card-category">Complete your profile</p>
+                  </div>
+                  <div class="card-body">
+                      <form [formGroup]="adminForm">
+                          <div class="row">
+                              <!-- <div class="col-md-5">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Company (disabled)" disabled>
+                                  </mat-form-field>
+                              </div>
+                              <div class="col-md-3">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Username">
+                                  </mat-form-field>
+                              </div> -->
+                              <div class="col-md-4">
+                                  <mat-form-field class="example-full-width">
+                                    <input formControlName="email" matInput placeholder="Email address" type="email" required>
+                                    <mat-error *ngIf="formControls.email.errors?.required">Please fill email address.</mat-error>
+                                    <mat-error *ngIf="formControls.email.errors?.pattern">Invalid Email.</mat-error>
+                                  </mat-form-field>
+                              </div>
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width">
+                                  <input formControlName="phone_no" matInput placeholder="Phone No" type="tel" required>
+                                  <mat-error *ngIf="formControls.phone_no.errors?.required">Please fill Contact Number.</mat-error>
+                                  <mat-error *ngIf="formControls.phone_no.errors?.pattern">Invalid Email.</mat-error>
+                                </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-6">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput formControlName="first_name" placeholder="Fist Name" type="text" required>
+                                  <mat-error *ngIf="formControls.first_name.invalid">Please fill first name.</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-6">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput formControlName="last_name" placeholder="Last Name" type="text" required>
+                                  <mat-error *ngIf="formControls.last_name.invalid">Please fill last name.</mat-error>
+                                </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-12">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput formControlName="address_line1" placeholder="Adress" type="text" required>
+                                  <mat-error *ngIf="formControls.address_line1.invalid">Please fill address.</mat-error>
+                                </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput  formControlName="city" placeholder="City" type="text" required>
+                                  <mat-error *ngIf="formControls.city.invalid">Please fill city.</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput  formControlName="country" placeholder="Country" type="text" required>
+                                  <mat-error *ngIf="formControls.country.invalid">Please fill country.</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput  formControlName="zip_code" placeholder="Postal Code" type="text" required>
+                                  <mat-error *ngIf="formControls.zip_code.invalid">Please fill email Postal Code.</mat-error>
+                                </mat-form-field>
+                              </div>
+                          </div>
+                      
+                          <button mat-raised-button type="submit" (click)="formSubmit()" class="btn btn-danger pull-right">Update Profile</button>
+                          <div class="clearfix"></div>
+                      </form>
+                  </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title">Change Password</h4>
+          
+                </div>
+                <div class="card-body">
+                  <form [formGroup]="passwordResetForm">
+
+                    <div class="">
+                        <div class="company-info mt-5 px-4">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-8">
+                                    <h3 class="title-small">Password Change</h3>
+                                   
+                                    <div class="form-group row">
+
+                                        <label for="oldPassword" class="col-sm-4 col-form-label">Old Password</label>
+                                        <div class="col-sm-8">
+                                          <label class="passwordlabel">
+                                            <input [type]="oldPassword ? 'text' : 'password'"  class="form-control" formControlName="current_password" id="newPassword" [ngClass]="{ 'is-invalid': submitted && passwordcontrol.current_password.errors }">
+                                            <span class="eyeIcon"><i [ngClass]="oldPassword ? 'fa fa-eye':'fa fa-eye-slash'" (click)="oldPassword ? oldPassword = false : oldPassword = true" aria-hidden="true"></i></span>
+                                          </label>
+
+                                        <ul class="text-danger validation-text" style="padding-left: 15px;">
+                                              <li *ngIf="submitted && passwordcontrol.current_password.errors?.required">This field is required</li>
+                                          </ul>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="newPassword"   class="col-sm-4 col-form-label">New Password</label>
+                                        <div class="col-sm-8">
+                                          <label class="passwordlabel">
+                                            <input [type]="passwordHide ? 'text' : 'password'"  class="form-control" formControlName="password" id="newPassword" [ngClass]="{ 'is-invalid': submitted && passwordcontrol.password.errors }">
+                                            <span class="eyeIcon"><i [ngClass]="passwordHide ? 'fa fa-eye':'fa fa-eye-slash'" (click)="passwordHide ? passwordHide = false : passwordHide = true" aria-hidden="true"></i></span>
+                                          </label>
+
+                                            <div *ngIf="passwordcontrol.password.errors" class="text-danger validation-text">
+                                              <ul class="" style="padding-left: 15px;">
+                                                  <li *ngIf="submitted && passwordcontrol.password.errors.required">This field is required</li>
+                                                  <li *ngIf="passwordcontrol.password.errors.hasNumber">Must contain at least 1 number!</li>
+                                                  <li *ngIf="passwordcontrol.password.errors.hasCapitalCase">Must contain at least 1 in Capital Case!</li>
+                                                  <li *ngIf="passwordcontrol.password.errors.hasSmallCase">Must contain at least 1 Letter in Small Case!</li>
+                                                  <li *ngIf="passwordcontrol.password.errors.hasSpecialCharacters">Must contain at least 1 Special Character!</li>
+                                                  <li *ngIf="passwordcontrol.password.errors.minlength">Must be at least 8 characters!</li>
+                                              </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="confirm_password" class="col-sm-4 col-form-label">Confirm New Password</label>
+                                        <div class="col-sm-8">
+                                          <label class="passwordlabel">
+                                            <input type="password"  [type]="confirmHide ? 'text' : 'password'"  formControlName="confirm_password" class="form-control" id="confirm_password" [ngClass]="{ 'is-invalid': submitted && passwordcontrol.confirm_password.errors }">
+                                            <span class="eyeIcon"><i [ngClass]="confirmHide ? 'fa fa-eye':'fa fa-eye-slash'" (click)="confirmHide ? confirmHide = false : confirmHide = true" aria-hidden="true"></i></span>
+                                          </label>
+
+                                            <ul class="text-danger validation-text" style="padding-left: 15px;">
+                                              <li *ngIf="submitted && passwordcontrol.confirm_password.errors?.required">This field is required</li>
+                                              <li *ngIf="passwordResetForm.errors?.passwordNotMatch && passwordcontrol.confirm_password.touched">Password must be same</li>
+                                          </ul>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4"></div>
+                                        <div class="col-sm-8">
+                                            <button mat-raised-button type="submit" (click)="submitPassword()" class="btn btn-danger pull-right">Save Changes</button>
+
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+          </div>
+          <!-- <div class="col-md-4">
+              <div class="card card-profile">
+                  <div class="card-avatar">
+                      <a href="javascript:void(0)">
+                          <img class="img" src="./assets/img/faces/marc.jpg" />
+                      </a>
+                  </div>
+                  <div class="card-body">
+                      <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                      <h4 class="card-title">Alec Thompson</h4>
+                      <p class="card-description">
+                          Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                      </p>
+                      <a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>
+                  </div>
+              </div>
+          </div> -->
+      </div>
+  </div>
+</div>

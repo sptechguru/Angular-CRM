@@ -1,0 +1,14 @@
+::ng-deep .cdk-overlay-pane .mat-dialog-container {
+    position: relative;
+}
+::ng-deep .cdk-overlay-pane .mat-dialog-container>app-bottom-sheet {
+    min-width: 100%;
+  }
+::ng-deep .cdk-overlay-pane .mat-dialog-container>app-bottom-sheet .no-hover-bg mat-list-item:hover {
+    background: transparent;
+}
+::ng-deep  .sbm-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}

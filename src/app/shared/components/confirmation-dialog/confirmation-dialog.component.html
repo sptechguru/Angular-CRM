@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>{{diologConfig?.title || 'Confirmation'}}</h1>
+<div mat-dialog-content>
+    <p>{{diologConfig?.question || 'Are you sure you want to perform this action ?'}}</p>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="primary" [mat-dialog-close]="{response: true}"
+    class="mat-focus-indicator btn mat-raised-button mat-button-base" *ngIf="diologConfig?.confirmText">{{diologConfig?.confirmText || 'Confirm'}}</button>
+    <button mat-button (click)="onNoClick()"
+    class="mat-focus-indicator btn mat-raised-button mat-button-base">{{diologConfig?.cancelText || 'Cancel'}}</button>
+</div>

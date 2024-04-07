@@ -1,0 +1,254 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">CRM User Profile</h4>
+                        <!-- <p class="card-category">{{userData?.user_type || userData.company_city }} {{ userData?.company_country| titlecase}} </p> -->
+                    </div>
+                    <div class="card-body">
+                        <form class="example-form">
+                            <table width="100%" class="example-full-width" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>First name</mat-label>
+                                            <input [value]="userData?.first_name" matInput disabled>
+
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Last Name</mat-label>
+                                            <input [value]="userData?.last_name" matInput disabled>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Email</mat-label>
+                                            <input type="email" [value]="userData?.email" matInput disabled
+                                                placeholder="Ex. pat@example.com">
+
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Mobile No.</mat-label>
+                                            <span matPrefix>+91 &nbsp;</span>
+                                            <input minlength="10" disabled [value]="userData?.phone_number"
+                                                maxlength="10" type="tel" matInput placeholder="555-555-1234">
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- <p>
+
+                            </p> -->
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Permission</h4>
+                         </div>
+                    <div class="card-body py-5">
+                       
+
+                        <div class="row position-relative">
+                            <mat-spinner *ngIf="permissionSpinner" color="Warn" mode="determinate" value="50"></mat-spinner>
+                            <ng-container *ngIf="!permissionSpinner">
+                                <div class="col-4 mb-3" *ngFor="let item of menulist">
+                                    <mat-slide-toggle (change)="onChangePermission($event ,item?.id )"
+                                        [checked]="getElementIsChecked(item?.id)">
+                                        {{toTitleCase(item?.menu_name)}}</mat-slide-toggle>
+
+                                </div>
+                            </ng-container>
+
+                        </div>
+                        <button (click)="updatePermission()" mat-button class="btn btn-danger">Update</button>
+
+
+                    </div>
+                </div>
+           
+            </div> -->
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Resellar List</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="">
+                                    <app-common-search (onQuery)="searchResellarByQuery($event)" [placeholderText]="'Search'"
+                                        [isSearchAsTypeOn]="true">
+                                    </app-common-search>
+                                </div>
+                            </div>
+                            <button mat-fab routerLink="add-crm-user" color="primary"
+                                aria-label="Example icon button with a home icon">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>#</th>
+                                    <th>Owner Name</th>
+                                    <th>Email</th>
+                                    <th>Contact No.</th>
+                                    <th>Business Name</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of dataListResellar ; let i = index">
+                                        <td>{{(i +1) + ((page -1) * 10)}}</td>
+                                        <td>{{item?.user?.full_name}}</td>
+                                        <td>{{item?.user?.email}}</td>
+                                        <td>{{item?.user?.phone_number}}</td>
+                                        <td>
+                                            <a style="cursor:pointer;" >{{reseller?.business_name}}</a>
+                                        </td>
+                                        <td><span style="cursor:pointer" class="badge badge-pill" [ngClass]="{'badge-primary': ( item.status == 'pending' ), 
+                                                        'badge-success': ( item.status == 'active' ), 
+                                                        'badge-danger': ( item.status == 'inactive' )}">
+                                                {{ item.status | uppercase }}
+                                            </span>
+                                        </td>
+                                        <td>{{item.created_at | customdate}}</td>
+                                        <td>
+                                            <button (click)="removeResellarFromUser(item)"
+                                                class="btn btn-primary">Remove</button>
+                                        </td>
+    
+                                    </tr>
+                                    <tr *ngIf="!dataListResellar.length">
+                                        <td colspan="6">
+                                            <div class="text-center">No record found.</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="pull-right">
+                                                <app-ngb-pagination [collectionSize]="totalQueryableDataResellar" [page]="pageReseller"
+                                                    (pageChange)="handlePageChange($event)" [isDisabled]="isListLoading">
+                                                </app-ngb-pagination>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isListLoading">
+                                    <tr>
+                                        <td colspan="6">
+                                            <app-data-loader></app-data-loader>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" *ngIf="storage.fetchUserDetailsByKey('fk_user_role_id') === 2">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">CRM User List</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="">
+                                    <app-common-search (onQuery)="searchUserByQuery($event)" [placeholderText]="'Search'"
+                                        [isSearchAsTypeOn]="true">
+                                    </app-common-search>
+                                </div>
+                            </div>
+                            <button mat-fab routerLink="add-crm-user" color="primary"
+                                aria-label="Example icon button with a home icon">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Contact</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <!-- <th>Action</th> -->
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of dataList ; let i = index">
+                                        <td>{{(i +1) + ((page -1) * 10)}}</td>
+                                        <td>
+                                            {{item.full_name}}
+                                        </td>
+                                        <td>{{item.email | lowercase}}</td>
+                                        <td>{{item.phone_number}}</td>
+                                        <td><span style="cursor:pointer" class="badge badge-pill" [ngClass]="{'badge-primary': ( item.status == 'pending' ), 
+                                                    'badge-success': ( item.status == 'active' ), 
+                                                    'badge-danger': ( item.status == 'inactive' )}">
+                                                {{ item.status | uppercase }}
+                                            </span>
+                                        </td>
+                                        <td>{{item.created_at | customdate}}</td>
+                                        <!-- <td>
+                                            <button [routerLink]="['crm-user-details',item.id]"
+                                                class="btn btn-primary">View</button>
+                                        </td> -->
+    
+                                    </tr>
+                                    <tr *ngIf="!dataList.length">
+                                        <td colspan="6">
+                                            <div class="text-center">No record found.</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="pull-right">
+                                                <app-ngb-pagination [collectionSize]="totalQueryableData" [page]="page"
+                                                    (pageChange)="handlePageChange($event)" [isDisabled]="isListLoading">
+                                                </app-ngb-pagination>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="isListLoading">
+                                    <tr>
+                                        <td colspan="6">
+                                            <app-data-loader></app-data-loader>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

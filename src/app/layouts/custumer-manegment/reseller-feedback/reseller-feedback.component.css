@@ -1,0 +1,11 @@
+span.notification-table-img {
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+    display: block;
+}
+span.notification-table-img img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}

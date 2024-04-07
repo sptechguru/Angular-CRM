@@ -1,0 +1,125 @@
+<div class="main-content admin-login-wrap">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="card">
+          <div class="card-header card-header-danger text-center">
+            <h4 class="card-title">Sign Up</h4>
+            <p class="card-category">Welcome</p>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="signupForm" (ngSubmit)="handleSubmit()" novalidate>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <input [formControl]="first_name" matInput placeholder="Fist Name" type="text">
+                    <mat-error *ngIf="first_name.touched && first_name.errors?.required">Please fill first name.
+                    </mat-error>
+                    <mat-error *ngIf="first_name.dirty && first_name.errors?.maxlength">First name length should not be
+                      greater than 20</mat-error>
+                    <mat-error *ngIf="first_name.dirty && first_name.errors?.pattern">Please enter only character
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <input [formControl]="last_name" matInput placeholder="Last Name" type="text">
+                    <mat-error *ngIf="last_name.touched && last_name.errors?.required">Please fill last name.
+                    </mat-error>
+                    <mat-error *ngIf="last_name.dirty && last_name.errors?.maxlength">Last name length should not be
+                      greater than 20</mat-error>
+                    <mat-error *ngIf="last_name.dirty && last_name.errors?.pattern">Please enter only character
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <input [formControl]="email" matInput placeholder="Email address" type="email">
+                    <mat-error *ngIf="email.touched && email.errors?.required">Please fill email address.
+                    </mat-error>
+                    <mat-error *ngIf="email.dirty && email.errors?.pattern">Please fill a valid email address.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <input [formControl]="phone_number" matInput placeholder="Phone Number" type="text">
+                    <mat-error *ngIf="phone_number.touched && phone_number.errors?.required">Please fill phone number.
+                    </mat-error>
+                    <mat-error
+                      *ngIf="phone_number.dirty && (phone_number.errors?.minlength || phone_number.errors?.maxlength)">
+                      Phone number have 10 digits only.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <input [formControl]="password" matInput placeholder="Password" type="password">
+                    <mat-error *ngIf="password.touched && password.errors?.required">Please fill password.
+                    </mat-error>
+                    <mat-error *ngIf="password.dirty && password.errors?.pattern">Please fill valid password.
+                      <!-- password must contain 1 number (0-9)
+                      password must contain 1 uppercase letters
+                      password must contain 1 lowercase letters
+                      password must contain 1 non-alpha numeric number
+                      password is 8-16 characters with no space -->
+                    </mat-error>
+
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <input [formControl]="business_name" matInput placeholder="Business Name" type="text">
+                    <mat-error *ngIf="business_name.touched && business_name.errors?.required">Please fill business
+                      name.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <input [formControl]="business_type" matInput placeholder="Business Type" type="text">
+                    <mat-error *ngIf="business_type.touched && business_type.errors?.required">Please fill business
+                      type.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <!-- <mat-form-field class="example-full-width"> -->
+                  <input #fileUpload placeholder="Business Logo" type="file"
+                    (change)="onFileChange($event.target.files)">
+                  <mat-error *ngIf="business_logo.touched && business_logo.errors?.required">Please choose business
+                    logo.
+                  </mat-error>
+                  <!-- </mat-form-field> -->
+                </div>
+              </div>
+              <button mat-raised-button [disabled]="isLoginProcessing" type="submit"
+                class="btn btn-danger btn-round btn-lg">
+                <mat-spinner *ngIf="isLoginProcessing" [diameter]="20"></mat-spinner>
+                <span *ngIf="!isLoginProcessing">Submit</span>
+              </button>
+              <div class="clearfix"></div>
+              <p class="text-center mt-4 cursor"><a style="cursor: pointer;" [routerLink]="['/auth/login']">Go to
+                  login</a></p>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

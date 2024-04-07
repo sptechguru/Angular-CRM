@@ -1,0 +1,38 @@
+div#cdk-overlay-0 {
+  width: 100% !important;
+  max-width: 500px !important;
+  /* padding: 30px; */
+  min-height: 300px;
+}
+.user-table tbody tr td:nth-child(5) a {
+  color: #f91f0f;
+}
+.add_icon{
+  margin-top: -0.7rem;
+}
+
+.list {
+  width: 32%;
+  /* position: sticky; */
+  /* top: 34px; */
+  max-height: 422px;
+  overflow: auto;
+
+  position: fixed;
+  right: 2px;
+  top: 108px;
+  z-index: 9999;
+  transition: width 1s, height 1s, transform 1s;
+}
+
+.toggleHight {
+  width: 12% !important;
+  height: 84px;
+  overflow: hidden;
+  transition: width 1s, height 1s, transform 1s;
+}
+
+.listHeader {
+  display: flex;
+  justify-content: space-between;
+}

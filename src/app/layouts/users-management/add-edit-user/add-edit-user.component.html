@@ -1,0 +1,125 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Add User</h4>
+            <p class="card-category">Add new customer or service provider.</p>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="addUserForm" (ngSubmit)='onSubmit()' novalidate>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input [formControl]="first_name" matInput placeholder="Fist Name" type="text">
+                    <mat-error *ngIf="first_name.touched && first_name.errors?.required">Please fill first name.
+                    </mat-error>
+                    <mat-error *ngIf="first_name.dirty && first_name.errors?.maxlength">First name length should not be
+                      greater than 20</mat-error>
+                    <mat-error *ngIf="first_name.dirty && first_name.errors?.pattern">Please enter only character
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input [formControl]="last_name" matInput placeholder="Last Name" type="text">
+                    <mat-error *ngIf="last_name.touched && last_name.errors?.required">Please fill last name.
+                    </mat-error>
+                    <mat-error *ngIf="last_name.dirty && last_name.errors?.maxlength">Last name length should not be
+                      greater than 20</mat-error>
+                    <mat-error *ngIf="last_name.dirty && last_name.errors?.pattern">Please enter only character
+                    </mat-error>
+
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input [formControl]="email" matInput placeholder="Email address" type="email">
+                    <mat-error *ngIf="email.touched && email.errors?.required">Please fill email address.
+                    </mat-error>
+                    <mat-error *ngIf="email.dirty && email.errors?.pattern">Please fill a valid email address.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field appearance="fill" class="example-full-width">
+                    <mat-label>User Type</mat-label>
+                    <mat-select [formControl]="user_type">
+                      <!-- <mat-option>--</mat-option> -->
+                      <mat-option *ngFor="let userType of userTypes" [value]="userType.user_type">
+                        {{userType.label}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="user_type.touched && user_type.errors?.required">Please choose an user type
+                    </mat-error>
+                    <!-- <mat-hint>{{animalControl.value?.sound}}</mat-hint> -->
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div *ngIf="(this.addUserForm.get('user_type').value == 'service_provider')" class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput [formControl]="company_name" placeholder="Company">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field appearance="fill" class="example-full-width">
+                    <mat-label>Package</mat-label>
+                    <mat-select [formControl]="package_id">
+                      <mat-option *ngFor="let package of packageList" [value]="package.id">
+                        {{package.package_name}}
+                      </mat-option>
+                    </mat-select>
+                    <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
+                    <mat-hint>{{animalControl.value?.sound}}</mat-hint> -->
+                    <mat-error *ngIf="package_id.touched && package_id.errors?.required">Please choose a package.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div *ngIf="(this.addUserForm.get('user_type').value == 'service_provider')" class="row">
+                <div class="col-md-6">
+                  <mat-form-field appearance="fill" class="example-full-width">
+                    <mat-label>Services</mat-label>
+                    <mat-select [formControl]="services" multiple>
+                      <mat-option *ngFor="let service of providedServices" [value]="service">
+                        {{service}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="services.touched && services.errors?.required">Please choose at least one option.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field appearance="fill" class="example-full-width">
+                    <mat-label>Operating Countries</mat-label>
+                    <mat-select [formControl]="operating_countries" multiple>
+                      <!-- <mat-option>--</mat-option> -->
+                      <mat-option *ngFor="let operatingCountry of operatingCountries" [value]="operatingCountry">
+                        {{operatingCountry.name}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="operating_countries.touched && operating_countries.errors?.required">Please choose
+                      at least one option.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <button mat-raised-button type="submit" [disabled]="isUserProcessing" class="btn btn-danger pull-right">
+                <mat-spinner *ngIf="isUserProcessing" [diameter]="20"></mat-spinner>
+                <span *ngIf="!isUserProcessing">Submit</span>
+              </button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
